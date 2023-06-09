@@ -1,3 +1,3 @@
-const Logo = () => <div>Logo</div>
+const Logo = ({ color }: { color?: string }) => <div>Logo {color}</div>;
 
-export default Logo
+export default Logo;

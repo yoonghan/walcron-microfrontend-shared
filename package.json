@@ -1,8 +1,17 @@
 {
   "name": "walcron-microfrontend-shared",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "test": "vitest",
@@ -39,8 +48,9 @@
     "jsdom": "^22.1.0",
     "prop-types": "^15.8.1",
     "storybook": "^7.0.18",
-    "typescript": "^5.0.2",
+    "typescript": "^5.1.3",
     "vite": "^4.3.9",
+    "vite-plugin-dts": "^2.3.0",
     "vitest": "^0.32.0"
   }
 }
