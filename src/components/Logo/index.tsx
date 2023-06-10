@@ -10,7 +10,7 @@ interface Props {
  */
 const Logo = ({ color }: Props) => (
   <div>
-    Logo<span>{color}</span>
+    Logo <span>{color}</span>
   </div>
 );
 

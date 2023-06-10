@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 interface Props {
   /**
    * Provide a company name, or else it will be defaulted with "Walcron"
@@ -13,17 +15,27 @@ interface Props {
   lastUpdatedYear: number;
 }
 
+const Footer = styled.div`
+  background-color: grey;
+  color: white;
+  font-size: 0.75rem;
+  padding: 0.5rem 0.5rem;
+  border: none;
+`;
+
 /**
  * Walcron footer
  */
-const Footer = ({
+const Wrapper = ({
   companyName = "Walcron",
   establishedYear = 2014,
   lastUpdatedYear,
 }: Props) => (
-  <small>
-    {companyName} {establishedYear}-{lastUpdatedYear} &copy;
-  </small>
+  <Footer>
+    <small>
+      {companyName} {establishedYear}-{lastUpdatedYear} &copy;
+    </small>
+  </Footer>
 );
 
-export default Footer;
+export default Wrapper;
