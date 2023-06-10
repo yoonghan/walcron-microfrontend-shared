@@ -16,11 +16,8 @@ interface Props {
 }
 
 const Footer = styled.div`
-  background-color: grey;
-  color: white;
   font-size: 0.75rem;
   padding: 0.5rem 0.5rem;
-  border: none;
 `;
 
 /**
