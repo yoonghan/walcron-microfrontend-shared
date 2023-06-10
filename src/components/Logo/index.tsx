@@ -8,6 +8,10 @@ interface Props {
 /**
  * Walcron logo and symbol
  */
-const Logo = ({ color }: Props) => <div>Logo {color}</div>;
+const Logo = ({ color }: Props) => (
+  <div>
+    Logo<span>{color}</span>
+  </div>
+);
 
 export default Logo;

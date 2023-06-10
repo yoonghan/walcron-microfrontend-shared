@@ -30,12 +30,13 @@
   "scripts": {
     "dev": "vite",
     "test": "vitest",
+    "test:ci": "vitest run --coverage",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "prepack": "npm run build && clean-package",
+    "prepack": "npm run build && test:ci && clean-package",
     "postpack": "clean-package restore"
   },
   "dependencies": {
@@ -58,6 +59,7 @@
     "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^5.59.0",
     "@vitejs/plugin-react": "^4.0.0",
+    "@vitest/coverage-istanbul": "^0.32.0",
     "clean-package": "^2.2.0",
     "eslint": "^8.38.0",
     "eslint-plugin-react-hooks": "^4.6.0",
