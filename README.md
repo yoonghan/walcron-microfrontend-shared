@@ -28,3 +28,6 @@ To run tests
 
 To build and publish
 `npm run build && npm run publish`
+
+To update versioning 'patch'|'minor'|'major'.
+`npm version <release>`
