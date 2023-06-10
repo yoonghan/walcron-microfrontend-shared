@@ -27,7 +27,7 @@ To run tests
 ## Publishing commands
 
 To build and publish
-`npm run build && npm run publish`
+`npm publish`
 
 To update versioning 'patch'|'minor'|'major'.
 `npm version <release>`

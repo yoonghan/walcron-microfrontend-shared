@@ -35,7 +35,7 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "prepack": "clean-package",
+    "prepack": "npm run build && clean-package",
     "postpack": "clean-package restore"
   },
   "dependencies": {
@@ -70,5 +70,11 @@
     "vite": "^4.3.9",
     "vite-plugin-dts": "^2.3.0",
     "vitest": "^0.32.0"
+  },
+  "clean-package": {
+    "indent": 2,
+    "remove": [
+      "devDependencies"
+    ]
   }
 }
