@@ -32,9 +32,11 @@ To run tests
 ## Publishing commands
 
 To build and publish
+
 `npm publish`
 
 To update versioning 'patch'|'minor'|'major'.
+
 `npm version <release>`
 
 [build-badge]: https://img.shields.io/github/actions/workflow/status/yoonghan/walcron-microfrontend-shared/pull-request.yml
