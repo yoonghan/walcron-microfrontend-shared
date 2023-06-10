@@ -1,7 +1,23 @@
 {
   "name": "walcron-microfrontend-shared",
+  "description": "A shared library used within the eco-system of Walcron",
+  "author": "Walcron Coorperation",
+  "license": "MIT",
+  "homepage": "https://www.walcron.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yoonghan/walcron-microfrontend-shared.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yoonghan/walcron-microfrontend-shared/issues"
+  },
+  "keywords": [
+    "walcron",
+    "walcoorperation",
+    "shared walcron components"
+  ],
   "private": true,
-  "version": "1.0.0",
+  "version": "0.1.0",
   "type": "module",
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
@@ -19,7 +35,8 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "prepack": "json -f package.json -I -e \"delete this.devDependencies; delete this.dependencies\""
   },
   "dependencies": {
     "react": "^18.2.0",
