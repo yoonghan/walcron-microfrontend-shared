@@ -43,5 +43,3 @@ To update versioning 'patch'|'minor'|'major'.
 [build]: https://github.com/yoonghan/walcron-microfrontend-shared/actions?query=workflow%3Apull-request
 [coverage-badge]: https://img.shields.io/codecov/c/github/yoonghan/walcron-microfrontend-shared.svg?style=flat-square
 [coverage]: https://codecov.io/gh/yoonghan/walcron-microfrontend-shared
-
-open test if can push to master
