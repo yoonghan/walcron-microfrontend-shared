@@ -1,5 +1,5 @@
 {
-  "name": "walcron-microfrontend-shared",
+  "name": "@yoonghan/walcron-microfrontend-shared",
   "description": "A shared library used within the eco-system of Walcron",
   "author": "Walcron Coorperation",
   "license": "MIT",
@@ -7,6 +7,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/yoonghan/walcron-microfrontend-shared.git"
+  },
+  "publishConfig": {
+    "@yoonghan:registry": "https://npm.pkg.github.com"
   },
   "bugs": {
     "url": "https://github.com/yoonghan/walcron-microfrontend-shared/issues"

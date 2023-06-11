@@ -39,6 +39,14 @@ To update versioning 'patch'|'minor'|'major'. Please bump before opening Pull Re
 
 `npm version <release>`
 
+## Github PAT permission required
+
+1. For auto publishing, please allow Profile -> Settings -> Personal Access Token (classic), open read:packages, write:packages, delete:packages. For more info refer: https://docs.github.com/en/packages/working-with-a-github-packages-registry
+
+2. Login with
+
+`npm login --scope=@yoonghan --auth-type=legacy --registry=https://npm.pkg.github.com/`
+
 [build-badge]: https://img.shields.io/github/actions/workflow/status/yoonghan/walcron-microfrontend-shared/pull-request.yml
 [build]: https://github.com/yoonghan/walcron-microfrontend-shared/actions?query=workflow
 [coverage-badge]: https://img.shields.io/codecov/c/github/yoonghan/walcron-microfrontend-shared.svg?style=flat-square
