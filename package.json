@@ -36,7 +36,7 @@
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "prepack": "npm run build && test:ci && clean-package",
+    "prepack": "npm run test:ci && npm run build && clean-package",
     "postpack": "clean-package restore"
   },
   "dependencies": {
