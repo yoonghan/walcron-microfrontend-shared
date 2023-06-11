@@ -2,11 +2,6 @@ name: Validate project
 
 on:
   pull_request: 
-    types:
-      - opened
-      - reopened
-      - labeled
-      - unlabeled
 
 jobs:
   check_labels:
