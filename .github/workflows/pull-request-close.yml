@@ -1,6 +1,8 @@
 name: Pull request closes
 on:
   pull_request:
+    branches:
+      - develop
     types:
       - closed
 jobs:
@@ -40,7 +42,7 @@ jobs:
 
       - name: Git push version bump
         run: git push origin ${{ github.head_ref }} --follow-tags --force
-        
+
       - id: set-version
         name: Output version change
         run: npm pkg get version

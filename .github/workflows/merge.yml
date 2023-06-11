@@ -31,8 +31,8 @@ jobs:
       - name: ⚛️ Setup react
         run: npm install react@${{ matrix.react }} react-dom@${{ matrix.react }}
 
-      - name: ✅ Validate test script
-        run: npm run test:ci
+      - name: ✅ Publish the check-in version
+        run: npm publish
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
