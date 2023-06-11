@@ -31,11 +31,11 @@ To run tests
 
 ## Publishing commands
 
-To build and publish
+To build and publish, this is built into Gitlab CI/CD integration with allow/continue on failure.
 
 `npm publish`
 
-To update versioning 'patch'|'minor'|'major'.
+To update versioning 'patch'|'minor'|'major'. Please bump before opening Pull Request.
 
 `npm version <release>`
 

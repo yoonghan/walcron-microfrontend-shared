@@ -1,29 +1,10 @@
 name: Validate project
 
 on:
-  pull_request: 
-    types:
-      - opened
-      - reopened
-      - labeled
-      - unlabeled
+  pull_request:
 
 jobs:
-  check_labels:
-    name: ✅ Check labels
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: mheap/github-action-required-labels@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          mode: exactly
-          count: 1
-          labels: 'major, minor, patch'
-          add_comment: true
   test:
-    needs: check_labels
     runs-on: ubuntu-latest
     steps:
       - name: 🛑 Cancel previous runs
