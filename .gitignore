@@ -24,3 +24,6 @@ dist-ssr
 
 # Test
 coverage
+
+# Publish, ideally should be checked in.
+dist
