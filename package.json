@@ -19,7 +19,7 @@
     "walcoorperation",
     "shared walcron components"
   ],
-  "version": "0.2.3",
+  "version": "0.4.0",
   "type": "module",
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
@@ -43,6 +43,7 @@
     "postpack": "clean-package restore"
   },
   "dependencies": {
+    "@fontsource/roboto": "^5.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "styled-components": "^6.0.0-rc.3"
