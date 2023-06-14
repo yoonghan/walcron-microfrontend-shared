@@ -16,6 +16,6 @@ export const Primary: Story = {
   args: { lastUpdatedYear: 2023 },
 };
 
-export const Expandedooter: Story = {
+export const ExpandedFooter: Story = {
   args: { companyName: "Greenwich", establishedYear: 1, lastUpdatedYear: 2023 },
 };
