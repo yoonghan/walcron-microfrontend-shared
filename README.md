@@ -9,7 +9,7 @@ A shared library used within the eco-system of Walcron. All components can be re
 
 ## Getting started
 
-Use it, for reference refer to stories for example, or clone it and run it via storybook.
+Clone the codes and refer examples by running storybook.
 
 ## Development commands
 
