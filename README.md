@@ -31,6 +31,8 @@ To run tests
 
 ## Publishing commands
 
+_NOTE_: Remember to expose all files into index.ts before publishing.
+
 To build and publish, this is built into Gitlab CI/CD integration with allow/continue on failure.
 
 `npm publish`
