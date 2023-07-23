@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes, Link, Outlet } from "react-router-dom";
-import NavigatorListener from "./NavigatorListener";
+import NavigatorListener from ".";
 
 describe("NavigatorListener", () => {
   const appName = "test-app";
