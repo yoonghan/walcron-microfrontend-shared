@@ -1,1 +1,1 @@
-export * from "./react-router";
+export * as router from "./react-router";

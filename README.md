@@ -31,15 +31,19 @@ To run tests
 
 ## Publishing commands
 
-_NOTE_: Remember to expose all files into index.ts before publishing.
+_NOTE_: Remember to expose all files into index.ts and add into integration test before publishing.
+
+1. Build before publishing and check in dist/
+
+`npm build`
+
+2. Update versioning 'patch'|'minor'|'major'. Please bump before opening Pull Request.
+
+`npm version <release>`
 
 To build and publish, this is built into Gitlab CI/CD integration with allow/continue on failure.
 
 `npm publish`
-
-To update versioning 'patch'|'minor'|'major'. Please bump before opening Pull Request.
-
-`npm version <release>`
 
 ## Github PAT permission required
 
