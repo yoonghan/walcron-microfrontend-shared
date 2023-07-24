@@ -1,9 +1,5 @@
 import { describe, it, expect } from "vitest";
-import {
-  ErrorPage,
-  NavigatorListener,
-} from "./components/helpers/react-router";
-import { Copyright, Footer, Logo } from ".";
+import { Copyright, Footer, Logo, placeholder } from ".";
 
 describe("Integration test", () => {
   describe("components", () => {
@@ -18,17 +14,11 @@ describe("Integration test", () => {
     it("should expose Logo", () => {
       expect(Logo).toBeDefined;
     });
+  });
 
-    describe("helpers", () => {
-      describe("react-router", () => {
-        it("should expose ErrorPage", () => {
-          expect(ErrorPage).toBeDefined();
-        });
-
-        it("should expose NavigatorListener", () => {
-          expect(NavigatorListener).toBeDefined();
-        });
-      });
+  describe("helpers", () => {
+    it("should export placeholder until some real tools is created", () => {
+      expect(placeholder).toBeDefined();
     });
   });
 });
