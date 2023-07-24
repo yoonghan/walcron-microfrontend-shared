@@ -3,7 +3,7 @@ import {
   ErrorPage,
   NavigatorListener,
 } from "./components/helpers/react-router";
-import { Copyright, Footer, Logo } from "./components";
+import { Copyright, Footer, Logo } from ".";
 
 describe("Integration test", () => {
   describe("components", () => {
