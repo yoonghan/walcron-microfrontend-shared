@@ -1,1 +1,1 @@
-export * from "./react-router";
+export { default as placeholder } from "./placeholder";
