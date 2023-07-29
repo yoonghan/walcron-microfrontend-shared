@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { Copyright, Footer, Logo, placeholder } from ".";
+import { Copyright, Footer, Logo, useNavigationListener } from ".";
 
 describe("Integration test", () => {
   describe("components", () => {
@@ -17,8 +17,8 @@ describe("Integration test", () => {
   });
 
   describe("helpers", () => {
-    it("should export placeholder until some real tools is created", () => {
-      expect(placeholder).toBeDefined();
+    it("should export useNavigationListener", () => {
+      expect(useNavigationListener).toBeDefined();
     });
   });
 });
