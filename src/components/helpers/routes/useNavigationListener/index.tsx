@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { useEffect } from "react";
 
 /*
  Since we can't expose react-router-dom, we used it as a general component
