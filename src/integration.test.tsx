@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { Copyright, Footer, Logo, useNavigationListener } from ".";
+import { Copyright, ErrorPage, Footer, Logo, useNavigationListener } from ".";
 
 describe("Integration test", () => {
   describe("components", () => {
@@ -13,6 +13,10 @@ describe("Integration test", () => {
 
     it("should expose Logo", () => {
       expect(Logo).toBeDefined;
+    });
+
+    it("should expose ErrorPage", () => {
+      expect(ErrorPage).toBeDefined;
     });
   });
 
