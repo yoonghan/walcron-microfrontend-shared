@@ -1,6 +1,5 @@
-import { CLSReportCallback } from "web-vitals";
-
-const reportWebVitals = (onPerfEntry: CLSReportCallback) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const reportWebVitals = (onPerfEntry: any) => {
   if (onPerfEntry && onPerfEntry instanceof Function) {
     import("web-vitals").then(({ onCLS, onFID, onFCP, onLCP, onTTFB }) => {
       onCLS(onPerfEntry);
