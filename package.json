@@ -19,7 +19,7 @@
     "walcoorperation",
     "shared walcron components"
   ],
-  "version": "1.5.0",
+  "version": "2.0.0",
   "type": "module",
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
@@ -49,7 +49,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.2",
-    "sort-by": "^1.2.0",
     "styled-components": "^6.0.0-rc.3"
   },
   "devDependencies": {
