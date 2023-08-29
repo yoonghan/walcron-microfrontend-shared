@@ -15,9 +15,13 @@ interface Props {
   lastUpdatedYear: number;
 }
 
-const Footer = styled.div`
+const Footer = styled.footer`
+  padding-top: 0.5rem;
+`;
+
+const Text = styled.div`
   font-size: 0.75rem;
-  padding: 0.5rem 0.5rem;
+  padding: 0 0.5rem 0.5rem 0.5rem;
 `;
 
 /**
@@ -29,9 +33,10 @@ const Wrapper = ({
   lastUpdatedYear,
 }: Props) => (
   <Footer>
-    <small>
-      {companyName} {establishedYear}-{lastUpdatedYear} &copy;
-    </small>
+    <hr />
+    <Text>
+      {companyName} {establishedYear} - {lastUpdatedYear} &copy;
+    </Text>
   </Footer>
 );
 
