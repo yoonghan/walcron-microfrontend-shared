@@ -7,7 +7,7 @@ describe("Footer", () => {
 
   it("should display year with default value", () => {
     render(<Footer lastUpdatedYear={2023} />);
-    const footerMessage = `Walcron 2014-${currentYear} ©`;
+    const footerMessage = `Walcron 2014 - ${currentYear} ©`;
     expect(screen.getByText(footerMessage)).toBeInTheDocument();
   });
 
@@ -15,7 +15,7 @@ describe("Footer", () => {
     render(
       <Footer companyName="Abc" establishedYear={2020} lastUpdatedYear={2023} />
     );
-    const footerMessage = `Abc 2020-${currentYear} ©`;
+    const footerMessage = `Abc 2020 - ${currentYear} ©`;
     expect(screen.getByText(footerMessage)).toBeInTheDocument();
   });
 });
