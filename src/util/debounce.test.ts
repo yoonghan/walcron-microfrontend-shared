@@ -1,13 +1,21 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, afterAll, beforeAll } from "vitest";
 import { debounce } from "./debounce";
 
 describe("debounce", () => {
+  beforeAll(() => {
+    vi.useFakeTimers();
+  });
+
+  afterAll(() => {
+    vi.useRealTimers();
+  });
+
   it("should change only after timeout is reached", async () => {
     const mockFn = vi.fn();
     debounce(mockFn, 1000)();
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    vi.advanceTimersByTime(500);
     expect(mockFn).not.toHaveBeenCalled();
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    vi.advanceTimersByTime(500);
     expect(mockFn).toHaveBeenCalledTimes(1);
   });
 
@@ -15,11 +23,11 @@ describe("debounce", () => {
     const mockFn = vi.fn();
     const initDebounce = debounce(mockFn, 1000);
     initDebounce();
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    vi.advanceTimersByTime(500);
     initDebounce();
-    await new Promise((resolve) => setTimeout(resolve, 600));
+    vi.advanceTimersByTime(600);
     expect(mockFn).not.toHaveBeenCalled();
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    vi.advanceTimersByTime(1000);
     expect(mockFn).toHaveBeenCalled();
   });
 });
