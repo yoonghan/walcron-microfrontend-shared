@@ -1,5 +1,13 @@
 import { describe, it, expect } from "vitest";
-import { Copyright, ErrorPage, Footer, Logo, useNavigationListener } from ".";
+import {
+  Copyright,
+  ErrorPage,
+  Footer,
+  Logo,
+  useNavigationListener,
+  debounce,
+  useWindowListener,
+} from ".";
 
 describe("Integration test", () => {
   describe("components", () => {
@@ -23,6 +31,18 @@ describe("Integration test", () => {
   describe("helpers", () => {
     it("should export useNavigationListener", () => {
       expect(useNavigationListener).toBeDefined();
+    });
+  });
+
+  describe("hooks", () => {
+    it("should export useWindowListener", () => {
+      expect(useWindowListener).toBeDefined();
+    });
+  });
+
+  describe("util", () => {
+    it("should export debounce", () => {
+      expect(debounce).toBeDefined();
     });
   });
 });

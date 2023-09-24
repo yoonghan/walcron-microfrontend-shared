@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterAll, beforeAll } from "vitest";
-import { debounce } from "./debounce";
+import { debounce } from ".";
 
 describe("debounce", () => {
   beforeAll(() => {
