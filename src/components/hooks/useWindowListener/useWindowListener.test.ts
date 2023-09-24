@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { useWindowListener } from "./useWindowListener";
+import { useWindowListener } from ".";
 import { act, fireEvent, renderHook } from "@testing-library/react";
 
 describe("useWindowListener", () => {
