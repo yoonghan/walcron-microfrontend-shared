@@ -30,7 +30,7 @@
   z-index: -1;
 }
 
-.tab input:checked + label::after {
+.tab:has(label > input:checked) > label::after {
   transform: rotate(270deg);
   margin-right: 0.5rem;
 }
@@ -48,5 +48,6 @@
 .tab__content p {
   margin: 0;
   padding: 1rem;
-  background: #fff;
+  background: var(--primary-alt);
+  color: var(--primary-alt-text);
 }
