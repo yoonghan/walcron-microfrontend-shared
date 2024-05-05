@@ -40,11 +40,47 @@ jobs:
       - name: ⚛️ Setup react
         run: npm install react@${{ matrix.react }} react-dom@${{ matrix.react }}
 
+      - name: Generate release
+        id: generate-release
+        run: |
+          VERSION_PREFIX="v"
+          VERSION_MAJOR="1"
+          VERSION_MAJOR_MINOR=$(git tag --list "${VERSION_PREFIX}${VERSION_MAJOR}.*" --sort=-version:refname | head -n 1 | grep -oE '[0-9]+\.[0-9]+')
+          VERSION_MINOR=${VERSION_MAJOR_MINOR//$VERSION_MAJOR./}
+          if [ -z "$VERSION_MINOR" ]; then
+            VERSION_MINOR=0
+          else
+            VERSION_MINOR=$((VERSION_MINOR + 1))
+          fi
+          NEW_TAG="${VERSION_PREFIX}${VERSION_MAJOR}.${VERSION_MINOR}"
+          echo "Generated new tag: $NEW_TAG"
+          echo "tag=$NEW_TAG" >> $GITHUB_OUTPUT
+      - name: Push Tag
+        run: |
+          echo '${{ steps.generate-release.outputs.tag }}'
+          git config user.name "Github Actions"
+          git config user.email "walcoorperation@gmail.com"
+          git tag ${{ steps.generate-release.outputs.tag }}
+          git push origin ${{ steps.generate-release.outputs.tag }}
+
       - name: 🧳 Publish to npm
         continue-on-error: true
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.PAT}}
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ steps.generate-release.outputs.tag }}
+          release_name: Release ${{ github.ref }} - ${{ steps.generate-release.outputs.tag }}
+          body: |
+            ${{ github.event.head_commit.message }}
+          draft: false
+          prerelease: false
 
       - name: 📤 Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
