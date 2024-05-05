@@ -40,14 +40,6 @@ jobs:
       - name: ⚛️ Setup react
         run: npm install react@${{ matrix.react }} react-dom@${{ matrix.react }}
 
-      - name: Push Tag
-        run: |
-          echo '${{ steps.generate-release.outputs.tag }}'
-          git config user.name "Github Actions"
-          git config user.email "walcoorperation@gmail.com"
-          git tag ${{ steps.generate-release.outputs.tag }}
-          git push origin ${{ steps.generate-release.outputs.tag }}
-
       - name: 🧳 Publish to npm
         continue-on-error: true
         run: npm publish
