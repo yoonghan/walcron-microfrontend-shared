@@ -13,13 +13,13 @@ jobs:
       contents: read
     steps:
       - name: 🛑 Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.11.0
+        uses: styfle/cancel-workflow-action@0.12.1
 
       - name: ⬇️ Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: ⎔ Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
           cache: "npm"
@@ -27,7 +27,7 @@ jobs:
 
       - name: Cache dependencies
         id: cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ./node_modules
           key: modules-${{ hashFiles('package-lock.json') }}
@@ -35,16 +35,30 @@ jobs:
       - name: 📥 Download deps
         uses: bahmutov/npm-install@v1
 
-      # as requested by the React team :)
-      # https://reactjs.org/blog/2019/10/22/react-release-channels.html#using-the-next-channel-for-integration-testing
-      - name: ⚛️ Setup react
-        run: npm install react@${{ matrix.react }} react-dom@${{ matrix.react }}
+      - name: match-tag-to-package-version
+        id: match-tag-to-package-version
+        uses: geritol/match-tag-to-package-version@0.2.0
+        with:
+          TAG_PREFIX: v # Optional, default prefix is ""
 
       - name: 🧳 Publish to npm
         continue-on-error: true
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.PAT}}
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ steps.match-tag-to-package-version.outputs.PACKAGE_VERSION }}
+          release_name: Release ${{ github.ref }} - ${{ steps.match-tag-to-package-version.outputs.PACKAGE_VERSION }}
+          body: |
+            ${{ github.event.head_commit.message }}
+          draft: false
+          prerelease: false
 
       - name: 📤 Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
