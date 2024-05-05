@@ -35,11 +35,14 @@ jobs:
       - name: 📥 Download deps
         uses: bahmutov/npm-install@v1
 
-      - name: match-tag-to-package-version
-        id: match-tag-to-package-version
-        uses: geritol/match-tag-to-package-version@0.2.0
-        with:
-          TAG_PREFIX: v # Optional, default prefix is ""
+      - name: Push Tag
+        run: |
+          NODE_VERSION=`node -p "require('./package.json').version"`
+          echo $NODE_VERSION
+          git config user.name "Github Actions"
+          git config user.email "walcoorperation@gmail.com"
+          git tag $NODE_VERSION
+          git push origin $NODE_VERSION
 
       - name: 🧳 Publish to npm
         continue-on-error: true
