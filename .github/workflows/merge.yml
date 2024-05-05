@@ -36,6 +36,7 @@ jobs:
         uses: bahmutov/npm-install@v1
 
       - name: Push Tag
+        id: push-tag
         run: |
           NODE_VERSION=`node -p "require('./package.json').version"`
           echo $NODE_VERSION
@@ -43,12 +44,13 @@ jobs:
           git config user.email "walcoorperation@gmail.com"
           git tag $NODE_VERSION
           git push origin $NODE_VERSION
+          echo "tag=$NODE_VERSION" >> $GITHUB_OUTPUT
 
       - name: 🧳 Publish to npm
         continue-on-error: true
         run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.PAT}}
+          NODE_AUTH_TOKEN: ${{ secrets.PAT }}
 
       - name: Create Release
         id: create_release
@@ -56,8 +58,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ steps.match-tag-to-package-version.outputs.PACKAGE_VERSION }}
-          release_name: Release ${{ github.ref }} - ${{ steps.match-tag-to-package-version.outputs.PACKAGE_VERSION }}
+          tag_name: ${{ steps.generate-release.outputs.tag }}
+          release_name: Release ${{ github.ref }} - ${{ steps.generate-release.outputs.tag }}
           body: |
             ${{ github.event.head_commit.message }}
           draft: false
