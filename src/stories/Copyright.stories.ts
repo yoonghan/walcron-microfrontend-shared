@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import Copyright from "../components/Copyright";
 
-const meta = {
+const meta: Meta = {
   title: "Walcron/Copyright",
   component: Copyright,
   tags: ["autodocs"],

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import Logo from "../components/Logo";
 
-const meta = {
+const meta: Meta = {
   title: "Walcron/Logo",
   component: Logo,
   tags: ["autodocs"],

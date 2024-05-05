@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import Footer from "../components/Footer";
 
-const meta = {
+const meta: Meta = {
   title: "Walcron/Footer",
   component: Footer,
   tags: ["autodocs"],

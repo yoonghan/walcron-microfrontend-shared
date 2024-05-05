@@ -24,3 +24,7 @@ dist-ssr
 
 # Test
 coverage
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

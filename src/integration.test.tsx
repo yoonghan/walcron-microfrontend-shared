@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import {
+  Accordion,
   Copyright,
   ErrorPage,
   Footer,
@@ -25,6 +26,10 @@ describe("Integration test", () => {
 
     it("should expose ErrorPage", () => {
       expect(ErrorPage).toBeDefined;
+    });
+
+    it("should expose Accordion", () => {
+      expect(Accordion).toBeDefined;
     });
   });
 
