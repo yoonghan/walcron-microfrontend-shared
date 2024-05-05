@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styles from "./copyright.module.css";
 
 type Props = {
   companyName?: string;
@@ -6,25 +6,20 @@ type Props = {
   lastUpdatedYear: number;
 };
 
-const Copyright = styled.div`
-  font-size: 0.75rem;
-  text-align: center;
-`;
-
 const Wrapper = ({
   companyName = "Walcron",
   link = "/",
   lastUpdatedYear,
 }: Props) => {
   return (
-    <Copyright>
+    <div className={styles.copyright}>
       {"Copyright © "}
       <a color="inherit" href={link}>
         {companyName}
       </a>{" "}
       {lastUpdatedYear}
       {"."}
-    </Copyright>
+    </div>
   );
 };
 
