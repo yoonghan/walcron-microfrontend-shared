@@ -2,11 +2,13 @@ import { test, expect, Locator, Page } from "@playwright/test";
 
 const isShownContent = async (page: Page, locator: Locator) => {
   await page.waitForTimeout(500); // 0.4s transition
-  const maxHeight = await locator.evaluate((node) => {
+  const styling = await locator.evaluate((node) => {
     if (node.parentElement !== null)
-      return getComputedStyle(node.parentElement).maxHeight;
+      return getComputedStyle(node.parentElement);
   });
-  return !(maxHeight === "0px" || maxHeight === "0");
+
+  const { maxHeight, overflow } = styling ?? {};
+  return !(maxHeight === "0px" || maxHeight === "0") && overflow === "hidden";
 };
 
 test("Radio Accordion", async ({ page }) => {
