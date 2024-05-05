@@ -4,7 +4,61 @@ on:
   pull_request:
 
 jobs:
+  update-version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: 🛑 Cancel previous runs
+        uses: styfle/cancel-workflow-action@0.12.1
+
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.PAT }}
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: "npm"
+
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ./node_modules
+            ~/.cache/ms-playwright
+          key: modules-${{ hashFiles('package-lock.json') }}
+
+      - name: 📥 Download deps
+        uses: bahmutov/npm-install@v1
+
+      - name: Post revision
+        run: |
+          LATEST_VERSION=`git tag --list --sort=-version:refname|head -n 1`
+          NODE_VERSION=`node -p "require('./package.json').version"`
+          if [ "$LATEST_VERSION" != "${NODE_VERSION}" ]; then
+            npm run build
+          fi
+
+      - name: 💼 Commit all distribution
+        uses: stefanzweifel/git-auto-commit-action@v4
+        id: auto-commit-action
+        with:
+          commit_message: Update distribution with typescript.
+          file_pattern: "dist/*"
+
+      - name: Continuation
+        if: steps.auto-commit-action.outputs.changes_detected == 'true'
+        run: |
+          echo "Change detected"
+          exit 1
+
   test:
+    needs: update-version
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
