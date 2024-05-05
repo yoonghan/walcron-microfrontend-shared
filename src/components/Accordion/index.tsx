@@ -1,5 +1,6 @@
-import { useCallback, useMemo, useState } from "react";
+import { ReactNode, useCallback, useMemo, useState } from "react";
 import styles from "./accordion.module.css";
+import { htmlConvertor } from "../util/htmlConvertor";
 
 type AccordionItem = {
   label: string;
@@ -12,10 +13,12 @@ export default function Accordion({
   model,
   groupName,
   isSingle = true,
+  anchorElem = (link, text) => <a href={link}>{text}</a>,
 }: {
   model: AccordionProps;
   groupName: string;
   isSingle?: boolean;
+  anchorElem?: (link: string, text: string) => ReactNode;
 }) {
   const [radioTracker, setRadioTracker] = useState<string>("");
 
@@ -47,12 +50,12 @@ export default function Accordion({
               />
             </label>
             <div className={styles.tab__content}>
-              <p>{accordianItem.content}</p>
+              <p>{htmlConvertor(accordianItem.content, anchorElem)}</p>
             </div>
           </div>
         );
       }),
-    [model, isSingle, groupName, onInputClick]
+    [model, isSingle, groupName, onInputClick, anchorElem]
   );
 
   return <div className={styles.accordion}>{renderedAccordions}</div>;
