@@ -7,6 +7,7 @@ import {
   Logo,
   useNavigationListener,
   debounce,
+  htmlConvertor,
   useWindowListener,
 } from ".";
 
@@ -48,6 +49,10 @@ describe("Integration test", () => {
   describe("util", () => {
     it("should export debounce", () => {
       expect(debounce).toBeDefined();
+    });
+
+    it("should export htmlConvertor", () => {
+      expect(htmlConvertor).toBeDefined();
     });
   });
 });

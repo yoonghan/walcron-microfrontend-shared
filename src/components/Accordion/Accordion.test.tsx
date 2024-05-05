@@ -16,6 +16,10 @@ describe("Accordion", () => {
             label: "Item 2",
             content: "Here i am.",
           },
+          {
+            label: "Item 3",
+            content: "Click on a [https://www.zoonegara.my|link here]",
+          },
         ]}
         groupName="faq"
         isSingle={isSingle}
@@ -42,5 +46,31 @@ describe("Accordion", () => {
 
     userEvent.click(radio);
     expect(radio).not.toBeChecked();
+  });
+
+  it("should be able to render content with custom markdown", () => {
+    const { getByRole } = renderAccordion();
+    expect(getByRole("link", { name: "link here" })).toHaveAttribute(
+      "href",
+      "https://www.zoonegara.my"
+    );
+  });
+
+  describe("Anchor Element", () => {
+    it("should render different anchor Element", async () => {
+      render(
+        <Accordion
+          model={[
+            {
+              label: "Test Anchor",
+              content: "[https://www.zoonegara.my|link here]",
+            },
+          ]}
+          groupName="faq"
+          anchorElem={() => <span>I am an Anchor</span>}
+        ></Accordion>
+      );
+      expect(screen.getByText("I am an Anchor")).toBeInTheDocument();
+    });
   });
 });
