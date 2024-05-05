@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "./footer.module.css";
 
 interface Props {
   /**
@@ -15,15 +15,6 @@ interface Props {
   lastUpdatedYear: number;
 }
 
-const Footer = styled.footer`
-  padding-top: 0.5rem;
-`;
-
-const Text = styled.div`
-  font-size: 0.75rem;
-  padding: 0 0.5rem 0.5rem 0.5rem;
-`;
-
 /**
  * Walcron footer
  */
@@ -32,12 +23,12 @@ const Wrapper = ({
   establishedYear = 2014,
   lastUpdatedYear,
 }: Props) => (
-  <Footer>
+  <div className={styled.footer}>
     <hr />
-    <Text>
+    <div>
       {companyName} {establishedYear} - {lastUpdatedYear} &copy;
-    </Text>
-  </Footer>
+    </div>
+  </div>
 );
 
 export default Wrapper;
