@@ -30,8 +30,7 @@ jobs:
         with:
           path: |
             ./node_modules
-            ~/.cache/ms-playwright
-          key: modules-${{ hashFiles('package-lock.json') }}
+          key: modules-merge-${{ hashFiles('package-lock.json') }}
 
       - name: 📥 Download deps
         uses: bahmutov/npm-install@v1
@@ -82,7 +81,7 @@ jobs:
           path: |
             ./node_modules
             ~/.cache/ms-playwright
-          key: modules-${{ hashFiles('package-lock.json') }}
+          key: modules-test-${{ hashFiles('package-lock.json') }}
 
       - name: 📥 Download deps
         uses: bahmutov/npm-install@v1
