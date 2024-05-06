@@ -33,15 +33,11 @@ To run tests
 
 _NOTE_: Remember to expose all files into index.ts and add into integration test before publishing.
 
-1. Build before publishing and check in dist/
-
-`npm build`
-
-2. Update versioning 'patch'|'minor'|'major'. Please bump before opening Pull Request.
+1. Update versioning 'patch'|'minor'|'major'. Please bump before opening Pull Request.
 
 `npm version <release>`
 
-To build and publish, this is built into Gitlab CI/CD integration with allow/continue on failure.
+2. To build and publish, this is built into Gitlab CI/CD integration with allow/continue on failure.
 
 `npm publish`
 
@@ -52,6 +48,12 @@ To build and publish, this is built into Gitlab CI/CD integration with allow/con
 2. Login with
 
 `npm login --scope=@yoonghan --auth-type=legacy --registry=https://npm.pkg.github.com/`
+
+## Usages
+
+1. Files are exported in main index.ts for components, utils. Please add check into integration.test.tsx.
+2. Since components are exported, it can be used directly.
+3. Css files are required to be imported seperately, @yoonghan/walcron-microfrontend-shared/style.css
 
 [build-badge]: https://img.shields.io/github/actions/workflow/status/yoonghan/walcron-microfrontend-shared/pull-request.yml
 [build]: https://github.com/yoonghan/walcron-microfrontend-shared/actions?query=workflow
