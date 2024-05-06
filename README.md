@@ -52,8 +52,8 @@ _NOTE_: Remember to expose all files into index.ts and add into integration test
 ## Usages
 
 1. Files are exported in main index.ts for components, utils. Please add check into integration.test.tsx.
-2. Since components are exported, it can be used directly.
-3. Css files are required to be imported seperately, @yoonghan/walcron-microfrontend-shared/style.css
+2. Components are imported via import { Accordion } from "@yoonghan/walcron-microfrontend-shared".
+3. Css files are required to be imported seperately, @yoonghan/walcron-microfrontend-shared/dist/style.css.
 
 [build-badge]: https://img.shields.io/github/actions/workflow/status/yoonghan/walcron-microfrontend-shared/pull-request.yml
 [build]: https://github.com/yoonghan/walcron-microfrontend-shared/actions?query=workflow
