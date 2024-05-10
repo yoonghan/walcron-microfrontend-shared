@@ -20,6 +20,7 @@ function App() {
           <h2>Components</h2>
           <ul>
             <li onClick={switchToTest("accordion")}>Accordion</li>
+            <li onClick={switchToTest("announcement")}>Announcement</li>
           </ul>
         </div>
       );
