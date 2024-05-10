@@ -18,8 +18,11 @@ describe("Accordion", () => {
           },
           {
             label: "Item 3",
-            content:
-              "Click on a <a href=https://www.zoonegara.my>link here</a>",
+            content: (
+              <span>
+                Click on a <a href="https://www.zoonegara.my">link here</a>
+              </span>
+            ),
           },
         ]}
         groupName="faq"

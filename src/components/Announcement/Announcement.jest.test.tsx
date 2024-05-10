@@ -94,16 +94,14 @@ describe("Announcement", () => {
       );
 
     it("should not have navigation buttons and can render html node", async () => {
-      const { queryByRole, getByText } = renderEmptyAnnouncements();
+      const { getByRole, queryByRole, getByText } = renderEmptyAnnouncements();
       expect(
         queryByRole("button", { name: "next announcement" })
       ).not.toBeInTheDocument();
       expect(
         queryByRole("button", { name: "previous announcement" })
       ).not.toBeInTheDocument();
-      expect(getByText("One Announcement").parentElement).toHaveClass(
-        "only-one"
-      );
+      expect(getByRole("status")).toHaveClass("only_one");
       expect(getByText("One Announcement").tagName).toBe("STRONG");
     });
   });
