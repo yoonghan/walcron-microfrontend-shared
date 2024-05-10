@@ -1,10 +1,9 @@
 import { ReactNode, useCallback, useMemo, useState } from "react";
 import styles from "./accordion.module.css";
-import { htmlConvertor } from "../util/htmlConvertor";
 
 type AccordionItem = {
   label: string;
-  content: string;
+  content: string | ReactNode;
 };
 
 type AccordionProps = AccordionItem[];
@@ -13,7 +12,6 @@ export default function Accordion({
   model,
   groupName,
   isSingle = true,
-  anchorElem = (link, text) => <a href={link}>{text}</a>,
 }: {
   model: AccordionProps;
   groupName: string;
@@ -50,12 +48,12 @@ export default function Accordion({
               />
             </label>
             <div className={styles.tab__content}>
-              <p>{htmlConvertor(accordianItem.content, anchorElem)}</p>
+              <p>{accordianItem.content}</p>
             </div>
           </div>
         );
       }),
-    [model, isSingle, groupName, onInputClick, anchorElem]
+    [model, isSingle, groupName, onInputClick]
   );
 
   return <div className={styles.accordion}>{renderedAccordions}</div>;
