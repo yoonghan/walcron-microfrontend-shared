@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import Accordion from "./components/Accordion";
+import { Announcement } from "./components";
 
 function App() {
   const [testComponent, setTestComponent] = useState("");
@@ -54,6 +55,13 @@ function App() {
             isSingle={false}
           ></Accordion>
         </>
+      );
+    case "announcement":
+      return (
+        <Announcement
+          ariaAnnouncementTitle="Announcement"
+          announcements={["one announcement"]}
+        />
       );
   }
 }
