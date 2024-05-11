@@ -4,7 +4,29 @@ on:
   pull_request:
 
 jobs:
+  version-checker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛑 Cancel previous runs
+        uses: styfle/cancel-workflow-action@0.12.1
+
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+        
+      - name: Post revision
+        run: |
+          LATEST_VERSION=`git tag --list --sort=-version:refname|head -n 1`
+          NODE_VERSION=`node -p "require('./package.json').version"`
+          echo "$NODE_VERSION vs $LATEST_VERSION"
+          if [ "${LATEST_VERSION}" == "${NODE_VERSION}" ]; then
+            echo "Package version needs to be updated before merging!"
+            exit 1
+          fi  
+
   update-version:
+    needs: version-checker
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -17,6 +39,7 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
           token: ${{ secrets.PAT }}
+          fetch-depth: 0
 
       - name: ⎔ Setup node
         uses: actions/setup-node@v4
@@ -39,7 +62,8 @@ jobs:
         run: |
           LATEST_VERSION=`git tag --list --sort=-version:refname|head -n 1`
           NODE_VERSION=`node -p "require('./package.json').version"`
-          if [ "$LATEST_VERSION" != "${NODE_VERSION}" ]; then
+          echo "$NODE_VERSION vs $LATEST_VERSION"
+          if [ "${LATEST_VERSION}" != "${NODE_VERSION}" ]; then
             npm run build
           fi
 
@@ -50,7 +74,7 @@ jobs:
           commit_message: Update distribution with typescript.
           file_pattern: "dist/*"
 
-      - name: Continuation
+      - name: Can Pull Request be Merged
         if: steps.auto-commit-action.outputs.changes_detected == 'true'
         run: |
           echo "Change detected"
