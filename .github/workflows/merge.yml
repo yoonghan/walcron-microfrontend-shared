@@ -10,6 +10,10 @@ jobs:
     permissions:
       contents: write
     uses: ./.github/workflows/test.yml
+    secrets: inherit
+    with:
+      upload_codecov: true
+
   publish:
     needs: validate
     runs-on: ubuntu-latest
@@ -69,6 +73,3 @@ jobs:
             ${{ github.event.head_commit.message }}
           draft: false
           prerelease: false
-
-      - name: 📤 Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
