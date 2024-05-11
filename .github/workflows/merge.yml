@@ -11,6 +11,7 @@ jobs:
       contents: write
     uses: ./.github/workflows/test.yml
   mergeCodes:
+    needs: validate
     runs-on: ubuntu-latest
     permissions:
       packages: write
