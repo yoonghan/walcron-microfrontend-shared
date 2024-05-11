@@ -40,5 +40,10 @@ export default defineConfig({
         },
       },
     },
+    css: {
+      modules: {
+        classNameStrategy: "non-scoped",
+      },
+    },
   },
 });

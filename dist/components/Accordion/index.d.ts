@@ -1,10 +1,10 @@
 import { ReactNode } from "react";
 type AccordionItem = {
     label: string;
-    content: string;
+    content: string | ReactNode;
 };
 type AccordionProps = AccordionItem[];
-export default function Accordion({ model, groupName, isSingle, anchorElem, }: {
+export default function Accordion({ model, groupName, isSingle, }: {
     model: AccordionProps;
     groupName: string;
     isSingle?: boolean;
