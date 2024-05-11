@@ -2,6 +2,11 @@ name: Validate project
 
 on:
   workflow_call:
+    inputs:
+      upload_codecov:
+        description: Upload into code coverage
+        default: false
+        type: boolean
 
 jobs:
   test:
@@ -61,3 +66,9 @@ jobs:
         with:
           recreate: true
           path: code-coverage-results.md
+
+      - name: Upload coverage reports to Codecov
+        if: ${{ inputs.upload_codecov }} == true
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
