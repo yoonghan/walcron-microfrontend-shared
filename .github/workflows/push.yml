@@ -1,0 +1,13 @@
+name: Push projects
+
+on:
+  # run on any push except merge
+  push:
+    branches-ignore:
+      - master
+
+jobs:
+  validate:
+    permissions:
+      contents: write
+    uses: ./.github/workflows/test.yml
