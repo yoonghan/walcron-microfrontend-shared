@@ -10,7 +10,7 @@ jobs:
     permissions:
       contents: write
     uses: ./.github/workflows/test.yml
-  mergeCodes:
+  publish:
     needs: validate
     runs-on: ubuntu-latest
     permissions:
