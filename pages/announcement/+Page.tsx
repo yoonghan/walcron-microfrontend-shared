@@ -1,5 +1,3 @@
-import React from "react";
-import Accordion from "../../src/components/Announcement";
 import "./code.css";
 import Announcement from "../../src/components/Announcement";
 
