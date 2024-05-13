@@ -1,4 +1,4 @@
-import Accordion from "@/components/Accordion";
+import Accordion from "../../../src/components/Accordion";
 import "../code.css";
 
 export { Page };

@@ -4,13 +4,6 @@ import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
 import vike from "vike/plugin";
 import { configDefaults } from "vitest/config";
-import { fileURLToPath } from "node:url";
-
-const filesNeedToExclude = ["server/index.ts", "server/root.ts"];
-
-const filesPathToExclude = filesNeedToExclude.map((src) => {
-  return fileURLToPath(new URL(src, import.meta.url));
-});
 
 // https://vitejs.dev/config/
 export default defineConfig({
