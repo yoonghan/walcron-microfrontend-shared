@@ -1,14 +1,22 @@
 import { test, expect } from "@playwright/test";
 
-test("Announcement", async ({ page }) => {
-  await page.goto("http://localhost:5173");
+test.describe("disabling javascript", () => {
+  test.use({ javaScriptEnabled: false });
 
-  await page.getByText("Announcement").click();
+  test("Announcement", async ({ page }) => {
+    await page.goto("/announcement");
 
-  expect(page.getByText("one announcement")).toBeVisible();
+    expect(
+      await page.getByRole("status", { name: "Announcement" }).count()
+    ).toBe(1);
+    expect(page.getByText("one announcement")).toBeVisible();
 
-  const closeButton = page.getByLabel("Close Announcement");
-  await closeButton.click();
+    const closeButton = page.getByLabel("Close Announcement");
+    await closeButton.click();
 
-  expect(page.getByText("one announcement")).not.toBeVisible();
+    //use count to check in playwright.
+    expect(
+      await page.getByRole("status", { name: "Announcement" }).count()
+    ).toBe(0);
+  });
 });

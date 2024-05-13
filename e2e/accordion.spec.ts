@@ -1,7 +1,6 @@
 import { test, expect, Locator, Page } from "@playwright/test";
 
 const isShownContent = async (page: Page, locator: Locator) => {
-  await page.waitForTimeout(500); // 0.4s transition
   const styling = await locator.evaluate((node) => {
     if (node.parentElement !== null)
       return getComputedStyle(node.parentElement);
@@ -11,50 +10,57 @@ const isShownContent = async (page: Page, locator: Locator) => {
   return !(maxHeight === "0px" || maxHeight === "0") && overflow === "hidden";
 };
 
-test("Radio Accordion", async ({ page }) => {
-  await page.goto("http://localhost:5173");
+const click = async (page: Page, locator: Locator) => {
+  await locator.click();
+  await page.waitForTimeout(500); // 0.4s transition
+};
 
-  await page.getByText("Accordion").click();
+test.describe("disabling javascript", () => {
+  test.use({ javaScriptEnabled: false });
 
-  const accordionTitle1 = page.getByText("Radio 1");
-  const accordionTitle2 = page.getByText("Radio 2");
+  test("Single Accordion", async ({ page }) => {
+    await page.goto("/accordion/single");
 
-  const accordionContent1 = page.getByText("First Content");
-  const accordionContent2 = page.getByText("Second Content");
+    await page.getByText("Accordion").click();
 
-  await accordionTitle1.click();
-  expect(await isShownContent(page, accordionContent1)).toBeTruthy();
-  expect(await isShownContent(page, accordionContent2)).toBeFalsy();
+    const accordionTitle1 = page.getByText("Radio 1");
+    const accordionTitle2 = page.getByText("Radio 2");
 
-  await accordionTitle2.click();
-  expect(await isShownContent(page, accordionContent2)).toBeTruthy();
-  expect(await isShownContent(page, accordionContent1)).toBeFalsy();
+    const accordionContent1 = page.getByText("First Content");
+    const accordionContent2 = page.getByText("Second Content");
 
-  await accordionTitle2.click();
-  expect(await isShownContent(page, accordionContent1)).toBeFalsy();
-  expect(await isShownContent(page, accordionContent2)).toBeFalsy();
-});
+    await click(page, accordionTitle1);
+    expect(await isShownContent(page, accordionContent1)).toBeTruthy();
+    expect(await isShownContent(page, accordionContent2)).toBeFalsy();
 
-test("Checkbox Accordion", async ({ page }) => {
-  await page.goto("http://localhost:5173");
+    await click(page, accordionTitle2);
+    expect(await isShownContent(page, accordionContent2)).toBeTruthy();
+    expect(await isShownContent(page, accordionContent1)).toBeFalsy();
 
-  await page.getByText("Accordion").click();
+    // await accordionTitle2.click(); --> does not work without javascript
+    // expect(await isShownContent(page, accordionContent1)).toBeFalsy();
+    // expect(await isShownContent(page, accordionContent2)).toBeFalsy();
+  });
 
-  const accordionTitle1 = page.getByText("Checkbox 1");
-  const accordionTitle2 = page.getByText("Checkbox 2");
+  test("Multiple Accordion", async ({ page }) => {
+    await page.goto("/accordion/multiple");
 
-  const accordionContent1 = page.getByText("Third Content");
-  const accordionContent2 = page.getByText("Fourth Content");
+    const accordionTitle1 = page.getByText("Checkbox 1");
+    const accordionTitle2 = page.getByText("Checkbox 2");
 
-  await accordionTitle1.click();
-  expect(await isShownContent(page, accordionContent1)).toBeTruthy();
-  expect(await isShownContent(page, accordionContent2)).toBeFalsy();
+    const accordionContent1 = page.getByText("Third Content");
+    const accordionContent2 = page.getByText("Fourth Content");
 
-  await accordionTitle2.click();
-  expect(await isShownContent(page, accordionContent2)).toBeTruthy();
-  expect(await isShownContent(page, accordionContent1)).toBeTruthy();
+    await click(page, accordionTitle1);
+    expect(await isShownContent(page, accordionContent1)).toBeTruthy();
+    expect(await isShownContent(page, accordionContent2)).toBeFalsy();
 
-  await accordionTitle2.click();
-  expect(await isShownContent(page, accordionContent1)).toBeTruthy();
-  expect(await isShownContent(page, accordionContent2)).toBeFalsy();
+    await click(page, accordionTitle2);
+    expect(await isShownContent(page, accordionContent2)).toBeTruthy();
+    expect(await isShownContent(page, accordionContent1)).toBeTruthy();
+
+    await click(page, accordionTitle2);
+    expect(await isShownContent(page, accordionContent1)).toBeTruthy();
+    expect(await isShownContent(page, accordionContent2)).toBeFalsy();
+  });
 });
