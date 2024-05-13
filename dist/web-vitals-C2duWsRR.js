@@ -1,4 +1,4 @@
-var p, h, R, g, O = -1, l = function(t) {
+var p, h, R, g, O = -1, m = function(t) {
   addEventListener("pageshow", function(e) {
     e.persisted && (O = e.timeStamp, t(e));
   }, !0);
@@ -54,7 +54,7 @@ var p, h, R, g, O = -1, l = function(t) {
 }, W = function() {
   removeEventListener("visibilitychange", T, !0), removeEventListener("prerenderingchange", T, !0);
 }, P = function() {
-  return v < 0 && (v = A(), D(), l(function() {
+  return v < 0 && (v = A(), D(), m(function() {
     setTimeout(function() {
       v = A(), D();
     }, 0);
@@ -72,7 +72,7 @@ var p, h, R, g, O = -1, l = function(t) {
         u.name === "first-contentful-paint" && (a.disconnect(), u.startTime < i.firstHiddenTime && (n.value = Math.max(u.startTime - y(), 0), n.entries.push(u), r(!0)));
       });
     });
-    a && (r = d(t, n, k, e.reportAllChanges), l(function(c) {
+    a && (r = d(t, n, k, e.reportAllChanges), m(function(c) {
       n = f("FCP"), r = d(t, n, k, e.reportAllChanges), w(function() {
         n.value = performance.now() - c.timeStamp, r(!0);
       });
@@ -90,13 +90,13 @@ var p, h, R, g, O = -1, l = function(t) {
     }, u = E("layout-shift", c);
     u && (r = d(t, i, B, e.reportAllChanges), F(function() {
       c(u.takeRecords()), r(!0);
-    }), l(function() {
+    }), m(function() {
       n = 0, i = f("CLS", 0), r = d(t, i, B, e.reportAllChanges), w(function() {
         return r();
       });
     }), setTimeout(r, 0));
   }));
-}, m = { passive: !0, capture: !0 }, Y = /* @__PURE__ */ new Date(), I = function(t, e) {
+}, l = { passive: !0, capture: !0 }, Y = /* @__PURE__ */ new Date(), I = function(t, e) {
   p || (p = e, h = t, R = /* @__PURE__ */ new Date(), j(removeEventListener), q());
 }, q = function() {
   if (h >= 0 && h < R - Y) {
@@ -114,14 +114,14 @@ var p, h, R, g, O = -1, l = function(t) {
       }, a = function() {
         c();
       }, c = function() {
-        removeEventListener("pointerup", n, m), removeEventListener("pointercancel", a, m);
+        removeEventListener("pointerup", n, l), removeEventListener("pointercancel", a, l);
       };
-      addEventListener("pointerup", n, m), addEventListener("pointercancel", a, m);
+      addEventListener("pointerup", n, l), addEventListener("pointercancel", a, l);
     }(e, t) : I(e, t);
   }
 }, j = function(t) {
   ["mousedown", "keydown", "touchstart", "pointerdown"].forEach(function(e) {
-    return t(e, Z, m);
+    return t(e, Z, l);
   });
 }, M = [100, 300], G = function(t, e) {
   e = e || {}, L(function() {
@@ -132,7 +132,7 @@ var p, h, R, g, O = -1, l = function(t) {
     }, u = E("first-input", c);
     r = d(t, n, M, e.reportAllChanges), u && F(b(function() {
       c(u.takeRecords()), u.disconnect();
-    })), u && l(function() {
+    })), u && m(function() {
       var o;
       n = f("FID"), r = d(t, n, M, e.reportAllChanges), g = [], h = -1, p = null, j(addEventListener), o = a, g.push(o), q();
     });
@@ -149,8 +149,10 @@ var p, h, R, g, O = -1, l = function(t) {
         C[n.id] || (a(c.takeRecords()), c.disconnect(), C[n.id] = !0, r(!0));
       });
       ["keydown", "click"].forEach(function(o) {
-        addEventListener(o, u, !0);
-      }), F(u), l(function(o) {
+        addEventListener(o, function() {
+          return setTimeout(u, 0);
+        }, !0);
+      }), F(u), m(function(o) {
         n = f("LCP"), r = d(t, n, x, e.reportAllChanges), w(function() {
           n.value = performance.now() - o.timeStamp, C[n.id] = !0, r(!0);
         });
@@ -172,7 +174,7 @@ var p, h, R, g, O = -1, l = function(t) {
       var a = n.responseStart;
       if (a <= 0 || a > performance.now())
         return;
-      r.value = Math.max(a - y(), 0), r.entries = [n], i(!0), l(function() {
+      r.value = Math.max(a - y(), 0), r.entries = [n], i(!0), m(function() {
         r = f("TTFB", 0), (i = d(t, r, H, e.reportAllChanges))(!0);
       });
     }
