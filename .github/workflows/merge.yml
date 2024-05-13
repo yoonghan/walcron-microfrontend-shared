@@ -47,7 +47,8 @@ jobs:
       - name: Push Tag
         id: push-tag
         run: |
-          NODE_VERSION=`node -p "require('./package.json').version"`
+          NODE_VERSION_NUMBER=`node -p "require('./package.json').version"`
+          NODE_VERSION="v${NODE_VERSION_NUMBER}"
           echo $NODE_VERSION
           git config user.name "Github Actions"
           git config user.email "walcoorperation@gmail.com"

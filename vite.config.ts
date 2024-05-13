@@ -2,11 +2,16 @@ import { resolve } from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
+import vike from "vike/plugin";
 import { configDefaults } from "vitest/config";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), dts()],
+  plugins: [
+    react(),
+    dts(),
+    process.env.NODE_ENV === "development" ? vike() : undefined,
+  ],
   build: {
     lib: {
       entry: resolve(__dirname, "src/index.ts"),
@@ -24,14 +29,13 @@ export default defineConfig({
     },
   },
   test: {
-    global: true,
     environment: "jsdom",
     setupFiles: "./test-setup.js",
     exclude: [...configDefaults.exclude, "e2e/*", "playwright*"],
     coverage: {
       provider: "istanbul",
       reporter: ["text", "cobertura"],
-      threshold: {
+      thresholds: {
         global: {
           branches: 100,
           functions: 100,
