@@ -7,3 +7,4 @@ export { default as Copyright } from "./Copyright";
 export { default as ErrorPage } from "./ErrorPage";
 export { default as Accordion } from "./Accordion";
 export { default as Announcement } from "./Announcement";
+export { default as MiniMenu } from "./MiniMenu";
