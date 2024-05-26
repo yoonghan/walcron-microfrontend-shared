@@ -11,6 +11,10 @@ type MiniMenuProps = {
   onScrollMonitor?: () => void; // use to monitor unmount
 };
 
+interface ScrollIntoViewIfNeededElement extends HTMLAnchorElement {
+  scrollIntoViewIfNeeded: (isCenter: boolean) => void;
+}
+
 function MiniMenu({ model, onScrollMonitor }: MiniMenuProps) {
   const [selected, setSelected] = useState(0);
   const anchorRef = useRef<(HTMLAnchorElement | null)[]>([]);
@@ -40,12 +44,11 @@ function MiniMenu({ model, onScrollMonitor }: MiniMenuProps) {
         });
 
         const validIdx = idx < 0 ? 0 : idx;
-        const anchor = anchorRef.current[validIdx];
+        const anchor = anchorRef.current[
+          validIdx
+        ] as ScrollIntoViewIfNeededElement;
         if (anchor !== null && intersections[0].isIntersecting) {
-          (anchor as any).scrollIntoViewIfNeeded({
-            behavior: "instant",
-            inline: "center",
-          });
+          anchor.scrollIntoViewIfNeeded(true);
           setSelected(validIdx);
         }
       },

@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const reportWebVitals = (onPerfEntry: any) => {
+const reportWebVitals = (onPerfEntry: () => void) => {
   /* c8 ignore next */
   if (onPerfEntry && onPerfEntry instanceof Function) {
     import("web-vitals").then(({ onCLS, onFID, onFCP, onLCP, onTTFB }) => {
