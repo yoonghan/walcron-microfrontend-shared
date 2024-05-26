@@ -10,6 +10,8 @@ function getEventValueFromMetric(metric: Metric) {
 }
 
 function reportHandler(metric: Metric) {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   ga("send", "event", {
     eventCategory: "Web Vitals",
     eventAction: metric.name,

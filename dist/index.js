@@ -877,10 +877,7 @@ function tn({ model: t, onScrollMonitor: i }) {
     const p = new IntersectionObserver(
       (g) => {
         const C = g[0].target, I = t.findIndex((S) => S.hashId === C.id), U = I < 0 ? 0 : I, H = E.current[U];
-        H !== null && g[0].isIntersecting && (H.scrollIntoViewIfNeeded({
-          behavior: "instant",
-          inline: "center"
-        }), h(U));
+        H !== null && g[0].isIntersecting && (H.scrollIntoViewIfNeeded(!0), h(U));
       },
       {
         threshold: [0.3]

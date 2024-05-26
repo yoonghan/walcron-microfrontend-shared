@@ -9,7 +9,7 @@ import { configDefaults } from "vitest/config";
 export default defineConfig({
   plugins: [
     react(),
-    dts(),
+    dts({ exclude: "**/*.test.ts" }),
     process.env.NODE_ENV === "development" ? vike() : undefined,
   ],
   build: {
