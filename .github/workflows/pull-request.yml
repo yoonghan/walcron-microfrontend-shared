@@ -26,6 +26,11 @@ jobs:
             exit 1
           fi
 
+  check:
+    permissions:
+      pull-requests: write
+    uses: ./.github/workflows/compliance.yml
+
   update-version:
     needs: version-checker
     runs-on: ubuntu-latest
