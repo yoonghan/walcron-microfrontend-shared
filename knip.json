@@ -1,0 +1,11 @@
+{
+  "ignore": [
+    "renderer/**",
+    "dist/**",
+    "pages/**"
+  ],
+  "ignoreDependencies": [],
+  "ignoreBinaries": [
+    "export"
+  ]
+}
