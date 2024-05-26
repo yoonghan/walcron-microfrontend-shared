@@ -127,10 +127,7 @@ describe("MiniMenu", () => {
 
       expect(fivePillarsElem).toHaveClass("italic underline");
 
-      expect(scrollIntoViewCall).toHaveBeenCalledWith({
-        behavior: "instant",
-        inline: "center",
-      });
+      expect(scrollIntoViewCall).toHaveBeenCalledWith(true);
 
       scrollIntoViewCall.mockReset();
     });
