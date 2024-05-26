@@ -41,18 +41,8 @@ function Jr(t) {
   });
 }
 const qr = (t) => {
-  /* istanbul ignore next -- @preserve */
   t && t instanceof Function && import("./web-vitals-C2duWsRR.js").then(({ onCLS: i, onFID: f, onFCP: h, onLCP: E, onTTFB: _ }) => {
-    /* istanbul ignore next -- @preserve */
-    i(t);
-    /* istanbul ignore next -- @preserve */
-    f(t);
-    /* istanbul ignore next -- @preserve */
-    h(t);
-    /* istanbul ignore next -- @preserve */
-    E(t);
-    /* istanbul ignore next -- @preserve */
-    _(t);
+    i(t), f(t), h(t), E(t), _(t);
   });
 };
 function Rr(t, i) {

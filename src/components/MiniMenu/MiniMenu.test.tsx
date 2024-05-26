@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { act, fireEvent, render } from "@testing-library/react";
 import "../../__mocks__/intersectionObserver";
 import {
+  observe,
   disconnect,
   intersectionFn,
 } from "../../__mocks__/intersectionObserver";
@@ -42,18 +43,23 @@ describe("MiniMenu", () => {
   describe("sticky menu", () => {
     const renderComponentWithContainer = (scrollMonitorFn = vi.fn()) =>
       render(
-        <div>
-          <MiniMenu
-            model={[{ hashId: "long-list", title: "Long List" }]}
-            onScrollMonitor={scrollMonitorFn}
-          />
-        </div>
+        <>
+          <div id="long-list">Observed Long List</div>
+          <div>
+            <MiniMenu
+              model={[{ hashId: "long-list", title: "Long List" }]}
+              onScrollMonitor={scrollMonitorFn}
+            />
+          </div>
+        </>
       );
 
     it("should add sticky check on load", () => {
+      expect(observe).not.toHaveBeenCalled();
       const scrollMonitorFn = vi.fn();
       renderComponentWithContainer(scrollMonitorFn);
       expect(scrollMonitorFn).toHaveBeenCalledTimes(1);
+      expect(observe).toHaveBeenCalledTimes(1);
     });
 
     it("should add sticky class when scrolled over a distance", () => {

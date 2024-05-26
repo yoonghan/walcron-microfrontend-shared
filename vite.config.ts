@@ -33,15 +33,23 @@ export default defineConfig({
     setupFiles: "./test-setup.js",
     exclude: [...configDefaults.exclude, "e2e/*", "playwright*"],
     coverage: {
-      provider: "istanbul",
+      provider: "v8",
       reporter: ["text", "cobertura"],
+      exclude: [
+        "pages",
+        "server",
+        "renderer",
+        "src/stories/*",
+        ".storybook",
+        "playwright-report",
+        ".eslintrc.cjs",
+        "playwright.config.ts",
+      ],
       thresholds: {
-        global: {
-          branches: 100,
-          functions: 100,
-          lines: 100,
-          statements: 100,
-        },
+        branches: 100,
+        functions: 100,
+        lines: 100,
+        statements: 100,
       },
     },
     css: {

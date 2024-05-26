@@ -1,10 +1,11 @@
 import { vi, afterEach } from "vitest";
-const observe = vi.fn();
+export const observe = vi.fn();
 const unobserve = vi.fn();
 export const disconnect = vi.fn();
 export let intersectionFn = vi.fn();
 
 afterEach(() => {
+  observe.mockReset();
   disconnect.mockReset();
 });
 
@@ -13,7 +14,7 @@ class IntersectionObserver {
     intersectionFn = intersection;
   }
 
-  static observe = observe;
+  observe = observe;
 
   static unobserve = unobserve;
 
