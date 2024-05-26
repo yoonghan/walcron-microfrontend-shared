@@ -45,10 +45,10 @@ describe("Accordion", () => {
   it("should uncheck a checked radio", async () => {
     renderAccordion();
     const radio = screen.getByRole("radio", { name: "Item 1" });
-    userEvent.click(radio);
+    await userEvent.click(radio);
     expect(radio).toBeChecked();
 
-    userEvent.click(radio);
+    await userEvent.click(radio);
     expect(radio).not.toBeChecked();
   });
 
