@@ -10,6 +10,7 @@ import {
   debounce,
   htmlConvertor,
   useWindowListener,
+  MiniMenu,
 } from ".";
 
 describe("Integration test", () => {
@@ -36,6 +37,10 @@ describe("Integration test", () => {
 
     it("should expose Announcement", () => {
       expect(Announcement).toBeDefined;
+    });
+
+    it("should expose MiniMenu", () => {
+      expect(MiniMenu).toBeDefined;
     });
   });
 

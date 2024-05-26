@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("disabling javascript", () => {
+test.describe("disabled javascript", () => {
   test.use({ javaScriptEnabled: false });
 
   test("Announcement", async ({ page }) => {

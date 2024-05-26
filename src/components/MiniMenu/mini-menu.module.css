@@ -1,0 +1,38 @@
+.mini_menu {
+  overflow-x: auto;
+}
+
+.mini_menu > div {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  padding: 2rem;
+  min-width: 100%;
+}
+
+.mini_menu > div > a {
+  white-space: nowrap;
+}
+
+.mini_menu div[role="separator"] {
+  border-right: solid;
+}
+
+.mini_menu .container {
+  background-color: var(--secondary-color);
+  color: var(--secondary-text-color);
+}
+
+.mini_menu .container .separator {
+  border-color: var(--secondary-text-color);
+}
+
+.mini_menu.sticky {
+  top: 0;
+  position: sticky;
+  z-index: 899;
+}
+
+.mini_menu .underline {
+  text-decoration: underline;
+}

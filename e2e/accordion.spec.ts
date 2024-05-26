@@ -15,7 +15,7 @@ const click = async (page: Page, locator: Locator) => {
   await page.waitForTimeout(500); // 0.4s transition
 };
 
-test.describe("disabling javascript", () => {
+test.describe("disabled javascript", () => {
   test.use({ javaScriptEnabled: false });
 
   test("Single Accordion", async ({ page }) => {
