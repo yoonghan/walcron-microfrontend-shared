@@ -6,6 +6,7 @@ import {
   intersectionFn,
 } from "../../__mocks__/intersectionObserver";
 import MiniMenu from ".";
+import userEvent from "@testing-library/user-event";
 
 describe("MiniMenu", () => {
   const renderComponent = () =>
@@ -49,6 +50,12 @@ describe("MiniMenu", () => {
         </div>
       );
 
+    it("should add sticky check on load", () => {
+      const scrollMonitorFn = vi.fn();
+      renderComponentWithContainer(scrollMonitorFn);
+      expect(scrollMonitorFn).toHaveBeenCalledTimes(1);
+    });
+
     it("should add sticky class when scrolled over a distance", () => {
       const { getByRole } = renderComponentWithContainer();
       expect(getByRole("navigation").classList.contains("sticky")).toBeFalsy();
@@ -72,15 +79,23 @@ describe("MiniMenu", () => {
       const { unmount } = renderComponentWithContainer(scrollMonitorFn);
       window.scrollTo(0, 200);
       fireEvent.scroll(window, {});
-      expect(scrollMonitorFn).toHaveBeenCalledTimes(1);
+      expect(scrollMonitorFn).toHaveBeenCalledTimes(2);
       unmount();
       window.scrollTo(0, 200);
       fireEvent.scroll(window, {});
-      expect(scrollMonitorFn).toHaveBeenCalledTimes(1);
+      expect(scrollMonitorFn).toHaveBeenCalledTimes(2);
     });
   });
 
   describe("link click", () => {
+    it("should underline menu on selected index", async () => {
+      const { getByRole } = renderComponent();
+      const fivePillarsElem = getByRole("link", { name: "Five Pillars" });
+      await userEvent.click(fivePillarsElem);
+
+      expect(fivePillarsElem).toHaveClass("italic underline");
+    });
+
     it("should call scrollToView to horizontally scroll to itself and italize it", async () => {
       const { getByRole } = renderComponent();
       const fivePillarsElem = getByRole("link", { name: "Five Pillars" });

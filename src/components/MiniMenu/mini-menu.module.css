@@ -1,5 +1,5 @@
 .mini_menu {
-  overflow-x: hidden;
+  overflow-x: auto;
 }
 
 .mini_menu > div {
@@ -8,6 +8,10 @@
   justify-content: center;
   padding: 2rem;
   min-width: 100%;
+}
+
+.mini_menu > div > a {
+  white-space: nowrap;
 }
 
 .mini_menu div[role="separator"] {
@@ -23,12 +27,12 @@
   border-color: var(--secondary-text-color);
 }
 
-.mini_menu .sticky {
+.mini_menu.sticky {
   top: 0;
   position: sticky;
   z-index: 899;
 }
 
-.mini_menu .underlined {
+.mini_menu .underline {
   text-decoration: underline;
 }

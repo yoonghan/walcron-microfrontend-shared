@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./mini-menu.module.css";
 
 export type MiniMenuItems = {
@@ -23,10 +23,10 @@ function MiniMenu({ model, onScrollMonitor }: MiniMenuProps) {
       onScrollMonitor();
     }
     if (navBarRef.current) {
-      if (window.scrollY >= navBarPosition) {
-        navBarRef.current.classList.add(style.sticky);
+      if (window.scrollY > navBarPosition) {
+        navBarRef.current.classList.add(styles.sticky);
       } else {
-        navBarRef.current.classList.remove(style.sticky);
+        navBarRef.current.classList.remove(styles.sticky);
       }
     }
   }, [navBarPosition, onScrollMonitor]);
@@ -61,9 +61,17 @@ function MiniMenu({ model, onScrollMonitor }: MiniMenuProps) {
     return observer;
   }, [model]);
 
-  useLayoutEffect(() => {
+  const onClickSelectMenuItem = useCallback(
+    (idx: number) => () => {
+      setSelected(idx);
+    },
+    []
+  );
+
+  useEffect(() => {
     const observer = addMutationObserver();
     setNavBarPosition(navBarRef.current?.offsetHeight || 0);
+    addStickyToScroll();
     window.addEventListener("scroll", addStickyToScroll);
     return () => {
       window.removeEventListener("scroll", addStickyToScroll);
@@ -82,7 +90,10 @@ function MiniMenu({ model, onScrollMonitor }: MiniMenuProps) {
               ref={(el) => {
                 anchorRef.current[idx] = el;
               }}
-              className={idx === selected ? "underline italic" : undefined}
+              className={
+                idx === selected ? `${styles.underline} italic` : undefined
+              }
+              onClick={onClickSelectMenuItem(idx)}
             >
               {item.title}
             </a>
