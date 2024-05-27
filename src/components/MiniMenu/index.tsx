@@ -35,34 +35,47 @@ function MiniMenu({ model, onScrollMonitor }: MiniMenuProps) {
     }
   }, [navBarPosition, onScrollMonitor]);
 
-  const addMutationObserver = useCallback(() => {
-    const observer = new IntersectionObserver(
-      (intersections: IntersectionObserverEntry[]) => {
-        const target = intersections[0].target;
-        const idx = model.findIndex((item) => {
-          return item.hashId === target.id;
-        });
+  const intersectionObserver = useCallback(
+    (intersections: IntersectionObserverEntry[]) => {
+      const target = intersections[0].target;
+      const idx = model.findIndex((item) => {
+        return item.hashId === target.id;
+      });
 
-        const validIdx = idx < 0 ? 0 : idx;
-        const anchor = anchorRef.current[
-          validIdx
-        ] as ScrollIntoViewIfNeededElement;
-        if (anchor !== null && intersections[0].isIntersecting) {
-          anchor.scrollIntoViewIfNeeded(true);
-          setSelected(validIdx);
-        }
-      },
-      {
-        threshold: [0.3], //never accurate but it's the best
+      const validIdx = idx < 0 ? 0 : idx;
+      const anchor = anchorRef.current[
+        validIdx
+      ] as ScrollIntoViewIfNeededElement;
+      if (anchor !== null && intersections[0].isIntersecting) {
+        anchor.scrollIntoViewIfNeeded(true);
+        setSelected(validIdx);
       }
-    );
-    model.forEach((menuItem) => {
-      const elem = document.getElementById(menuItem.hashId);
-      if (elem !== null) observer.observe(elem);
+    },
+    [model]
+  );
+
+  const addMutationObserver = useCallback(() => {
+    const partialObserver = new IntersectionObserver(intersectionObserver, {
+      threshold: [0.3], //never accurate but it's the best
     });
 
-    return observer;
-  }, [model]);
+    const fullObserver = new IntersectionObserver(intersectionObserver, {
+      threshold: [1.0],
+    });
+
+    model.forEach((menuItem) => {
+      const elem = document.getElementById(menuItem.hashId);
+      if (elem !== null) {
+        if (elem.clientHeight < window.innerHeight) {
+          fullObserver.observe(elem);
+        } else {
+          partialObserver.observe(elem);
+        }
+      }
+    });
+
+    return [partialObserver, fullObserver];
+  }, [intersectionObserver, model]);
 
   const onClickSelectMenuItem = useCallback(
     (idx: number) => () => {
@@ -72,13 +85,13 @@ function MiniMenu({ model, onScrollMonitor }: MiniMenuProps) {
   );
 
   useEffect(() => {
-    const observer = addMutationObserver();
+    const observers = addMutationObserver();
     setNavBarPosition(navBarRef.current?.offsetHeight || 0);
     addStickyToScroll();
     window.addEventListener("scroll", addStickyToScroll);
     return () => {
       window.removeEventListener("scroll", addStickyToScroll);
-      observer.disconnect();
+      observers.forEach((observer) => observer.disconnect());
     };
   }, [addStickyToScroll, addMutationObserver]);
 

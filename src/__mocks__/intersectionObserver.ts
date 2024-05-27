@@ -1,4 +1,4 @@
-import { vi, afterEach } from "vitest";
+import { vi, afterEach, Mock } from "vitest";
 export const observe = vi.fn();
 const unobserve = vi.fn();
 export const disconnect = vi.fn();
@@ -10,24 +10,30 @@ afterEach(() => {
 });
 
 class IntersectionObserver {
-  constructor(intersection: any) {
+  threshold;
+
+  constructor(
+    intersection: Mock<unknown[], unknown>,
+    { threshold }: { threshold: number[] }
+  ) {
     intersectionFn = intersection;
+    this.threshold = threshold;
   }
 
-  observe = observe;
+  observe = (elem: HTMLElement) => observe(elem, this.threshold);
 
   static unobserve = unobserve;
 
   disconnect = disconnect;
 }
 
-(window.IntersectionObserver as any) = IntersectionObserver;
+(window.IntersectionObserver as unknown) = IntersectionObserver;
 
-(window.HTMLElement.prototype as any).scrollIntoViewIfNeeded = function () {
+(window.HTMLElement as any).prototype.scrollIntoViewIfNeeded = function () {
   /*empty mock*/
 };
 
-(window.scrollTo as any) = (x: number, y: number) => {
+(window.scrollTo as unknown) = (x: number, y: number) => {
   window.scrollY = y;
   window.scrollX = x;
 };

@@ -34,7 +34,11 @@ function Page() {
       <MiniMenu model={navModel} />
 
       {navModel.map((nav) => (
-        <div className="container" id={nav.hashId} key={nav.hashId}>
+        <div
+          className={nav.hashId === "mission" ? "container-2" : "container"}
+          id={nav.hashId}
+          key={nav.hashId}
+        >
           <strong>Title: {nav.title}</strong>
           <p>Lorem Ipsum</p>
         </div>

@@ -74,3 +74,8 @@ jobs:
             ${{ github.event.head_commit.message }}
           draft: false
           prerelease: false
+
+  check:
+    permissions:
+      pull-requests: write
+    uses: ./.github/workflows/compliance.yml
