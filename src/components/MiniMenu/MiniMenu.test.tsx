@@ -157,7 +157,50 @@ describe("MiniMenu", () => {
     it("should disconnect when unmount", () => {
       const { unmount } = renderComponent();
       unmount();
-      expect(disconnect).toHaveBeenCalledTimes(1);
+      expect(disconnect).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  describe("mount different size", () => {
+    const renderComponentWithSizedContainer = () =>
+      render(
+        <>
+          <a id="short-list">Observed Short List</a>
+          <div id="long-list">Observed Long List</div>
+          <div>
+            <MiniMenu
+              model={[
+                { hashId: "short-list", title: "Short List" },
+                { hashId: "long-list", title: "Long List" },
+              ]}
+            />
+          </div>
+        </>
+      );
+
+    it("should observe 2 different size", () => {
+      const windowHeight = 1000;
+      Object.defineProperty(HTMLSpanElement.prototype, "clientHeight", {
+        configurable: true,
+        value: windowHeight - 100,
+      });
+      Object.defineProperty(HTMLDivElement.prototype, "clientHeight", {
+        configurable: true,
+        value: windowHeight,
+      });
+      Object.defineProperty(window, "innerHeight", {
+        configurable: true,
+        value: windowHeight,
+      });
+      renderComponentWithSizedContainer();
+      expect(observe).toHaveBeenCalledWith(
+        document.getElementById("short-list"),
+        [1]
+      );
+      expect(observe).toHaveBeenCalledWith(
+        document.getElementById("long-list"),
+        [0.3]
+      );
     });
   });
 });
