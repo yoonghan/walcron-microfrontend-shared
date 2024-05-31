@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 
 test.describe("disabled javascript", () => {
   test.use({ javaScriptEnabled: false });
@@ -22,6 +22,11 @@ test.describe("disabled javascript", () => {
 });
 
 test.describe("enabled javascript", () => {
+  const wheelY = async (page: Page, scrollY: number) => {
+    await page.mouse.wheel(0, scrollY);
+    await page.waitForTimeout(200);
+  };
+
   test("hash link to work", async ({ page }) => {
     await page.goto("/minimenu#faq");
     const title = await page.getByText("Title: Frequent Asked Questions", {
@@ -46,15 +51,37 @@ test.describe("enabled javascript", () => {
       Math.floor(node.getBoundingClientRect().top)
     );
 
-    await page.mouse.wheel(0, scrollY); //not 100%, so do both.
-    await page.evaluate(() => {
-      window.scrollY = scrollY;
-    });
+    await wheelY(page, scrollY);
 
     expect(
       await title.evaluate((node) =>
         Math.floor(node.getBoundingClientRect().top)
       )
     ).toBe(oldOffsetHeight - scrollY);
+  });
+
+  test("minimenu is underlined when scrolled", async ({ page }) => {
+    page.setViewportSize({ width: 1024, height: 600 });
+
+    const assertClassHasUnderline = async (link: string) => {
+      const className = await page
+        .getByRole("link", { name: link })
+        .evaluate((node) => node.getAttribute("class"));
+      expect(className).toContain("underline");
+    };
+
+    await page.goto("/minimenu");
+    await page.waitForTimeout(200);
+
+    await wheelY(page, 600);
+    await assertClassHasUnderline("Purpose");
+
+    await wheelY(page, 350);
+
+    await wheelY(page, 50);
+    await assertClassHasUnderline("Objective");
+
+    await wheelY(page, 700);
+    await assertClassHasUnderline("Mission");
   });
 });
