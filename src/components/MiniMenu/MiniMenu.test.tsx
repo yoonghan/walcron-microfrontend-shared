@@ -41,10 +41,7 @@ describe("MiniMenu", () => {
   });
 
   describe("sticky menu", () => {
-    const renderComponentWithContainer = (
-      scrollMonitorFn = vi.fn(),
-      resizeMonitorFn = vi.fn()
-    ) =>
+    const renderComponentWithContainer = (scrollMonitorFn = vi.fn()) =>
       render(
         <>
           <div id="long-list">Observed Long List</div>
@@ -52,7 +49,6 @@ describe("MiniMenu", () => {
             <MiniMenu
               model={[{ hashId: "long-list", title: "Long List" }]}
               onScrollMonitor={scrollMonitorFn}
-              onResizeMonitor={resizeMonitorFn}
             />
           </div>
         </>
@@ -94,25 +90,17 @@ describe("MiniMenu", () => {
 
     it("unmount should not throw exception", () => {
       const scrollMonitorFn = vi.fn();
-      const resizeMonitorFn = vi.fn();
       Element.prototype.getBoundingClientRect = vi.fn(
         () => new DOMRect(0, 0, 0, 0)
       );
-      const { unmount } = renderComponentWithContainer(
-        scrollMonitorFn,
-        resizeMonitorFn
-      );
+      const { unmount } = renderComponentWithContainer(scrollMonitorFn);
       window.scrollTo(0, 200);
       fireEvent.scroll(window, {});
-      fireEvent.resize(window, {});
       expect(scrollMonitorFn).toHaveBeenCalledTimes(2);
-      expect(resizeMonitorFn).toHaveBeenCalledTimes(2);
       unmount();
       window.scrollTo(0, 200);
       fireEvent.scroll(window, {});
-      fireEvent.resize(window, {});
       expect(scrollMonitorFn).toHaveBeenCalledTimes(2);
-      expect(resizeMonitorFn).toHaveBeenCalledTimes(2);
     });
   });
 
