@@ -9,14 +9,13 @@ export type MiniMenuItems = {
 type MiniMenuProps = {
   model: MiniMenuItems[];
   onScrollMonitor?: () => void; // use to monitor unmount
-  onResizeMonitor?: () => void; // use to monitor unmount
 };
 
 interface ScrollIntoViewIfNeededElement extends HTMLAnchorElement {
   scrollIntoViewIfNeeded: (isCenter: boolean) => void;
 }
 
-function MiniMenu({ model, onScrollMonitor, onResizeMonitor }: MiniMenuProps) {
+function MiniMenu({ model, onScrollMonitor }: MiniMenuProps) {
   const [selected, setSelected] = useState(0);
   const anchorRef = useRef<(HTMLAnchorElement | null)[]>([]);
   const navBarRef = useRef<HTMLDivElement>(null);
@@ -85,25 +84,16 @@ function MiniMenu({ model, onScrollMonitor, onResizeMonitor }: MiniMenuProps) {
     []
   );
 
-  const addNavBarPositionOnResize = useCallback(() => {
-    if (onResizeMonitor) {
-      onResizeMonitor();
-    }
-    setNavBarPosition(navBarRef.current?.getBoundingClientRect().top || 0);
-  }, [onResizeMonitor]);
-
   useEffect(() => {
     const observers = addMutationObserver();
-    addNavBarPositionOnResize();
+    setNavBarPosition(navBarRef.current?.getBoundingClientRect().top || 0);
     addStickyToScroll();
-    window.addEventListener("resize", addNavBarPositionOnResize);
     window.addEventListener("scroll", addStickyToScroll);
     return () => {
       window.removeEventListener("scroll", addStickyToScroll);
-      window.removeEventListener("resize", addNavBarPositionOnResize);
       observers.forEach((observer) => observer.disconnect());
     };
-  }, [addStickyToScroll, addMutationObserver, addNavBarPositionOnResize]);
+  }, [addStickyToScroll, addMutationObserver]);
 
   return (
     <nav className={styles.mini_menu} ref={navBarRef}>
