@@ -41,7 +41,10 @@ describe("MiniMenu", () => {
   });
 
   describe("sticky menu", () => {
-    const renderComponentWithContainer = (scrollMonitorFn = vi.fn()) =>
+    const renderComponentWithContainer = (
+      scrollMonitorFn = vi.fn(),
+      resizeMonitorFn = vi.fn()
+    ) =>
       render(
         <>
           <div id="long-list">Observed Long List</div>
@@ -49,6 +52,7 @@ describe("MiniMenu", () => {
             <MiniMenu
               model={[{ hashId: "long-list", title: "Long List" }]}
               onScrollMonitor={scrollMonitorFn}
+              onResizeMonitor={resizeMonitorFn}
             />
           </div>
         </>
@@ -64,14 +68,22 @@ describe("MiniMenu", () => {
 
     it("should add sticky class when scrolled over a distance", () => {
       const { getByRole } = renderComponentWithContainer();
-      expect(getByRole("navigation").classList.contains("sticky")).toBeFalsy();
-      window.scrollTo(0, 200);
+      const navigation = getByRole("navigation");
+      Element.prototype.getBoundingClientRect = vi.fn(
+        () => new DOMRect(0, 0, 0, 0)
+      );
+      expect(navigation.classList.contains("sticky")).toBeFalsy();
+
+      window.scrollTo(0, 10);
       fireEvent.scroll(window, {});
       expect(getByRole("navigation")).toHaveClass("sticky");
     });
 
     it("should remove sticky when class scrolls down then up", () => {
       const { getByRole } = renderComponentWithContainer();
+      Element.prototype.getBoundingClientRect = vi.fn(
+        () => new DOMRect(0, 0, 0, 0)
+      );
       window.scrollTo(0, 200);
       fireEvent.scroll(window, {});
       expect(getByRole("navigation")).toHaveClass("sticky");
@@ -82,14 +94,25 @@ describe("MiniMenu", () => {
 
     it("unmount should not throw exception", () => {
       const scrollMonitorFn = vi.fn();
-      const { unmount } = renderComponentWithContainer(scrollMonitorFn);
+      const resizeMonitorFn = vi.fn();
+      Element.prototype.getBoundingClientRect = vi.fn(
+        () => new DOMRect(0, 0, 0, 0)
+      );
+      const { unmount } = renderComponentWithContainer(
+        scrollMonitorFn,
+        resizeMonitorFn
+      );
       window.scrollTo(0, 200);
       fireEvent.scroll(window, {});
+      fireEvent.resize(window, {});
       expect(scrollMonitorFn).toHaveBeenCalledTimes(2);
+      expect(resizeMonitorFn).toHaveBeenCalledTimes(2);
       unmount();
       window.scrollTo(0, 200);
       fireEvent.scroll(window, {});
+      fireEvent.resize(window, {});
       expect(scrollMonitorFn).toHaveBeenCalledTimes(2);
+      expect(resizeMonitorFn).toHaveBeenCalledTimes(2);
     });
   });
 
