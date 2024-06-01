@@ -863,7 +863,7 @@ function en({
     }
   );
 }
-const Nr = "_mini_menu_1xr6p_1", Yr = "_sticky_1xr6p_1", Mr = "_underline_1xr6p_27", G = {
+const Nr = "_mini_menu_cjvt3_1", Yr = "_sticky_cjvt3_1", Mr = "_underline_cjvt3_26", G = {
   mini_menu: Nr,
   sticky: Yr,
   underline: Mr
