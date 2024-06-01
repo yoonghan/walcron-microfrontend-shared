@@ -96,26 +96,24 @@ function MiniMenu({ model, onScrollMonitor }: MiniMenuProps) {
   }, [addStickyToScroll, addMutationObserver]);
 
   return (
-    <nav className={styles.mini_menu} ref={navBarRef} id="mini-menu-nav">
-      <div className={styles.container}>
-        {model.map((item, idx) => (
-          <React.Fragment key={item.hashId}>
-            {idx !== 0 && <div role="separator"></div>}
-            <a
-              href={`#${item.hashId}`}
-              ref={(el) => {
-                anchorRef.current[idx] = el;
-              }}
-              className={
-                idx === selected ? `${styles.underline} italic` : undefined
-              }
-              onClick={onClickSelectMenuItem(idx)}
-            >
-              {item.title}
-            </a>
-          </React.Fragment>
-        ))}
-      </div>
+    <nav className={styles.mini_menu} ref={navBarRef}>
+      {model.map((item, idx) => (
+        <React.Fragment key={item.hashId}>
+          {idx !== 0 && <div role="separator"></div>}
+          <a
+            href={`#${item.hashId}`}
+            ref={(el) => {
+              anchorRef.current[idx] = el;
+            }}
+            className={
+              idx === selected ? `${styles.underline} italic` : undefined
+            }
+            onClick={onClickSelectMenuItem(idx)}
+          >
+            {item.title}
+          </a>
+        </React.Fragment>
+      ))}
     </nav>
   );
 }
