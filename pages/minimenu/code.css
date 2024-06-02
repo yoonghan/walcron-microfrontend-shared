@@ -5,8 +5,3 @@
 .container-2 {
   height: 50vh;
 }
-
-:root {
-  --secondary-color: green;
-  --secondary-text-color: blue;
-}

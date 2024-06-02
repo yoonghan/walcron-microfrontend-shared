@@ -1,0 +1,9 @@
+:root {
+  --primary-color: green;
+  --primary-color-text: black;
+  --primary-700: rgb(8, 85, 8);
+  --primary-color-alt: transparent;
+  --primary-color-alt-text: blue;
+  --secondary-color: orange;
+  --secondary-text-color: purple;
+}

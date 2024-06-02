@@ -1,5 +1,5 @@
-import "./code.css";
 import Announcement from "../../src/components/Announcement";
+import React from "react";
 
 export { Page };
 

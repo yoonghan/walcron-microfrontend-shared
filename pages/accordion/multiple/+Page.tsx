@@ -1,13 +1,12 @@
+import React from "react";
 import Accordion from "../../../src/components/Accordion";
-import "../code.css";
 
 export { Page };
 
 function Page() {
   return (
     <>
-      <h1>Accordion</h1>
-
+      .<h1>Accordion</h1>
       <Accordion
         model={[
           {
