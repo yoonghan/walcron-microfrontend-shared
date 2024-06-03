@@ -1,6 +1,6 @@
 .announcement {
   background-color: var(--annoucement-color);
-  color: var(--announcement-text-color);
+  color: var(--announcement-color-text);
   display: grid;
   gap: 20px;
   grid-template-columns: 20px 1fr 20px 80px;
@@ -61,8 +61,8 @@
 
 .announcement button {
   display: flex;
-  background: var(--primary);
-  color: var(--primary-text);
+  background: var(--primary-color);
+  color: var(--primary-color-text);
   cursor: pointer;
   align-items: center;
   padding: 1rem;

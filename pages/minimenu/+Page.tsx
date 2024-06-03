@@ -1,5 +1,6 @@
 import "./code.css";
 import MiniMenu from "../../src/components/MiniMenu";
+import React from "react";
 
 export { Page };
 

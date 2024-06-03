@@ -1,5 +1,5 @@
+import React from "react";
 import Accordion from "../../../src/components/Accordion";
-import "../code.css";
 
 export { Page };
 
