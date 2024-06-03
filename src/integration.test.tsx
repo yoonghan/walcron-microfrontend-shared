@@ -11,6 +11,8 @@ import {
   htmlConvertor,
   useWindowListener,
   MiniMenu,
+  Menu,
+  MutableMenu,
 } from ".";
 
 describe("Integration test", () => {
@@ -41,6 +43,14 @@ describe("Integration test", () => {
 
     it("should expose MiniMenu", () => {
       expect(MiniMenu).toBeDefined;
+    });
+
+    it("should expose Menu", () => {
+      expect(Menu).toBeDefined;
+    });
+
+    it("should expose MutableMenu", () => {
+      expect(MutableMenu).toBeDefined;
     });
   });
 
