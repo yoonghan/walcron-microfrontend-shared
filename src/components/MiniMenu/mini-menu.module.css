@@ -7,7 +7,7 @@
 .minimenu {
   overflow-x: auto;
   background-color: var(--minimenu-color);
-  color: var(--minimenu-text-color);
+  color: var(--minimenu-color-text);
   display: flex;
   gap: 1rem;
   justify-content: center;
@@ -16,11 +16,12 @@
 
 .minimenu div[role="separator"] {
   border-right: solid;
-  border-color: var(--minimenu-text-color);
+  border-color: var(--minimenu-color-text);
 }
 
 .minimenu > a {
   white-space: nowrap;
+  color: var(--minimenu-color-text);
 }
 
 .minimenu .underline {
