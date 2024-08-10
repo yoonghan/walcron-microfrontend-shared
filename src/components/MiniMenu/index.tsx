@@ -96,7 +96,7 @@ function MiniMenu({ model, onScrollMonitor }: MiniMenuProps) {
   }, [addStickyToScroll, addMutationObserver]);
 
   return (
-    <nav className={styles.mini_menu} ref={navBarRef}>
+    <nav className={styles.minimenu} ref={navBarRef}>
       {model.map((item, idx) => (
         <React.Fragment key={item.hashId}>
           {idx !== 0 && <div role="separator"></div>}

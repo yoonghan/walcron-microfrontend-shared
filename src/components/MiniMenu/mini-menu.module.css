@@ -1,28 +1,28 @@
-.mini_menu.sticky {
+.minimenu.sticky {
   top: 0;
   position: sticky;
   z-index: 899;
 }
 
-.mini_menu {
+.minimenu {
   overflow-x: auto;
-  background-color: var(--secondary-color);
-  color: var(--secondary-text-color);
+  background-color: var(--minimenu-color);
+  color: var(--minimenu-text-color);
   display: flex;
   gap: 1rem;
   justify-content: center;
   padding: 2rem;
 }
 
-.mini_menu div[role="separator"] {
+.minimenu div[role="separator"] {
   border-right: solid;
-  border-color: var(--secondary-text-color);
+  border-color: var(--minimenu-text-color);
 }
 
-.mini_menu > a {
+.minimenu > a {
   white-space: nowrap;
 }
 
-.mini_menu .underline {
+.minimenu .underline {
   text-decoration: underline;
 }
