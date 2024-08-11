@@ -3,6 +3,10 @@
   padding: 0;
 }
 
+:is(.desktop__nav, .mobile__nav) ul > li {
+  padding-top: 0.5rem;
+}
+
 .desktop__nav {
   display: none;
 }
