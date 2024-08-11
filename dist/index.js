@@ -863,7 +863,7 @@ function un({
     }
   );
 }
-const Vr = "_minimenu_3x71u_1", Mr = "_sticky_3x71u_1", Br = "_underline_3x71u_27", X = {
+const Vr = "_minimenu_1c4fs_1", Mr = "_sticky_1c4fs_1", Br = "_underline_1c4fs_27", X = {
   minimenu: Vr,
   sticky: Mr,
   underline: Br
