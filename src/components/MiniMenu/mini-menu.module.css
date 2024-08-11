@@ -19,7 +19,7 @@
   border-color: var(--minimenu-color-text);
 }
 
-.minimenu > a {
+.minimenu > a > span {
   white-space: nowrap;
   color: var(--minimenu-color-text);
 }

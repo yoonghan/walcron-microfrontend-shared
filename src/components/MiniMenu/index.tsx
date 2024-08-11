@@ -110,7 +110,7 @@ function MiniMenu({ model, onScrollMonitor }: MiniMenuProps) {
             }
             onClick={onClickSelectMenuItem(idx)}
           >
-            {item.title}
+            <span>{item.title}</span>
           </a>
         </React.Fragment>
       ))}
