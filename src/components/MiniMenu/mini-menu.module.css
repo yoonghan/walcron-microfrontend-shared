@@ -26,4 +26,6 @@
 
 .minimenu .underline {
   text-decoration: underline;
+  text-underline-offset: 5px;
+  color: var(--minimenu-color-text);
 }
