@@ -82,11 +82,16 @@ describe("Menu", () => {
         shortcutComponent={shortcutComponent}
         mobileStyle={!isDesktop ? { display: "block" } : { display: "none" }}
         desktopStyle={isDesktop ? { display: "block" } : { display: "none" }}
+        desktopClassName="desktop-class"
+        mobileClassName="mobile-class"
       />
     );
 
   it("should will display mobile home text that links to home", () => {
     const { getByRole, getByText, getByLabelText } = renderMenuWithItems();
+
+    expect(getByRole("menubar").parentElement).toHaveClass("mobile-class");
+
     expect(getByRole("link", { name: "Zoo Negara Malaysia" })).toHaveAttribute(
       "href",
       "/"
@@ -102,6 +107,9 @@ describe("Menu", () => {
 
   it("should display menu correctly for desktop", () => {
     const { getByRole } = renderMenuWithItems(true);
+
+    expect(getByRole("menubar").parentElement).toHaveClass("desktop-class");
+
     expect(getByRole("link", { name: "home link" })).toHaveAttribute(
       "href",
       "/"
