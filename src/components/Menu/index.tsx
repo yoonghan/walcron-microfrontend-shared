@@ -23,6 +23,8 @@ export function MutableMenu({
   shortcutComponent,
   mobileStyle = {},
   desktopStyle = {},
+  desktopClassName = "",
+  mobileClassName = "",
 }: {
   menuLink: (
     text: string,
@@ -42,6 +44,8 @@ export function MutableMenu({
   shortcutComponent?: ReactNode;
   mobileStyle?: CSSProperties;
   desktopStyle?: CSSProperties;
+  desktopClassName?: string;
+  mobileClassName?: string;
 }) {
   const sideMenuRef = useRef<HTMLInputElement>(null);
 
@@ -144,7 +148,10 @@ export function MutableMenu({
 
   return (
     <>
-      <div className={style.mobile__nav} style={mobileStyle}>
+      <div
+        className={`${style.mobile__nav} ${mobileClassName}`}
+        style={mobileStyle}
+      >
         <div className={style["mobile-menu"]}>
           <label className={style.hamb} aria-label="Main Menu">
             <input
@@ -165,7 +172,10 @@ export function MutableMenu({
           </ul>
         </nav>
       </div>
-      <div className={style.desktop__nav} style={desktopStyle}>
+      <div
+        className={`${style.desktop__nav} ${desktopClassName}`}
+        style={desktopStyle}
+      >
         <nav role="menubar" className={style.menu}>
           <ul role="menu" aria-orientation="horizontal">
             <li role="menuitem">{homeLogoLink(style["home-logo"])}</li>
