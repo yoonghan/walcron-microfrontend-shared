@@ -31,7 +31,7 @@
     opacity: 0;
   }
   to {
-    max-height: 200px;
+    max-height: 500px;
     opacity: 1;
   }
 }
