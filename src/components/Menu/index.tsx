@@ -118,11 +118,12 @@ export function MutableMenu({
       >
         <div>
           {hasChild ? (
-            <label role="menuitem">
+            <label>
               <input
                 className={style["top-menu"]}
                 type="radio"
                 name="top-menu"
+                value={topMenuItem.label}
               />
               {topMenuItem.label}
             </label>
