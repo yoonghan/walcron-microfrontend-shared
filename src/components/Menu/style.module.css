@@ -63,6 +63,7 @@
   width: 0;
   z-index: 1;
   overflow: hidden;
+  font: 1em sans-serif;
   box-shadow: 8px 8px 8px -8px black;
 }
 
@@ -163,6 +164,8 @@
 .mobile__nav .side-menu {
   height: 0;
   width: 0;
+  border: 0;
+  display: contents;
 } /* Hide checkbox */
 
 /* Toggle menu icon */
@@ -203,7 +206,7 @@
   cursor: pointer;
 }
 
-.mobile__nav label[role="menuitem"]::before {
+.mobile__nav label.top__menu::before {
   content: "+";
   display: inline-block;
   padding-right: 0.5rem;
