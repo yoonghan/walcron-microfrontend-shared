@@ -118,7 +118,7 @@ export function MutableMenu({
       >
         <div>
           {hasChild ? (
-            <label>
+            <label className={style.top__menu}>
               <input
                 className={style["top-menu"]}
                 type="radio"
