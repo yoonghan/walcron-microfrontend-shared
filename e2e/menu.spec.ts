@@ -39,7 +39,8 @@ test.describe("disabled javascript in mobile", () => {
     ).toBeInViewport();
 
     const firstTopMenuItem = page
-      .getByRole("radio", { name: "Visitor Info" })
+      .getByRole("menubar")
+      .getByText("Visitor Info")
       .locator("../../../..");
     const hamburgerMenu = page.getByLabel("Main Menu");
 
