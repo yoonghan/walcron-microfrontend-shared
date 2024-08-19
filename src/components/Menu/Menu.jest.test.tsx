@@ -99,7 +99,6 @@ describe("Menu", () => {
     expect(getByText("Hamburger Menu")).toHaveClass("hamb-hidden");
     expect(getByLabelText("Main Menu")).toBeInTheDocument();
 
-    expect(getByRole("menuitem", { name: "Zoo Negara" })).toBeVisible();
     expect(getByRole("radio", { name: "Zoo Negara" })).toBeVisible();
     expect(getByRole("menuitem", { name: "About Us" })).toBeVisible();
     expect(getByRole("menuitem", { name: "Zoo Negara Logo" })).toBeVisible();
@@ -159,12 +158,12 @@ describe("Menu", () => {
   it("should not have link for mobile view, and click checks the radio", async () => {
     const { getByRole } = renderMenuWithItems(false);
 
-    expect(getByRole("menuitem", { name: "Zoo Negara" })).not.toHaveAttribute(
+    expect(getByRole("radio", { name: "Zoo Negara" })).not.toHaveAttribute(
       "href"
     );
 
     expect(getByRole("radio", { name: "Zoo Negara" })).not.toBeChecked();
-    await userEvent.click(getByRole("menuitem", { name: "Zoo Negara" }));
+    await userEvent.click(getByRole("radio", { name: "Zoo Negara" }));
     expect(getByRole("radio", { name: "Zoo Negara" })).toBeChecked();
 
     expect(getByRole("menuitem", { name: "News" })).toHaveAttribute("href");
@@ -223,7 +222,7 @@ describe("Menu", () => {
       await userEvent.click(sideMenuCheckBox);
       expect(sideMenuCheckBox).toBeChecked();
 
-      await userEvent.click(getByRole("menuitem", { name: "Zoo Negara" }));
+      await userEvent.click(getByRole("radio", { name: "Zoo Negara" }));
       expect(sideMenuCheckBox).toBeChecked();
     });
 

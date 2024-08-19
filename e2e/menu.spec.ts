@@ -39,7 +39,7 @@ test.describe("disabled javascript in mobile", () => {
     ).toBeInViewport();
 
     const firstTopMenuItem = page
-      .getByRole("menuitem", { name: "Visitor Info" })
+      .getByRole("radio", { name: "Visitor Info" })
       .locator("../../../..");
     const hamburgerMenu = page.getByLabel("Main Menu");
 
@@ -62,8 +62,8 @@ test.describe("disabled javascript in mobile", () => {
     await page.getByLabel("Main Menu").click();
 
     await page
-      .getByRole("menuitem", {
-        name: "+ Visitor Info",
+      .getByRole("menu")
+      .getByText("Visitor Info", {
         exact: true,
       })
       .click();

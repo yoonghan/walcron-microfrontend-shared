@@ -161,7 +161,8 @@
 
 .mobile__nav .top-menu,
 .mobile__nav .side-menu {
-  display: none;
+  height: 0;
+  width: 0;
 } /* Hide checkbox */
 
 /* Toggle menu icon */

@@ -123,6 +123,7 @@ export function MutableMenu({
                 className={style["top-menu"]}
                 type="radio"
                 name="top-menu"
+                value={topMenuItem.label}
               />
               {topMenuItem.label}
             </label>
