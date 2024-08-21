@@ -10,8 +10,10 @@ afterEach(() => {
 
 beforeAll(() => {
   global.ga = () => {};
+  global.gtag = () => {};
 });
 
 afterAll(() => {
   delete global.ga;
+  delete global.gtag;
 });
