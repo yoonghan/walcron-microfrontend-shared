@@ -13,6 +13,8 @@ import {
   MiniMenu,
   Menu,
   MutableMenu,
+  reportWebVitals,
+  gtagReportHandler,
 } from ".";
 
 describe("Integration test", () => {
@@ -57,6 +59,14 @@ describe("Integration test", () => {
   describe("helpers", () => {
     it("should export useNavigationListener", () => {
       expect(useNavigationListener).toBeDefined();
+    });
+
+    it("should export reportWebVitals", () => {
+      expect(reportWebVitals).toBeDefined();
+    });
+
+    it("should export gtagReportHandler", () => {
+      expect(gtagReportHandler).toBeDefined();
     });
   });
 
