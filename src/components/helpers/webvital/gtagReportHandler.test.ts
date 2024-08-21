@@ -20,8 +20,12 @@ describe("gtagReportHandler", () => {
   it("should be able to run report for CLS", () => {
     const mockedMetric: Metric = {
       name: "CLS",
+      value: 1,
+      rating: "good",
       delta: 5,
       id: "test",
+      entries: [],
+      navigationType: "restore"
     };
 
     gtagReportHandler(mockedMetric);
