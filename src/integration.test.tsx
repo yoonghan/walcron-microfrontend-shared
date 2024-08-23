@@ -14,7 +14,6 @@ import {
   Menu,
   MutableMenu,
   reportWebVitals,
-  gtagReportHandler,
 } from ".";
 
 describe("Integration test", () => {
@@ -63,10 +62,6 @@ describe("Integration test", () => {
 
     it("should export reportWebVitals", () => {
       expect(reportWebVitals).toBeDefined();
-    });
-
-    it("should export gtagReportHandler", () => {
-      expect(gtagReportHandler).toBeDefined();
     });
   });
 
