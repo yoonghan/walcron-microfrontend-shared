@@ -19,7 +19,6 @@ export function MutableMenu({
   homeLink,
   homeLogoLink,
   model,
-  mobileHomeText,
   shortcutComponent,
   mobileStyle = {},
   desktopStyle = {},
@@ -32,15 +31,9 @@ export function MutableMenu({
     role: "menuitem",
     onClick?: () => void
   ) => ReactNode;
-  homeLink: (
-    text: string,
-    href: string,
-    onClick: () => void,
-    tabIndex: number
-  ) => ReactNode;
+  homeLink: (href: string, onClick: () => void, tabIndex: number) => ReactNode;
   homeLogoLink: (helperClassName: string) => ReactNode;
   model: MenuType;
-  mobileHomeText: string;
   shortcutComponent?: ReactNode;
   mobileStyle?: CSSProperties;
   desktopStyle?: CSSProperties;
@@ -164,7 +157,7 @@ export function MutableMenu({
             <span className={style["hamb-line"]}></span>
             <span className={style["hamb-hidden"]}>Hamburger Menu</span>
           </label>
-          {homeLink(mobileHomeText, "/", unCheckSideMenu, -1)}
+          {homeLink("/", unCheckSideMenu, -1)}
           {shortcutComponent && shortcutComponent}
         </div>
         <nav role="menubar" className={style.menu}>
