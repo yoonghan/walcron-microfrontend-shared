@@ -120,8 +120,7 @@ describe("Menu", () => {
       <Menu
         menuLink={() => <></>}
         model={[]}
-        mobileHomeText="Not Memoized"
-        homeLink={() => <></>}
+        homeLink={() => <>Not Memomzied</>}
         homeLogoLink={() => <></>}
       />
     );
