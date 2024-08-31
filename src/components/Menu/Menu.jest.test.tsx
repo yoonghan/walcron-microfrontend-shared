@@ -22,12 +22,7 @@ describe("Menu", () => {
       {text}
     </a>
   );
-  const HomeLink = (
-    text: string,
-    href: string,
-    onClick: () => void,
-    tabIndex: number
-  ) => (
+  const HomeLink = (href: string, onClick: () => void, tabIndex: number) => (
     <a
       href={href}
       tabIndex={tabIndex}
@@ -36,7 +31,7 @@ describe("Menu", () => {
         onClick();
       }}
     >
-      {text}
+      {"Zoo Negara Malaysia"}
     </a>
   );
 
@@ -78,7 +73,6 @@ describe("Menu", () => {
             url: "/sample-us",
           },
         ]}
-        mobileHomeText="Zoo Negara Malaysia"
         shortcutComponent={shortcutComponent}
         mobileStyle={!isDesktop ? { display: "block" } : { display: "none" }}
         desktopStyle={isDesktop ? { display: "block" } : { display: "none" }}
@@ -126,8 +120,7 @@ describe("Menu", () => {
       <Menu
         menuLink={() => <></>}
         model={[]}
-        mobileHomeText="Not Memoized"
-        homeLink={() => <></>}
+        homeLink={() => <>Not Memomzied</>}
         homeLogoLink={() => <></>}
       />
     );

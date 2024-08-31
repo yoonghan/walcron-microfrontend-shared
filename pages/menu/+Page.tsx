@@ -22,12 +22,7 @@ function Page() {
     </a>
   );
 
-  const HomeLink = (
-    text: string,
-    href: string,
-    onClick: () => void,
-    tabIndex: number
-  ) => (
+  const HomeLink = (href: string, onClick: () => void, tabIndex: number) => (
     <a
       href={href}
       tabIndex={tabIndex}
@@ -36,7 +31,7 @@ function Page() {
         onClick();
       }}
     >
-      {text}
+      Zoo Negara Malaysia
     </a>
   );
 
@@ -142,7 +137,6 @@ function Page() {
             ],
           },
         ]}
-        mobileHomeText="Zoo Negara Malaysia"
         shortcutComponent={<button>+ Buy Now</button>}
       ></Menu>
     </header>
