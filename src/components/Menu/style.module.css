@@ -7,6 +7,22 @@
   padding-top: 0.5rem;
 }
 
+.expand {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+}
+
+.expand::after {
+  content: "";
+  border: solid var(--menu-color-text);
+  border-width: 0 2px 2px 0;
+  display: block;
+  padding: 2px;
+  margin: 0 0 3px 8px;
+  transform: rotate(45deg);
+}
+
 .desktop__nav {
   display: none;
 }
@@ -67,7 +83,8 @@
   box-shadow: 8px 8px 8px -8px black;
 }
 
-.desktop__nav .subnav:hover .subnav-content {
+.desktop__nav .subnav:hover .subnav-content,
+.desktop__nav .subnav.open .subnav-content {
   display: block;
   opacity: 1;
   width: auto;

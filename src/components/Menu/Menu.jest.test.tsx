@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Menu from ".";
 import { ReactNode } from "react";
 import userEvent from "@testing-library/user-event";
@@ -243,6 +243,104 @@ describe("Menu", () => {
       //uncheck
       await userEvent.click(sideMenuCheckBox);
       assertIsSideMenuUncheck(sideMenuCheckBox);
+    });
+  });
+
+  describe("accessibility for desktop", () => {
+    //let's ignore mobile
+
+    const renderDesktopWithAccessibility = (shortcutComponent?: ReactNode) =>
+      render(
+        <Menu
+          menuLink={MenuLink}
+          homeLink={HomeLink}
+          homeLogoLink={HomeLogoLink}
+          model={[
+            {
+              label: "Top Menu",
+              url: "/top-menu",
+              items: [
+                {
+                  label: "About Us",
+                },
+              ],
+            },
+            {
+              label: "Top Menu 2",
+              url: "/top-menu-2",
+              items: [
+                {
+                  label: "About Us 2",
+                },
+              ],
+            },
+            {
+              label: "News",
+              url: "/sample-us",
+            },
+          ]}
+          shortcutComponent={shortcutComponent}
+          mobileStyle={{ display: "none" }}
+          desktopStyle={{ display: "block" }}
+          desktopClassName="desktop-class"
+        />
+      );
+
+    const getMenuItem = (elem: Element) => elem.parentElement;
+
+    it("should show aria-expanded=false when top menu has submenus", () => {
+      renderDesktopWithAccessibility();
+      expect(
+        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }))
+      ).toHaveAttribute("aria-expanded", "false");
+      expect(
+        getMenuItem(screen.getByRole("menuitem", { name: "News" }))
+      ).not.toHaveAttribute("aria-expanded", "false");
+    });
+
+    it("should show aria-expanded=true when top menu's subbutton is clicked and has submenus on click again will close", async () => {
+      const getTopMenu = () =>
+        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }));
+      const getTopMenuParent = () => getTopMenu()?.parentElement;
+
+      renderDesktopWithAccessibility();
+      await userEvent.click(
+        screen.getByRole("button", { name: "Expand Top Menu" })
+      );
+      expect(getTopMenu()).toHaveAttribute("aria-expanded", "true");
+      expect(getTopMenuParent()).toHaveClass("open");
+      expect(
+        getMenuItem(screen.getByRole("menuitem", { name: "News" }))
+      ).not.toHaveAttribute("aria-expanded", "true");
+
+      await userEvent.click(
+        screen.getByRole("button", { name: "Expand Top Menu" })
+      );
+      expect(getTopMenu()).toHaveAttribute("aria-expanded", "false");
+      expect(getTopMenuParent()).not.toHaveClass("open");
+    });
+
+    it("should show aria-expanded=true when top menu's subbutton is clicked and is independant", async () => {
+      renderDesktopWithAccessibility();
+      await userEvent.click(
+        screen.getByRole("button", { name: "Expand Top Menu" })
+      );
+      expect(
+        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }))
+      ).toHaveAttribute("aria-expanded", "true");
+      expect(
+        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu 2" }))
+      ).toHaveAttribute("aria-expanded", "false");
+
+      await userEvent.click(
+        screen.getByRole("button", { name: "Expand Top Menu 2" })
+      );
+      expect(
+        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu 2" }))
+      ).toHaveAttribute("aria-expanded", "true");
+      expect(
+        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }))
+      ).toHaveAttribute("aria-expanded", "false");
     });
   });
 });

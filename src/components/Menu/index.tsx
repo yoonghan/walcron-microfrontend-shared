@@ -1,5 +1,26 @@
-import { CSSProperties, ChangeEvent, ReactNode, memo, useRef } from "react";
+import {
+  CSSProperties,
+  ChangeEvent,
+  ReactNode,
+  memo,
+  useCallback,
+  useRef,
+  useState,
+} from "react";
 import style from "./style.module.css";
+
+type MenuLink = (
+  text: string,
+  href: string,
+  role: "menuitem",
+  onClick?: () => void
+) => ReactNode;
+
+type SubMenu = (
+  subMenu: SubMenuItem[],
+  topMenuUrl: string,
+  onClick?: () => void
+) => ReactNode;
 
 type TopMenuItem = {
   label: string;
@@ -14,6 +35,59 @@ type SubMenuItem = {
 
 export type MenuType = TopMenuItem[];
 
+function DesktopTopMenu({
+  hasChild,
+  menuLink,
+  topMenuItem,
+  subMenu,
+  unCheckSideMenu,
+}: {
+  hasChild: boolean;
+  menuLink: MenuLink;
+  topMenuItem: TopMenuItem;
+  subMenu: SubMenu;
+  unCheckSideMenu: () => void;
+}) {
+  const [isSubMenuOpened, setSubMenuOpened] = useState(false);
+
+  const onSubMenuButtonClick = useCallback(() => {
+    setSubMenuOpened(!isSubMenuOpened);
+  }, [isSubMenuOpened]);
+
+  const onMenuBlur = useCallback(() => {
+    setSubMenuOpened(false);
+  }, []);
+
+  return (
+    <li
+      key={topMenuItem.label}
+      role="presentation"
+      className={
+        hasChild ? `${style.subnav} ${isSubMenuOpened ? style.open : ""}` : ""
+      }
+      onBlur={hasChild ? onMenuBlur : undefined}
+    >
+      <div aria-expanded={hasChild ? isSubMenuOpened : undefined}>
+        {menuLink(topMenuItem.label, topMenuItem.url, "menuitem")}
+        {hasChild && (
+          <button
+            onClick={onSubMenuButtonClick}
+            aria-label={`Expand ${topMenuItem.label}`}
+            className={style.expand}
+          ></button>
+        )}
+        {topMenuItem.items && (
+          <div role="presentation" className={style["subnav-content"]}>
+            <ul role="menu">
+              {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
+            </ul>
+          </div>
+        )}
+      </div>
+    </li>
+  );
+}
+
 export function MutableMenu({
   menuLink,
   homeLink,
@@ -25,12 +99,7 @@ export function MutableMenu({
   desktopClassName = "",
   mobileClassName = "",
 }: {
-  menuLink: (
-    text: string,
-    href: string,
-    role: "menuitem",
-    onClick?: () => void
-  ) => ReactNode;
+  menuLink: MenuLink;
   homeLink: (href: string, onClick: () => void, tabIndex: number) => ReactNode;
   homeLogoLink: (helperClassName: string) => ReactNode;
   model: MenuType;
@@ -78,25 +147,16 @@ export function MutableMenu({
     ));
 
   const desktopTopMenu = model.map((topMenuItem) => {
-    const hasChild = topMenuItem.items;
+    const hasChild = topMenuItem.items !== undefined;
 
     return (
-      <li
-        key={topMenuItem.label}
-        role="presentation"
-        className={hasChild ? style.subnav : ""}
-      >
-        <div>
-          {menuLink(topMenuItem.label, topMenuItem.url, "menuitem")}
-          {topMenuItem.items && (
-            <div role="presentation" className={style["subnav-content"]}>
-              <ul role="menu">
-                {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
-              </ul>
-            </div>
-          )}
-        </div>
-      </li>
+      <DesktopTopMenu
+        hasChild={hasChild}
+        menuLink={menuLink}
+        topMenuItem={topMenuItem}
+        subMenu={subMenu}
+        unCheckSideMenu={unCheckSideMenu}
+      />
     );
   });
 
