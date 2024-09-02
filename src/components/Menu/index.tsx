@@ -4,6 +4,7 @@ import {
   ReactNode,
   memo,
   useCallback,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -36,13 +37,11 @@ type SubMenuItem = {
 export type MenuType = TopMenuItem[];
 
 function DesktopTopMenu({
-  hasChild,
   menuLink,
   topMenuItem,
   subMenu,
   unCheckSideMenu,
 }: {
-  hasChild: boolean;
   menuLink: MenuLink;
   topMenuItem: TopMenuItem;
   subMenu: SubMenu;
@@ -58,32 +57,30 @@ function DesktopTopMenu({
     setSubMenuOpened(false);
   }, []);
 
-  return (
+  return topMenuItem.items !== undefined ? (
     <li
       key={topMenuItem.label}
       role="presentation"
-      className={
-        hasChild ? `${style.subnav} ${isSubMenuOpened ? style.open : ""}` : ""
-      }
-      onBlur={hasChild ? onMenuBlur : undefined}
+      className={`${style.subnav} ${isSubMenuOpened ? style.open : ""}`}
+      onBlur={onMenuBlur}
     >
-      <div aria-expanded={hasChild ? isSubMenuOpened : undefined}>
+      <div aria-expanded={isSubMenuOpened}>
         {menuLink(topMenuItem.label, topMenuItem.url, "menuitem")}
-        {hasChild && (
-          <button
-            onClick={onSubMenuButtonClick}
-            aria-label={`Expand ${topMenuItem.label}`}
-            className={style.expand}
-          ></button>
-        )}
-        {topMenuItem.items && (
-          <div role="presentation" className={style["subnav-content"]}>
-            <ul role="menu">
-              {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
-            </ul>
-          </div>
-        )}
+        <button
+          onClick={onSubMenuButtonClick}
+          aria-label={`Expand ${topMenuItem.label}`}
+          className={style.expand}
+        ></button>
+        <div role="presentation" className={style["subnav-content"]}>
+          <ul role="menu">
+            {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
+          </ul>
+        </div>
       </div>
+    </li>
+  ) : (
+    <li key={topMenuItem.label} role="presentation">
+      <div>{menuLink(topMenuItem.label, topMenuItem.url, "menuitem")}</div>
     </li>
   );
 }
@@ -147,11 +144,8 @@ export function MutableMenu({
     ));
 
   const desktopTopMenu = model.map((topMenuItem) => {
-    const hasChild = topMenuItem.items !== undefined;
-
     return (
       <DesktopTopMenu
-        hasChild={hasChild}
         menuLink={menuLink}
         topMenuItem={topMenuItem}
         subMenu={subMenu}
