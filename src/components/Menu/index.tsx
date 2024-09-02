@@ -71,7 +71,7 @@ function DesktopTopMenu({
           aria-label={`Expand ${topMenuItem.label}`}
           className={style.expand}
         ></button>
-        <div role="presentation" className={style["subnav-content"]}>
+        <div role="presentation" className={style.subnav_content}>
           <ul role="menu">
             {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
           </ul>
@@ -183,7 +183,7 @@ export function MutableMenu({
             )
           )}
           {topMenuItem.items && (
-            <div role="presentation" className={style["subnav-content"]}>
+            <div role="presentation" className={style.subnav_content}>
               <ul role="menu">
                 {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
               </ul>
