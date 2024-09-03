@@ -79,33 +79,85 @@ function DesktopTopMenu({
     []
   );
 
-  return topMenuItem.items !== undefined ? (
-    <li
-      role="presentation"
-      className={`${style.subnav} ${isSubMenuOpened ? style.open : ""}`}
-      onBlur={onMenuBlur}
-      ref={liRef}
-    >
-      <div aria-expanded={isSubMenuOpened}>
-        {menuLink(topMenuItem.label, topMenuItem.url, "menuitem")}
-        <button
-          onClick={onExpandButtonClick}
-          onKeyUp={onExpandButtonKeyUp}
-          aria-label={`Expand ${topMenuItem.label}`}
-          className={style.expand}
-        ></button>
-        <div role="presentation" className={style.subnav_content}>
-          <ul role="menu" onFocus={(e) => e.stopPropagation()}>
-            {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
-          </ul>
+  if (topMenuItem.items !== undefined) {
+    return (
+      <li
+        role="presentation"
+        className={`${style.subnav} ${isSubMenuOpened ? style.open : ""}`}
+        onBlur={onMenuBlur}
+        ref={liRef}
+      >
+        <div aria-expanded={isSubMenuOpened}>
+          {menuLink(topMenuItem.label, topMenuItem.url, "menuitem")}
+          <button
+            onClick={onExpandButtonClick}
+            onKeyUp={onExpandButtonKeyUp}
+            aria-label={`Expand ${topMenuItem.label}`}
+            className={style.expand}
+          ></button>
+          <div role="presentation" className={style.subnav_content}>
+            <ul role="menu" onFocus={(e) => e.stopPropagation()}>
+              {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
+            </ul>
+          </div>
         </div>
-      </div>
-    </li>
-  ) : (
-    <li key={topMenuItem.label} role="presentation">
-      <div>{menuLink(topMenuItem.label, topMenuItem.url, "menuitem")}</div>
-    </li>
-  );
+      </li>
+    );
+  } else {
+    return (
+      <li key={topMenuItem.label} role="presentation">
+        <div>{menuLink(topMenuItem.label, topMenuItem.url, "menuitem")}</div>
+      </li>
+    );
+  }
+}
+
+function MobileTopMenu({
+  menuLink,
+  topMenuItem,
+  subMenu,
+  unCheckSideMenu,
+}: {
+  menuLink: MenuLink;
+  topMenuItem: TopMenuItem;
+  subMenu: SubMenu;
+  unCheckSideMenu: () => void;
+}) {
+  if (topMenuItem.items !== undefined) {
+    return (
+      <li key={topMenuItem.label} role="presentation" className={style.subnav}>
+        <div>
+          <label className={style.top__menu}>
+            <input
+              className={style["top-menu"]}
+              type="radio"
+              name="top-menu"
+              value={topMenuItem.label}
+            />
+            {topMenuItem.label}
+          </label>
+          <div role="presentation" className={style.subnav_content}>
+            <ul role="menu">
+              {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
+            </ul>
+          </div>
+        </div>
+      </li>
+    );
+  } else {
+    return (
+      <li key={topMenuItem.label} role="presentation">
+        <div>
+          {menuLink(
+            topMenuItem.label,
+            topMenuItem.url,
+            "menuitem",
+            unCheckSideMenu
+          )}
+        </div>
+      </li>
+    );
+  }
 }
 
 export function MutableMenu({
@@ -166,57 +218,25 @@ export function MutableMenu({
       </li>
     ));
 
-  const desktopTopMenu = model.map((topMenuItem) => {
-    return (
-      <DesktopTopMenu
-        menuLink={menuLink}
-        topMenuItem={topMenuItem}
-        subMenu={subMenu}
-        unCheckSideMenu={unCheckSideMenu}
-        key={topMenuItem.label}
-      />
-    );
-  });
+  const desktopTopMenu = model.map((topMenuItem) => (
+    <DesktopTopMenu
+      menuLink={menuLink}
+      topMenuItem={topMenuItem}
+      subMenu={subMenu}
+      unCheckSideMenu={unCheckSideMenu}
+      key={topMenuItem.label}
+    />
+  ));
 
-  const mobileTopMenu = model.map((topMenuItem) => {
-    const hasChild = topMenuItem.items;
-
-    return (
-      <li
-        key={topMenuItem.label}
-        role="presentation"
-        className={hasChild ? style.subnav : ""}
-      >
-        <div>
-          {hasChild ? (
-            <label className={style.top__menu}>
-              <input
-                className={style["top-menu"]}
-                type="radio"
-                name="top-menu"
-                value={topMenuItem.label}
-              />
-              {topMenuItem.label}
-            </label>
-          ) : (
-            menuLink(
-              topMenuItem.label,
-              topMenuItem.url,
-              "menuitem",
-              unCheckSideMenu
-            )
-          )}
-          {topMenuItem.items && (
-            <div role="presentation" className={style.subnav_content}>
-              <ul role="menu">
-                {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
-              </ul>
-            </div>
-          )}
-        </div>
-      </li>
-    );
-  });
+  const mobileTopMenu = model.map((topMenuItem) => (
+    <MobileTopMenu
+      menuLink={menuLink}
+      topMenuItem={topMenuItem}
+      subMenu={subMenu}
+      unCheckSideMenu={unCheckSideMenu}
+      key={topMenuItem.label}
+    />
+  ));
 
   return (
     <>
