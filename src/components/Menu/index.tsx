@@ -4,7 +4,6 @@ import {
   ReactNode,
   memo,
   useCallback,
-  useMemo,
   useRef,
   useState,
 } from "react";
@@ -48,21 +47,32 @@ function DesktopTopMenu({
   unCheckSideMenu: () => void;
 }) {
   const [isSubMenuOpened, setSubMenuOpened] = useState(false);
+  const liRef = useRef(null);
 
   const onSubMenuButtonClick = useCallback(() => {
     setSubMenuOpened(!isSubMenuOpened);
   }, [isSubMenuOpened]);
 
-  const onMenuBlur = useCallback(() => {
-    setSubMenuOpened(false);
-  }, []);
+  const onMenuBlur = useCallback(
+    (event: React.FocusEvent<HTMLLIElement, Element>) => {
+      let parentNode = event.relatedTarget?.parentNode;
+      for (let count = 0; count < 8; count++) {
+        parentNode = parentNode?.parentNode;
+        if (parentNode === liRef.current) {
+          return;
+        }
+      }
+      setSubMenuOpened(false);
+    },
+    []
+  );
 
   return topMenuItem.items !== undefined ? (
     <li
-      key={topMenuItem.label}
       role="presentation"
       className={`${style.subnav} ${isSubMenuOpened ? style.open : ""}`}
       onBlur={onMenuBlur}
+      ref={liRef}
     >
       <div aria-expanded={isSubMenuOpened}>
         {menuLink(topMenuItem.label, topMenuItem.url, "menuitem")}
@@ -72,7 +82,7 @@ function DesktopTopMenu({
           className={style.expand}
         ></button>
         <div role="presentation" className={style.subnav_content}>
-          <ul role="menu">
+          <ul role="menu" onFocus={(e) => e.stopPropagation()}>
             {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
           </ul>
         </div>
@@ -150,6 +160,7 @@ export function MutableMenu({
         topMenuItem={topMenuItem}
         subMenu={subMenu}
         unCheckSideMenu={unCheckSideMenu}
+        key={topMenuItem.label}
       />
     );
   });

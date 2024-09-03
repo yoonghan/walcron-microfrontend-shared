@@ -263,6 +263,9 @@ describe("Menu", () => {
                 {
                   label: "About Us",
                 },
+                {
+                  label: "What about us",
+                },
               ],
             },
             {
@@ -341,6 +344,31 @@ describe("Menu", () => {
       expect(
         getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }))
       ).toHaveAttribute("aria-expanded", "false");
+    });
+
+    it("should show aria-expanded=true when using keyboard navigation", async () => {
+      renderDesktopWithAccessibility();
+
+      await userEvent.type(
+        screen.getByRole("button", { name: "Expand Top Menu" }),
+        "{space}"
+      ); //menu should open
+      expect(
+        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }))
+      ).toHaveAttribute("aria-expanded", "true");
+
+      const topMenuItem = getMenuItem(
+        screen.getByRole("menuitem", { name: "Top Menu" })
+      );
+
+      await userEvent.tab(); //next sub menu focus should remain open
+      expect(topMenuItem).toHaveAttribute("aria-expanded", "true");
+
+      await userEvent.tab(); //next next sub menu focus should remain open
+      expect(topMenuItem).toHaveAttribute("aria-expanded", "true");
+
+      await userEvent.tab(); //next menu should close on item
+      expect(topMenuItem).toHaveAttribute("aria-expanded", "false");
     });
   });
 });
