@@ -370,5 +370,31 @@ describe("Menu", () => {
       await userEvent.tab(); //next menu should close on item
       expect(topMenuItem).toHaveAttribute("aria-expanded", "false");
     });
+
+    it("should be able control expand button using keyboard", async () => {
+      renderDesktopWithAccessibility();
+
+      const topMenu = screen.getByRole("button", { name: "Expand Top Menu" });
+
+      await userEvent.type(topMenu, "{space}");
+      expect(
+        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }))
+      ).toHaveAttribute("aria-expanded", "true");
+
+      await userEvent.keyboard("{arrowup}");
+      expect(
+        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }))
+      ).toHaveAttribute("aria-expanded", "false");
+
+      await userEvent.keyboard("{arrowdown}");
+      expect(
+        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }))
+      ).toHaveAttribute("aria-expanded", "true");
+
+      await userEvent.keyboard("{escape}");
+      expect(
+        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }))
+      ).toHaveAttribute("aria-expanded", "false");
+    });
   });
 });

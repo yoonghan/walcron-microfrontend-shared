@@ -49,9 +49,21 @@ function DesktopTopMenu({
   const [isSubMenuOpened, setSubMenuOpened] = useState(false);
   const liRef = useRef(null);
 
-  const onSubMenuButtonClick = useCallback(() => {
+  const onExpandButtonClick = useCallback(() => {
     setSubMenuOpened(!isSubMenuOpened);
   }, [isSubMenuOpened]);
+
+  const onExpandButtonKeyUp = useCallback(
+    (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      if (event.key === "Escape" || event.key === "ArrowUp") {
+        setSubMenuOpened(false);
+      }
+      if (event.key === "ArrowDown") {
+        setSubMenuOpened(true);
+      }
+    },
+    []
+  );
 
   const onMenuBlur = useCallback(
     (event: React.FocusEvent<HTMLLIElement, Element>) => {
@@ -77,7 +89,8 @@ function DesktopTopMenu({
       <div aria-expanded={isSubMenuOpened}>
         {menuLink(topMenuItem.label, topMenuItem.url, "menuitem")}
         <button
-          onClick={onSubMenuButtonClick}
+          onClick={onExpandButtonClick}
+          onKeyUp={onExpandButtonKeyUp}
           aria-label={`Expand ${topMenuItem.label}`}
           className={style.expand}
         ></button>
