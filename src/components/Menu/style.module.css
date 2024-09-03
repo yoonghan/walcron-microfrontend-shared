@@ -11,16 +11,29 @@
   background-color: transparent;
   padding: 0;
   border: none;
+  margin-left: 5px;
 }
 
 .expand::after {
+  content: "";
+  border: solid transparent;
+  border-width: 0 2px 2px 0;
+  display: block;
+  padding: 2px;
+  transform: rotate(45deg);
+  top: -3px;
+  position: relative;
+}
+
+.expand:focus::after {
   content: "";
   border: solid var(--menu-color-text);
   border-width: 0 2px 2px 0;
   display: block;
   padding: 2px;
-  margin: 0 0 3px 8px;
   transform: rotate(45deg);
+  top: -3px;
+  position: relative;
 }
 
 .desktop__nav {
