@@ -5,15 +5,9 @@ import userEvent from "@testing-library/user-event";
 import { describe, it, expect } from "vitest";
 
 describe("Menu", () => {
-  const MenuLink = (
-    text: string,
-    href: string,
-    role: "menuitem",
-    onClick?: () => void
-  ) => (
+  const MenuLink = (text: string, href: string, onClick?: () => void) => (
     <a
       href={href}
-      role={role}
       onClick={(e) => {
         e.preventDefault();
         onClick && onClick();

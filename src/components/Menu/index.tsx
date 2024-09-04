@@ -9,12 +9,7 @@ import React, {
 } from "react";
 import style from "./style.module.css";
 
-type MenuLink = (
-  text: string,
-  href: string,
-  role: "menuitem",
-  onClick?: () => void
-) => ReactNode;
+type MenuLink = (text: string, href: string, onClick?: () => void) => ReactNode;
 
 type SubMenu = (
   subMenu: SubMenuItem[],
@@ -82,13 +77,13 @@ function DesktopTopMenu({
   if (topMenuItem.items !== undefined) {
     return (
       <li
-        role="presentation"
+        role="menuitem"
         className={`${style.subnav} ${isSubMenuOpened ? style.open : ""}`}
         onBlur={onMenuBlur}
         ref={liRef}
         aria-expanded={isSubMenuOpened}
       >
-        {menuLink(topMenuItem.label, topMenuItem.url, "menuitem")}
+        {menuLink(topMenuItem.label, topMenuItem.url)}
         <button
           onClick={onExpandButtonClick}
           onKeyUp={onExpandButtonKeyUp}
@@ -104,8 +99,8 @@ function DesktopTopMenu({
     );
   } else {
     return (
-      <li key={topMenuItem.label} role="presentation">
-        {menuLink(topMenuItem.label, topMenuItem.url, "menuitem")}
+      <li key={topMenuItem.label} role="menuitem">
+        {menuLink(topMenuItem.label, topMenuItem.url)}
       </li>
     );
   }
@@ -141,7 +136,7 @@ function MobileTopMenu({
     return (
       <li
         key={topMenuItem.label}
-        role="presentation"
+        role="menuitem"
         className={style.subnav}
         aria-expanded={isSubMenuOpened}
       >
@@ -154,12 +149,7 @@ function MobileTopMenu({
         >
           <input type="radio" name="top_menu" value={topMenuItem.label} />
         </label>
-        {menuLink(
-          topMenuItem.label,
-          topMenuItem.url,
-          "menuitem",
-          unCheckSideMenu
-        )}
+        {menuLink(topMenuItem.label, topMenuItem.url, unCheckSideMenu)}
         <div role="presentation" className={style.subnav_content}>
           <ul role="menu">
             {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
@@ -170,12 +160,7 @@ function MobileTopMenu({
   } else {
     return (
       <li key={topMenuItem.label} role="presentation">
-        {menuLink(
-          topMenuItem.label,
-          topMenuItem.url,
-          "menuitem",
-          unCheckSideMenu
-        )}
+        {menuLink(topMenuItem.label, topMenuItem.url, unCheckSideMenu)}
       </li>
     );
   }
@@ -233,7 +218,6 @@ export function MutableMenu({
         {menuLink(
           subMenuItem.label,
           replaceWithTopMenuUrlIfAHashlinkOrEmpty(topMenuUrl, subMenuItem.url),
-          "menuitem",
           onClick
         )}
       </li>
