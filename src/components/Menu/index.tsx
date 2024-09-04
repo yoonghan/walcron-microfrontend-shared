@@ -86,27 +86,26 @@ function DesktopTopMenu({
         className={`${style.subnav} ${isSubMenuOpened ? style.open : ""}`}
         onBlur={onMenuBlur}
         ref={liRef}
+        aria-expanded={isSubMenuOpened}
       >
-        <div aria-expanded={isSubMenuOpened}>
-          {menuLink(topMenuItem.label, topMenuItem.url, "menuitem")}
-          <button
-            onClick={onExpandButtonClick}
-            onKeyUp={onExpandButtonKeyUp}
-            aria-label={`Expand ${topMenuItem.label}`}
-            className={style.expand}
-          ></button>
-          <div role="presentation" className={style.subnav_content}>
-            <ul role="menu" onFocus={(e) => e.stopPropagation()}>
-              {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
-            </ul>
-          </div>
+        {menuLink(topMenuItem.label, topMenuItem.url, "menuitem")}
+        <button
+          onClick={onExpandButtonClick}
+          onKeyUp={onExpandButtonKeyUp}
+          aria-label={`Expand ${topMenuItem.label}`}
+          className={style.expand}
+        ></button>
+        <div role="presentation" className={style.subnav_content}>
+          <ul role="menu" onFocus={(e) => e.stopPropagation()}>
+            {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
+          </ul>
         </div>
       </li>
     );
   } else {
     return (
       <li key={topMenuItem.label} role="presentation">
-        <div>{menuLink(topMenuItem.label, topMenuItem.url, "menuitem")}</div>
+        {menuLink(topMenuItem.label, topMenuItem.url, "menuitem")}
       </li>
     );
   }
@@ -171,14 +170,12 @@ function MobileTopMenu({
   } else {
     return (
       <li key={topMenuItem.label} role="presentation">
-        <div>
-          {menuLink(
-            topMenuItem.label,
-            topMenuItem.url,
-            "menuitem",
-            unCheckSideMenu
-          )}
-        </div>
+        {menuLink(
+          topMenuItem.label,
+          topMenuItem.url,
+          "menuitem",
+          unCheckSideMenu
+        )}
       </li>
     );
   }

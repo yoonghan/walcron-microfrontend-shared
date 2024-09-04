@@ -301,14 +301,13 @@ describe("Menu", () => {
     it("should show aria-expanded=true when top menu's subbutton is clicked and has submenus on click again will close", async () => {
       const getTopMenu = () =>
         getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }));
-      const getTopMenuParent = () => getTopMenu()?.parentElement;
 
       renderDesktopWithAccessibility();
       await userEvent.click(
         screen.getByRole("button", { name: "Expand Top Menu" })
       );
       expect(getTopMenu()).toHaveAttribute("aria-expanded", "true");
-      expect(getTopMenuParent()).toHaveClass("open");
+      expect(getTopMenu()).toHaveClass("open");
       expect(
         getMenuItem(screen.getByRole("menuitem", { name: "News" }))
       ).not.toHaveAttribute("aria-expanded", "true");
@@ -317,7 +316,7 @@ describe("Menu", () => {
         screen.getByRole("button", { name: "Expand Top Menu" })
       );
       expect(getTopMenu()).toHaveAttribute("aria-expanded", "false");
-      expect(getTopMenuParent()).not.toHaveClass("open");
+      expect(getTopMenu()).not.toHaveClass("open");
     });
 
     it("should show aria-expanded=true when top menu's subbutton is clicked and is independant", async () => {
