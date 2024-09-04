@@ -159,7 +159,7 @@ function MobileTopMenu({
     );
   } else {
     return (
-      <li key={topMenuItem.label} role="presentation">
+      <li key={topMenuItem.label} role="menuitem">
         {menuLink(topMenuItem.label, topMenuItem.url, unCheckSideMenu)}
       </li>
     );
