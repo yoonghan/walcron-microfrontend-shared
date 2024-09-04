@@ -83,17 +83,20 @@ function DesktopTopMenu({
         ref={liRef}
         aria-expanded={isSubMenuOpened}
       >
-        {menuLink(topMenuItem.label, topMenuItem.url)}
-        <button
-          onClick={onExpandButtonClick}
-          onKeyUp={onExpandButtonKeyUp}
-          aria-label={`Expand ${topMenuItem.label}`}
-          className={style.expand}
-        ></button>
-        <div role="presentation" className={style.subnav_content}>
-          <ul role="menu" onFocus={(e) => e.stopPropagation()}>
-            {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
-          </ul>
+        <div>
+          {menuLink(topMenuItem.label, topMenuItem.url)}
+          <button
+            onClick={onExpandButtonClick}
+            onKeyUp={onExpandButtonKeyUp}
+            aria-label={`Expand ${topMenuItem.label}`}
+            aria-expanded={isSubMenuOpened}
+            className={style.expand}
+          ></button>
+          <div className={style.subnav_content}>
+            <ul role="menu" onFocus={(e) => e.stopPropagation()}>
+              {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
+            </ul>
+          </div>
         </div>
       </li>
     );
@@ -101,6 +104,7 @@ function DesktopTopMenu({
     return (
       <li key={topMenuItem.label} role="menuitem">
         {menuLink(topMenuItem.label, topMenuItem.url)}
+        <div className={style.expand_dummy}></div>
       </li>
     );
   }
@@ -150,7 +154,7 @@ function MobileTopMenu({
           <input type="radio" name="top_menu" value={topMenuItem.label} />
         </label>
         {menuLink(topMenuItem.label, topMenuItem.url, unCheckSideMenu)}
-        <div role="presentation" className={style.subnav_content}>
+        <div className={style.subnav_content}>
           <ul role="menu">
             {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
           </ul>
@@ -214,7 +218,7 @@ export function MutableMenu({
     onClick?: () => void
   ) =>
     subMenu.map((subMenuItem) => (
-      <li key={subMenuItem.label} role="presentation">
+      <li key={subMenuItem.label} role="menuitem">
         {menuLink(
           subMenuItem.label,
           replaceWithTopMenuUrlIfAHashlinkOrEmpty(topMenuUrl, subMenuItem.url),

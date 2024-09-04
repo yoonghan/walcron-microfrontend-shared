@@ -21,7 +21,11 @@ function PageShell({
         <Layout>
           <Sidebar>
             <Logo />
-            <Link href="/">Welcome</Link>
+            <Link href="/menu">Menu</Link>
+            <Link href="/minimenu">Mini Menu</Link>
+            <Link href="/accordion/multiple">Accordion - Multiple</Link>
+            <Link href="/accordion/single">Accordion - Single</Link>
+            <Link href="/announcement">Announcement</Link>
           </Sidebar>
           <Content>{children}</Content>
         </Layout>

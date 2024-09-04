@@ -107,6 +107,10 @@ jobs:
         with:
           urls: |
             http://localhost:3000/menu
+            http://localhost:3000/minimenu
+            http://localhost:3000/accordion/single
+            http://localhost:3000/accordion/multiple
+            http://localhost:3000/announcement
           configPath: "./lighthouserc.json"
 
       - name: ✅ Verify status
