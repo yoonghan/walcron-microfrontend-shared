@@ -93,7 +93,7 @@ describe("Menu", () => {
     expect(getByText("Hamburger Menu")).toHaveClass("hamb-hidden");
     expect(getByLabelText("Main Menu")).toBeInTheDocument();
 
-    expect(getByRole("radio", { name: "Zoo Negara" })).toBeVisible();
+    expect(getByRole("radio", { name: "Expand Zoo Negara" })).toBeVisible();
     expect(getByRole("menuitem", { name: "About Us" })).toBeVisible();
     expect(getByRole("menuitem", { name: "Zoo Negara Logo" })).toBeVisible();
   });
@@ -151,13 +151,13 @@ describe("Menu", () => {
   it("should not have link for mobile view, and click checks the radio", async () => {
     const { getByRole } = renderMenuWithItems(false);
 
-    expect(getByRole("radio", { name: "Zoo Negara" })).not.toHaveAttribute(
-      "href"
-    );
+    expect(
+      getByRole("radio", { name: "Expand Zoo Negara" })
+    ).not.toHaveAttribute("href");
 
-    expect(getByRole("radio", { name: "Zoo Negara" })).not.toBeChecked();
-    await userEvent.click(getByRole("radio", { name: "Zoo Negara" }));
-    expect(getByRole("radio", { name: "Zoo Negara" })).toBeChecked();
+    expect(getByRole("radio", { name: "Expand Zoo Negara" })).not.toBeChecked();
+    await userEvent.click(getByRole("radio", { name: "Expand Zoo Negara" }));
+    expect(getByRole("radio", { name: "Expand Zoo Negara" })).toBeChecked();
 
     expect(getByRole("menuitem", { name: "News" })).toHaveAttribute("href");
   });
@@ -215,7 +215,7 @@ describe("Menu", () => {
       await userEvent.click(sideMenuCheckBox);
       expect(sideMenuCheckBox).toBeChecked();
 
-      await userEvent.click(getByRole("radio", { name: "Zoo Negara" }));
+      await userEvent.click(getByRole("radio", { name: "Expand Zoo Negara" }));
       expect(sideMenuCheckBox).toBeChecked();
     });
 
@@ -247,8 +247,6 @@ describe("Menu", () => {
   });
 
   describe("accessibility for desktop", () => {
-    //let's ignore mobile
-
     const renderDesktopWithAccessibility = (shortcutComponent?: ReactNode) =>
       render(
         <Menu
@@ -395,6 +393,100 @@ describe("Menu", () => {
       expect(
         getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }))
       ).toHaveAttribute("aria-expanded", "false");
+    });
+  });
+
+  describe("accessibility for mobile", () => {
+    const renderMobileWithAccessibility = () =>
+      render(
+        <Menu
+          menuLink={MenuLink}
+          homeLink={HomeLink}
+          homeLogoLink={HomeLogoLink}
+          model={[
+            {
+              label: "Top Menu",
+              url: "/top-menu",
+              items: [
+                {
+                  label: "About Us",
+                },
+                {
+                  label: "What about us",
+                },
+              ],
+            },
+            {
+              label: "Top Menu 2",
+              url: "/top-menu-2",
+              items: [
+                {
+                  label: "About Us 2",
+                },
+              ],
+            },
+            {
+              label: "News",
+              url: "/sample-us",
+            },
+          ]}
+          mobileStyle={{ display: "block" }}
+          desktopStyle={{ display: "none" }}
+        />
+      );
+
+    const getMenuItem = (elem: Element) => elem.parentElement;
+
+    it("should show aria-expanded=false when top menu has submenus", () => {
+      renderMobileWithAccessibility();
+      expect(
+        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }))
+      ).toHaveAttribute("aria-expanded", "false");
+      expect(
+        getMenuItem(screen.getByRole("menuitem", { name: "News" }))
+      ).not.toHaveAttribute("aria-expanded", "false");
+    });
+
+    it("should show aria-expanded=true when top menu's subbutton is clicked and has submenus on click again will close", async () => {
+      const getTopMenu = () =>
+        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }));
+      const getTopMenuParent = () => getTopMenu()?.parentElement;
+
+      renderMobileWithAccessibility();
+      await userEvent.click(
+        screen.getByRole("radio", { name: "Expand Top Menu" })
+      );
+      expect(getTopMenu()).toHaveAttribute("aria-expanded", "true");
+      expect(
+        getMenuItem(screen.getByRole("menuitem", { name: "News" }))
+      ).not.toHaveAttribute("aria-expanded", "true");
+
+      await userEvent.click(
+        screen.getByRole("radio", { name: "Expand Top Menu" })
+      );
+      expect(getTopMenu()).toHaveAttribute("aria-expanded", "false");
+    });
+
+    it("should show aria-expanded=true when using keyboard navigation", async () => {
+      renderMobileWithAccessibility();
+
+      const topMenuItem = getMenuItem(
+        screen.getByRole("menuitem", { name: "Top Menu" })
+      );
+
+      await userEvent.click(
+        screen.getByRole("radio", { name: "Expand Top Menu" })
+      ); //menu should open
+      expect(topMenuItem).toHaveAttribute("aria-expanded", "true");
+
+      await userEvent.keyboard("{Space}"); //will close it
+      expect(topMenuItem).toHaveAttribute("aria-expanded", "false");
+
+      await userEvent.keyboard("{Enter}"); //will open it
+      expect(topMenuItem).toHaveAttribute("aria-expanded", "true");
+
+      await userEvent.keyboard(" "); //will remain..some bug here it
+      expect(topMenuItem).toHaveAttribute("aria-expanded", "true");
     });
   });
 });

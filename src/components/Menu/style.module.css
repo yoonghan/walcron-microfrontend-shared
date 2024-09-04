@@ -216,9 +216,11 @@
   max-height: 320px;
   padding: 0 0 10px 0;
   border-radius: 0 0 4px 4px;
+  display: block;
 }
 
 .mobile__nav .subnav_content {
+  display: none;
   opacity: 0;
   z-index: 1;
   max-height: 0;

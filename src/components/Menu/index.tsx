@@ -1,4 +1,4 @@
-import {
+import React, {
   CSSProperties,
   ChangeEvent,
   ReactNode,
@@ -123,24 +123,48 @@ function MobileTopMenu({
   subMenu: SubMenu;
   unCheckSideMenu: () => void;
 }) {
+  const [isSubMenuOpened, setSubMenuOpened] = useState(false);
+
+  const onTopMenuClick = useCallback(() => {
+    setSubMenuOpened(!isSubMenuOpened);
+  }, [isSubMenuOpened]);
+
+  const onTopMenuKeyClick = useCallback(
+    (event: React.KeyboardEvent<HTMLLabelElement>) => {
+      if (event.key === "Space" || event.key === " " || event.key === "Enter") {
+        (event.currentTarget.firstElementChild as HTMLInputElement).click();
+      }
+    },
+    []
+  );
+
   if (topMenuItem.items !== undefined) {
     return (
-      <li key={topMenuItem.label} role="presentation" className={style.subnav}>
-        <div>
-          <label className={style.top__menu} aria-label={topMenuItem.label}>
-            <input type="radio" name="top_menu" value={topMenuItem.label} />
-          </label>
-          {menuLink(
-            topMenuItem.label,
-            topMenuItem.url,
-            "menuitem",
-            unCheckSideMenu
-          )}
-          <div role="presentation" className={style.subnav_content}>
-            <ul role="menu">
-              {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
-            </ul>
-          </div>
+      <li
+        key={topMenuItem.label}
+        role="presentation"
+        className={style.subnav}
+        aria-expanded={isSubMenuOpened}
+      >
+        <label
+          className={style.top__menu}
+          tabIndex={0}
+          onClick={onTopMenuClick}
+          onKeyUp={onTopMenuKeyClick}
+          aria-label={`Expand ${topMenuItem.label}`}
+        >
+          <input type="radio" name="top_menu" value={topMenuItem.label} />
+        </label>
+        {menuLink(
+          topMenuItem.label,
+          topMenuItem.url,
+          "menuitem",
+          unCheckSideMenu
+        )}
+        <div role="presentation" className={style.subnav_content}>
+          <ul role="menu">
+            {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
+          </ul>
         </div>
       </li>
     );
