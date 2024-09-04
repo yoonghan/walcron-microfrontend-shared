@@ -280,7 +280,7 @@ describe("Menu", () => {
         />
       );
 
-    const getMenuItem = (elem: Element) => elem.parentElement;
+    const getMenuItem = (elem: Element) => elem.parentElement?.parentElement;
 
     it("should show aria-expanded=false when top menu has submenus", () => {
       renderDesktopWithAccessibility();
