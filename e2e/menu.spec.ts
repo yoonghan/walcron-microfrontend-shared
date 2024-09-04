@@ -8,7 +8,7 @@ test.describe("desktop view", () => {
   test("menu pop-up on hover", async ({ page }) => {
     await page.goto("http://localhost:3000/menu");
 
-    const firstTopMenuItem = page.getByRole("menuitem", {
+    const firstTopMenuItem = page.getByRole("link", {
       name: "Visitor Info",
       exact: true,
     });
@@ -18,7 +18,7 @@ test.describe("desktop view", () => {
     await firstTopMenuItem.hover();
 
     await expect(
-      page.getByRole("menuitem", {
+      page.getByRole("link", {
         name: "Opening Hours And Rates",
         exact: true,
       })
@@ -38,21 +38,16 @@ test.describe("disabled javascript in mobile", () => {
       page.getByRole("link", { name: "Zoo Negara Malaysia" })
     ).toBeInViewport();
 
-    const firstTopMenuItem = page
-      .getByRole("menubar")
-      .getByText("Visitor Info")
-      .locator("../../../..");
     const hamburgerMenu = page.getByLabel("Main Menu");
 
-    await expect(firstTopMenuItem).not.toBeVisible();
+    await hamburgerMenu.click();
+
+    const menuitem = page.getByRole("link", { name: "Visitor Info" });
+    await expect(menuitem).toBeVisible();
 
     await hamburgerMenu.click();
 
-    await expect(firstTopMenuItem).toBeVisible();
-
-    await hamburgerMenu.click();
-
-    await expect(firstTopMenuItem).not.toBeVisible();
+    await expect(menuitem).not.toBeInViewport();
   });
 
   test("menu that has child will be expanded (with +) and child is clickable", async ({
@@ -64,13 +59,11 @@ test.describe("disabled javascript in mobile", () => {
 
     await page
       .getByRole("menu")
-      .getByText("Visitor Info", {
-        exact: true,
-      })
+      .getByLabel("Expand Visitor Info", { exact: true })
       .click();
 
     await page
-      .getByRole("menuitem", {
+      .getByRole("link", {
         name: "Opening Hours And Rates",
         exact: true,
       })
@@ -85,7 +78,7 @@ test.describe("disabled javascript in mobile", () => {
     await page.getByLabel("Main Menu").click();
 
     await page
-      .getByRole("menuitem", {
+      .getByRole("link", {
         name: "About Zoo",
         exact: true,
       })

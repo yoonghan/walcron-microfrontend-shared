@@ -7,6 +7,28 @@
   padding-top: 0.5rem;
 }
 
+.expand {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  margin-left: 5px;
+  height: 10px;
+  width: 10px;
+}
+
+.expand:focus::after {
+  content: "";
+  border: solid var(--menu-color-text);
+  border-width: 0 2px 2px 0;
+  display: block;
+  padding: 2px;
+  transform: rotate(45deg);
+  top: -3px;
+  width: 5px;
+  height: 5px;
+  position: relative;
+}
+
 .desktop__nav {
   display: none;
 }
@@ -57,21 +79,19 @@
   background: var(--menu-color);
 }
 
-.desktop__nav .subnav-content {
-  height: 0;
+.desktop__nav .subnav_content {
   opacity: 0;
-  width: 0;
+  display: none;
   z-index: 1;
   overflow: hidden;
   font: 1em sans-serif;
   box-shadow: 8px 8px 8px -8px black;
 }
 
-.desktop__nav .subnav:hover .subnav-content {
+.desktop__nav .subnav:hover .subnav_content,
+.desktop__nav .subnav.open .subnav_content {
   display: block;
   opacity: 1;
-  width: auto;
-  height: auto;
   border-radius: 0 0 4px 4px;
   animation: grow 0.2s ease-out;
   position: absolute;
@@ -159,8 +179,8 @@
   display: none;
 }
 
-.mobile__nav .top-menu,
-.mobile__nav .side-menu {
+.mobile__nav .top__menu > input,
+.mobile__nav .side__menu {
   height: 0;
   width: 0;
   border: 0;
@@ -168,30 +188,32 @@
 } /* Hide checkbox */
 
 /* Toggle menu icon */
-.mobile__nav:has(.side-menu:checked) .menu {
+.mobile__nav:has(.side__menu:checked) .menu {
   max-height: calc(100% - 80px);
 }
-.mobile-menu:has(.side-menu:checked) .hamb .hamb-line {
+.mobile-menu:has(.side__menu:checked) .hamb .hamb-line {
   background: transparent;
 }
-.mobile-menu:has(.side-menu:checked) .hamb .hamb-line::before {
+.mobile-menu:has(.side__menu:checked) .hamb .hamb-line::before {
   transform: rotate(-45deg);
   top: 0;
 }
-.mobile-menu:has(.side-menu:checked) .hamb .hamb-line::after {
+.mobile-menu:has(.side__menu:checked) .hamb .hamb-line::after {
   transform: rotate(45deg);
   top: 0;
 }
 
 /* Toggle top menu */
-.mobile__nav .subnav:has(.top-menu:checked) .subnav-content {
+.mobile__nav .subnav:has(.top__menu > input:checked) .subnav_content {
   opacity: 1;
   max-height: 320px;
   padding: 0 0 10px 0;
   border-radius: 0 0 4px 4px;
+  display: block;
 }
 
-.mobile__nav .subnav-content {
+.mobile__nav .subnav_content {
+  display: none;
   opacity: 0;
   z-index: 1;
   max-height: 0;
@@ -205,16 +227,17 @@
   cursor: pointer;
 }
 
-.mobile__nav label.top__menu::before {
+.mobile__nav .top__menu::before {
   content: "+";
   display: inline-block;
   padding-right: 0.5rem;
+  font-size: 1.25rem;
 }
 
-.mobile__nav .subnav:has(.top-menu:checked) label[role="menuitem"]::before {
-  content: "-";
+.mobile__nav .top__menu:has(input:checked)::before {
+  content: "–";
 }
 
-header:has(.side-menu:checked) {
+header:has(.side__menu:checked) {
   position: sticky;
 }

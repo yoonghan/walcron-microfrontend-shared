@@ -72,3 +72,56 @@ jobs:
         with:
           name: Compliance report
           path: ${{github.workspace}}/reports
+
+  accessibilities:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: 🛑 Cancel previous runs
+        uses: styfle/cancel-workflow-action@0.12.1
+
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: "npm"
+          registry-url: https://npm.pkg.github.com/
+
+      - name: 📥 Fresh install dependencies
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: ▶️ Start website in background
+        run: |
+          npm run build 
+          npm run start &
+
+      - name: ▶️ Audit URLs using Lighthouse
+        uses: treosh/lighthouse-ci-action@v12
+        continue-on-error: true
+        with:
+          urls: |
+            http://localhost:3000/menu
+          configPath: "./lighthouserc.json"
+
+      - name: ✅ Verify status
+        run: |
+          file=assertion-results.json
+          if grep "error" .lighthouseci/$file 1> /dev/null 2>&1; then
+            echo "Required HTML syntax fixes"
+            echo "---"
+            cat .lighthouseci/$file
+            exit 1
+          fi
+
+      - name: ⬆️ Upload Lighthouse results
+        uses: actions/upload-artifact@master
+        if: github.ref == 'refs/heads/master'
+        with:
+          name: Lighthouse report
+          path: .lighthouseci

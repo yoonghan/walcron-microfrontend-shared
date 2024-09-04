@@ -1,5 +1,21 @@
-import { CSSProperties, ChangeEvent, ReactNode, memo, useRef } from "react";
+import React, {
+  CSSProperties,
+  ChangeEvent,
+  ReactNode,
+  memo,
+  useCallback,
+  useRef,
+  useState,
+} from "react";
 import style from "./style.module.css";
+
+type MenuLink = (text: string, href: string, onClick?: () => void) => ReactNode;
+
+type SubMenu = (
+  subMenu: SubMenuItem[],
+  topMenuUrl: string,
+  onClick?: () => void
+) => ReactNode;
 
 type TopMenuItem = {
   label: string;
@@ -14,6 +30,142 @@ type SubMenuItem = {
 
 export type MenuType = TopMenuItem[];
 
+function DesktopTopMenu({
+  menuLink,
+  topMenuItem,
+  subMenu,
+  unCheckSideMenu,
+}: {
+  menuLink: MenuLink;
+  topMenuItem: TopMenuItem;
+  subMenu: SubMenu;
+  unCheckSideMenu: () => void;
+}) {
+  const [isSubMenuOpened, setSubMenuOpened] = useState(false);
+  const liRef = useRef(null);
+
+  const onExpandButtonClick = useCallback(() => {
+    setSubMenuOpened(!isSubMenuOpened);
+  }, [isSubMenuOpened]);
+
+  const onExpandButtonKeyUp = useCallback(
+    (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      if (event.key === "Escape" || event.key === "ArrowUp") {
+        setSubMenuOpened(false);
+      }
+      if (event.key === "ArrowDown") {
+        setSubMenuOpened(true);
+      }
+    },
+    []
+  );
+
+  const onMenuBlur = useCallback(
+    (event: React.FocusEvent<HTMLLIElement, Element>) => {
+      let parentNode = event.relatedTarget?.parentNode;
+      for (let count = 0; count < 8; count++) {
+        parentNode = parentNode?.parentNode;
+        if (parentNode === liRef.current) {
+          return;
+        }
+      }
+      setSubMenuOpened(false);
+    },
+    []
+  );
+
+  if (topMenuItem.items !== undefined) {
+    return (
+      <li
+        role="menuitem"
+        className={`${style.subnav} ${isSubMenuOpened ? style.open : ""}`}
+        onBlur={onMenuBlur}
+        ref={liRef}
+        aria-expanded={isSubMenuOpened}
+      >
+        {menuLink(topMenuItem.label, topMenuItem.url)}
+        <button
+          onClick={onExpandButtonClick}
+          onKeyUp={onExpandButtonKeyUp}
+          aria-label={`Expand ${topMenuItem.label}`}
+          className={style.expand}
+        ></button>
+        <div role="presentation" className={style.subnav_content}>
+          <ul role="menu" onFocus={(e) => e.stopPropagation()}>
+            {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
+          </ul>
+        </div>
+      </li>
+    );
+  } else {
+    return (
+      <li key={topMenuItem.label} role="menuitem">
+        {menuLink(topMenuItem.label, topMenuItem.url)}
+      </li>
+    );
+  }
+}
+
+function MobileTopMenu({
+  menuLink,
+  topMenuItem,
+  subMenu,
+  unCheckSideMenu,
+}: {
+  menuLink: MenuLink;
+  topMenuItem: TopMenuItem;
+  subMenu: SubMenu;
+  unCheckSideMenu: () => void;
+}) {
+  const [isSubMenuOpened, setSubMenuOpened] = useState(false);
+
+  const onTopMenuClick = useCallback(() => {
+    setSubMenuOpened(!isSubMenuOpened);
+  }, [isSubMenuOpened]);
+
+  const onTopMenuKeyClick = useCallback(
+    (event: React.KeyboardEvent<HTMLLabelElement>) => {
+      if (event.key === "Space" || event.key === " " || event.key === "Enter") {
+        (event.currentTarget.firstElementChild as HTMLInputElement).click();
+      }
+    },
+    []
+  );
+
+  if (topMenuItem.items !== undefined) {
+    return (
+      <li
+        key={topMenuItem.label}
+        role="menuitem"
+        className={style.subnav}
+        aria-expanded={isSubMenuOpened}
+      >
+        <label
+          className={style.top__menu}
+          tabIndex={0}
+          onClick={onTopMenuClick}
+          onKeyUp={onTopMenuKeyClick}
+          aria-label={`Expand ${topMenuItem.label}`}
+        >
+          <input type="radio" name="top_menu" value={topMenuItem.label} />
+        </label>
+        {menuLink(topMenuItem.label, topMenuItem.url, unCheckSideMenu)}
+        <div role="presentation" className={style.subnav_content}>
+          <ul role="menu">
+            {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
+          </ul>
+        </div>
+      </li>
+    );
+  } else {
+    return (
+      <li key={topMenuItem.label} role="menuitem">
+        {menuLink(topMenuItem.label, topMenuItem.url, unCheckSideMenu)}
+      </li>
+    );
+  }
+}
+
 export function MutableMenu({
   menuLink,
   homeLink,
@@ -25,12 +177,7 @@ export function MutableMenu({
   desktopClassName = "",
   mobileClassName = "",
 }: {
-  menuLink: (
-    text: string,
-    href: string,
-    role: "menuitem",
-    onClick?: () => void
-  ) => ReactNode;
+  menuLink: MenuLink;
   homeLink: (href: string, onClick: () => void, tabIndex: number) => ReactNode;
   homeLogoLink: (helperClassName: string) => ReactNode;
   model: MenuType;
@@ -71,74 +218,30 @@ export function MutableMenu({
         {menuLink(
           subMenuItem.label,
           replaceWithTopMenuUrlIfAHashlinkOrEmpty(topMenuUrl, subMenuItem.url),
-          "menuitem",
           onClick
         )}
       </li>
     ));
 
-  const desktopTopMenu = model.map((topMenuItem) => {
-    const hasChild = topMenuItem.items;
+  const desktopTopMenu = model.map((topMenuItem) => (
+    <DesktopTopMenu
+      menuLink={menuLink}
+      topMenuItem={topMenuItem}
+      subMenu={subMenu}
+      unCheckSideMenu={unCheckSideMenu}
+      key={topMenuItem.label}
+    />
+  ));
 
-    return (
-      <li
-        key={topMenuItem.label}
-        role="presentation"
-        className={hasChild ? style.subnav : ""}
-      >
-        <div>
-          {menuLink(topMenuItem.label, topMenuItem.url, "menuitem")}
-          {topMenuItem.items && (
-            <div role="presentation" className={style["subnav-content"]}>
-              <ul role="menu">
-                {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
-              </ul>
-            </div>
-          )}
-        </div>
-      </li>
-    );
-  });
-
-  const mobileTopMenu = model.map((topMenuItem) => {
-    const hasChild = topMenuItem.items;
-
-    return (
-      <li
-        key={topMenuItem.label}
-        role="presentation"
-        className={hasChild ? style.subnav : ""}
-      >
-        <div>
-          {hasChild ? (
-            <label className={style.top__menu}>
-              <input
-                className={style["top-menu"]}
-                type="radio"
-                name="top-menu"
-                value={topMenuItem.label}
-              />
-              {topMenuItem.label}
-            </label>
-          ) : (
-            menuLink(
-              topMenuItem.label,
-              topMenuItem.url,
-              "menuitem",
-              unCheckSideMenu
-            )
-          )}
-          {topMenuItem.items && (
-            <div role="presentation" className={style["subnav-content"]}>
-              <ul role="menu">
-                {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
-              </ul>
-            </div>
-          )}
-        </div>
-      </li>
-    );
-  });
+  const mobileTopMenu = model.map((topMenuItem) => (
+    <MobileTopMenu
+      menuLink={menuLink}
+      topMenuItem={topMenuItem}
+      subMenu={subMenu}
+      unCheckSideMenu={unCheckSideMenu}
+      key={topMenuItem.label}
+    />
+  ));
 
   return (
     <>
@@ -149,7 +252,7 @@ export function MutableMenu({
         <div className={style["mobile-menu"]}>
           <label className={style.hamb} aria-label="Main Menu">
             <input
-              className={style["side-menu"]}
+              className={style.side__menu}
               type="checkbox"
               ref={sideMenuRef}
               onChange={onSideMenuChange}
