@@ -21,7 +21,7 @@ test.describe("disabled javascript", () => {
   test("Single Accordion", async ({ page }) => {
     await page.goto("/accordion/single");
 
-    await page.getByText("Accordion").click();
+    await page.getByText("Accordion", { exact: true }).click();
 
     const accordionTitle1 = page.getByText("Radio 1");
     const accordionTitle2 = page.getByText("Radio 2");
