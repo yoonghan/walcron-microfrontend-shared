@@ -8,7 +8,7 @@ test.describe("desktop view", () => {
   test("menu pop-up on hover", async ({ page }) => {
     await page.goto("http://localhost:3000/menu");
 
-    const firstTopMenuItem = page.getByRole("menuitem", {
+    const firstTopMenuItem = page.getByRole("link", {
       name: "Visitor Info",
       exact: true,
     });
@@ -18,7 +18,7 @@ test.describe("desktop view", () => {
     await firstTopMenuItem.hover();
 
     await expect(
-      page.getByRole("menuitem", {
+      page.getByRole("link", {
         name: "Opening Hours And Rates",
         exact: true,
       })
@@ -42,7 +42,7 @@ test.describe("disabled javascript in mobile", () => {
 
     await hamburgerMenu.click();
 
-    const menuitem = page.getByRole("menuitem", { name: "Visitor Info" });
+    const menuitem = page.getByRole("link", { name: "Visitor Info" });
     await expect(menuitem).toBeVisible();
 
     await hamburgerMenu.click();
@@ -63,7 +63,7 @@ test.describe("disabled javascript in mobile", () => {
       .click();
 
     await page
-      .getByRole("menuitem", {
+      .getByRole("link", {
         name: "Opening Hours And Rates",
         exact: true,
       })
@@ -78,7 +78,7 @@ test.describe("disabled javascript in mobile", () => {
     await page.getByLabel("Main Menu").click();
 
     await page
-      .getByRole("menuitem", {
+      .getByRole("link", {
         name: "About Zoo",
         exact: true,
       })

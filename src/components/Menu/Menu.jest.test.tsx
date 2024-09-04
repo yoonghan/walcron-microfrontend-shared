@@ -88,8 +88,8 @@ describe("Menu", () => {
     expect(getByLabelText("Main Menu")).toBeInTheDocument();
 
     expect(getByRole("radio", { name: "Expand Zoo Negara" })).toBeVisible();
-    expect(getByRole("menuitem", { name: "About Us" })).toBeVisible();
-    expect(getByRole("menuitem", { name: "Zoo Negara Logo" })).toBeVisible();
+    expect(getByRole("link", { name: "About Us" })).toBeVisible();
+    expect(getByRole("link", { name: "Zoo Negara Logo" })).toBeVisible();
   });
 
   it("should display menu correctly for desktop", () => {
@@ -102,9 +102,9 @@ describe("Menu", () => {
       "/"
     );
 
-    expect(getByRole("menuitem", { name: "Zoo Negara" })).toBeVisible();
-    expect(getByRole("menuitem", { name: "About Us" })).toBeVisible();
-    expect(getByRole("menuitem", { name: "Zoo Negara Logo" })).toBeVisible();
+    expect(getByRole("link", { name: "Zoo Negara" })).toBeVisible();
+    expect(getByRole("link", { name: "About Us" })).toBeVisible();
+    expect(getByRole("link", { name: "Zoo Negara Logo" })).toBeVisible();
   });
 
   it("should be memozied and forever not modified. It's a menu!", async () => {
@@ -124,11 +124,11 @@ describe("Menu", () => {
   it("should replace submenu with main menu's root if url of submenu is missing", async () => {
     const { getByRole } = renderMenuWithItems(true);
     const expectedRootUrl = "/about-us";
-    expect(getByRole("menuitem", { name: "Zoo Negara" })).toHaveAttribute(
+    expect(getByRole("link", { name: "Zoo Negara" })).toHaveAttribute(
       "href",
       expectedRootUrl
     );
-    expect(getByRole("menuitem", { name: "About Us" })).toHaveAttribute(
+    expect(getByRole("link", { name: "About Us" })).toHaveAttribute(
       "href",
       expectedRootUrl
     );
@@ -136,7 +136,7 @@ describe("Menu", () => {
 
   it("should replace submenu url with # with topMenu", async () => {
     const { getByRole } = renderMenuWithItems(true);
-    expect(getByRole("menuitem", { name: "Zoo Negara Logo" })).toHaveAttribute(
+    expect(getByRole("link", { name: "Zoo Negara Logo" })).toHaveAttribute(
       "href",
       "/about-us#logo"
     );
@@ -153,7 +153,7 @@ describe("Menu", () => {
     await userEvent.click(getByRole("radio", { name: "Expand Zoo Negara" }));
     expect(getByRole("radio", { name: "Expand Zoo Negara" })).toBeChecked();
 
-    expect(getByRole("menuitem", { name: "News" })).toHaveAttribute("href");
+    expect(getByRole("link", { name: "News" })).toHaveAttribute("href");
   });
 
   it("should render shortcut components for mobile if exist", () => {
@@ -196,11 +196,11 @@ describe("Menu", () => {
       await userEvent.click(sideMenuCheckBox);
       expect(sideMenuCheckBox).toBeChecked();
 
-      await userEvent.click(getByRole("menuitem", { name: "News" }));
+      await userEvent.click(getByRole("link", { name: "News" }));
       assertIsSideMenuUncheck(sideMenuCheckBox);
 
       //retry
-      await userEvent.click(getByRole("menuitem", { name: "News" }));
+      await userEvent.click(getByRole("link", { name: "News" }));
       assertIsSideMenuUncheck(sideMenuCheckBox);
     });
 
@@ -218,11 +218,11 @@ describe("Menu", () => {
       await userEvent.click(sideMenuCheckBox);
       expect(sideMenuCheckBox).toBeChecked();
 
-      await userEvent.click(getByRole("menuitem", { name: "About Us" }));
+      await userEvent.click(getByRole("link", { name: "About Us" }));
       expect(sideMenuCheckBox).not.toBeChecked();
 
       //retry
-      await userEvent.click(getByRole("menuitem", { name: "About Us" }));
+      await userEvent.click(getByRole("link", { name: "About Us" }));
       expect(sideMenuCheckBox).not.toBeChecked();
     });
 
@@ -285,16 +285,16 @@ describe("Menu", () => {
     it("should show aria-expanded=false when top menu has submenus", () => {
       renderDesktopWithAccessibility();
       expect(
-        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }))
+        getMenuItem(screen.getByRole("link", { name: "Top Menu" }))
       ).toHaveAttribute("aria-expanded", "false");
       expect(
-        getMenuItem(screen.getByRole("menuitem", { name: "News" }))
+        getMenuItem(screen.getByRole("link", { name: "News" }))
       ).not.toHaveAttribute("aria-expanded", "false");
     });
 
     it("should show aria-expanded=true when top menu's subbutton is clicked and has submenus on click again will close", async () => {
       const getTopMenu = () =>
-        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }));
+        getMenuItem(screen.getByRole("link", { name: "Top Menu" }));
 
       renderDesktopWithAccessibility();
       await userEvent.click(
@@ -303,7 +303,7 @@ describe("Menu", () => {
       expect(getTopMenu()).toHaveAttribute("aria-expanded", "true");
       expect(getTopMenu()).toHaveClass("open");
       expect(
-        getMenuItem(screen.getByRole("menuitem", { name: "News" }))
+        getMenuItem(screen.getByRole("link", { name: "News" }))
       ).not.toHaveAttribute("aria-expanded", "true");
 
       await userEvent.click(
@@ -319,20 +319,20 @@ describe("Menu", () => {
         screen.getByRole("button", { name: "Expand Top Menu" })
       );
       expect(
-        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }))
+        getMenuItem(screen.getByRole("link", { name: "Top Menu" }))
       ).toHaveAttribute("aria-expanded", "true");
       expect(
-        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu 2" }))
+        getMenuItem(screen.getByRole("link", { name: "Top Menu 2" }))
       ).toHaveAttribute("aria-expanded", "false");
 
       await userEvent.click(
         screen.getByRole("button", { name: "Expand Top Menu 2" })
       );
       expect(
-        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu 2" }))
+        getMenuItem(screen.getByRole("link", { name: "Top Menu 2" }))
       ).toHaveAttribute("aria-expanded", "true");
       expect(
-        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }))
+        getMenuItem(screen.getByRole("link", { name: "Top Menu" }))
       ).toHaveAttribute("aria-expanded", "false");
     });
 
@@ -344,11 +344,11 @@ describe("Menu", () => {
         "{space}"
       ); //menu should open
       expect(
-        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }))
+        getMenuItem(screen.getByRole("link", { name: "Top Menu" }))
       ).toHaveAttribute("aria-expanded", "true");
 
       const topMenuItem = getMenuItem(
-        screen.getByRole("menuitem", { name: "Top Menu" })
+        screen.getByRole("link", { name: "Top Menu" })
       );
 
       await userEvent.tab(); //next sub menu focus should remain open
@@ -368,22 +368,22 @@ describe("Menu", () => {
 
       await userEvent.type(topMenu, "{space}");
       expect(
-        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }))
+        getMenuItem(screen.getByRole("link", { name: "Top Menu" }))
       ).toHaveAttribute("aria-expanded", "true");
 
       await userEvent.keyboard("{arrowup}");
       expect(
-        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }))
+        getMenuItem(screen.getByRole("link", { name: "Top Menu" }))
       ).toHaveAttribute("aria-expanded", "false");
 
       await userEvent.keyboard("{arrowdown}");
       expect(
-        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }))
+        getMenuItem(screen.getByRole("link", { name: "Top Menu" }))
       ).toHaveAttribute("aria-expanded", "true");
 
       await userEvent.keyboard("{escape}");
       expect(
-        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }))
+        getMenuItem(screen.getByRole("link", { name: "Top Menu" }))
       ).toHaveAttribute("aria-expanded", "false");
     });
   });
@@ -432,16 +432,16 @@ describe("Menu", () => {
     it("should show aria-expanded=false when top menu has submenus", () => {
       renderMobileWithAccessibility();
       expect(
-        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }))
+        getMenuItem(screen.getByRole("link", { name: "Top Menu" }))
       ).toHaveAttribute("aria-expanded", "false");
       expect(
-        getMenuItem(screen.getByRole("menuitem", { name: "News" }))
+        getMenuItem(screen.getByRole("link", { name: "News" }))
       ).not.toHaveAttribute("aria-expanded", "false");
     });
 
     it("should show aria-expanded=true when top menu's subbutton is clicked and has submenus on click again will close", async () => {
       const getTopMenu = () =>
-        getMenuItem(screen.getByRole("menuitem", { name: "Top Menu" }));
+        getMenuItem(screen.getByRole("link", { name: "Top Menu" }));
       const getTopMenuParent = () => getTopMenu()?.parentElement;
 
       renderMobileWithAccessibility();
@@ -450,7 +450,7 @@ describe("Menu", () => {
       );
       expect(getTopMenu()).toHaveAttribute("aria-expanded", "true");
       expect(
-        getMenuItem(screen.getByRole("menuitem", { name: "News" }))
+        getMenuItem(screen.getByRole("link", { name: "News" }))
       ).not.toHaveAttribute("aria-expanded", "true");
 
       await userEvent.click(
@@ -463,7 +463,7 @@ describe("Menu", () => {
       renderMobileWithAccessibility();
 
       const topMenuItem = getMenuItem(
-        screen.getByRole("menuitem", { name: "Top Menu" })
+        screen.getByRole("link", { name: "Top Menu" })
       );
 
       await userEvent.click(
