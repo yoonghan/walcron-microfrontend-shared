@@ -128,14 +128,14 @@ function MobileTopMenu({
       <li key={topMenuItem.label} role="presentation" className={style.subnav}>
         <div>
           <label className={style.top__menu}>
-            <input
-              className={style["top-menu"]}
-              type="radio"
-              name="top-menu"
-              value={topMenuItem.label}
-            />
-            {topMenuItem.label}
+            <input type="checkbox" name="top_menu" value={topMenuItem.label} />
           </label>
+          {menuLink(
+            topMenuItem.label,
+            topMenuItem.url,
+            "menuitem",
+            unCheckSideMenu
+          )}
           <div role="presentation" className={style.subnav_content}>
             <ul role="menu">
               {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
@@ -247,7 +247,7 @@ export function MutableMenu({
         <div className={style["mobile-menu"]}>
           <label className={style.hamb} aria-label="Main Menu">
             <input
-              className={style["side-menu"]}
+              className={style.side__menu}
               type="checkbox"
               ref={sideMenuRef}
               onChange={onSideMenuChange}
