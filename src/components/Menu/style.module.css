@@ -3,8 +3,9 @@
   padding: 0;
 }
 
-:is(.desktop__nav, .mobile__nav) ul > li {
-  padding-top: 0.5rem;
+.top_menu_container {
+  display: flex;
+  align-items: center;
 }
 
 .expand,
@@ -17,20 +18,15 @@
   width: 15px;
 }
 
-.expand_dummy {
-  display: inline-block;
-}
-
 .expand:focus::after {
   content: "";
   border: solid var(--menu-color-text);
   border-width: 0 2px 2px 0;
   display: block;
-  padding: 2px;
+  padding: 3px;
   transform: rotate(45deg);
-  top: -3px;
-  width: 5px;
-  height: 5px;
+  height: 3px;
+  width: 3px;
   position: relative;
 }
 
