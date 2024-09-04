@@ -7,13 +7,18 @@
   padding-top: 0.5rem;
 }
 
-.expand {
+.expand,
+.expand_dummy {
   background-color: transparent;
   padding: 0;
   border: none;
   margin-left: 5px;
   height: 10px;
   width: 10px;
+}
+
+.expand_dummy {
+  display: inline-block;
 }
 
 .expand:focus::after {

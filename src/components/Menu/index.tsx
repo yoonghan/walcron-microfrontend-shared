@@ -83,17 +83,20 @@ function DesktopTopMenu({
         ref={liRef}
         aria-expanded={isSubMenuOpened}
       >
-        {menuLink(topMenuItem.label, topMenuItem.url)}
-        <button
-          onClick={onExpandButtonClick}
-          onKeyUp={onExpandButtonKeyUp}
-          aria-label={`Expand ${topMenuItem.label}`}
-          className={style.expand}
-        ></button>
-        <div role="presentation" className={style.subnav_content}>
-          <ul role="menu" onFocus={(e) => e.stopPropagation()}>
-            {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
-          </ul>
+        <div role="presentation">
+          {menuLink(topMenuItem.label, topMenuItem.url)}
+          <button
+            onClick={onExpandButtonClick}
+            onKeyUp={onExpandButtonKeyUp}
+            aria-label={`Expand ${topMenuItem.label}`}
+            aria-expanded={isSubMenuOpened}
+            className={style.expand}
+          ></button>
+          <div role="presentation" className={style.subnav_content}>
+            <ul role="menu" onFocus={(e) => e.stopPropagation()}>
+              {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
+            </ul>
+          </div>
         </div>
       </li>
     );
@@ -101,6 +104,7 @@ function DesktopTopMenu({
     return (
       <li key={topMenuItem.label} role="menuitem">
         {menuLink(topMenuItem.label, topMenuItem.url)}
+        <div className={style.expand_dummy}></div>
       </li>
     );
   }
