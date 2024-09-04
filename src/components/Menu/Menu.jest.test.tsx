@@ -442,7 +442,6 @@ describe("Menu", () => {
     it("should show aria-expanded=true when top menu's subbutton is clicked and has submenus on click again will close", async () => {
       const getTopMenu = () =>
         getMenuItem(screen.getByRole("link", { name: "Top Menu" }));
-      const getTopMenuParent = () => getTopMenu()?.parentElement;
 
       renderMobileWithAccessibility();
       await userEvent.click(
