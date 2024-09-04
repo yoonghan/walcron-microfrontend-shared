@@ -127,8 +127,8 @@ function MobileTopMenu({
     return (
       <li key={topMenuItem.label} role="presentation" className={style.subnav}>
         <div>
-          <label className={style.top__menu}>
-            <input type="checkbox" name="top_menu" value={topMenuItem.label} />
+          <label className={style.top__menu} aria-label={topMenuItem.label}>
+            <input type="radio" name="top_menu" value={topMenuItem.label} />
           </label>
           {menuLink(
             topMenuItem.label,
