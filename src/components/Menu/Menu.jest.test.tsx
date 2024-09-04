@@ -247,7 +247,7 @@ describe("Menu", () => {
   });
 
   describe("accessibility for desktop", () => {
-    const renderDesktopWithAccessibility = (shortcutComponent?: ReactNode) =>
+    const renderDesktopWithAccessibility = () =>
       render(
         <Menu
           menuLink={MenuLink}
@@ -280,7 +280,6 @@ describe("Menu", () => {
               url: "/sample-us",
             },
           ]}
-          shortcutComponent={shortcutComponent}
           mobileStyle={{ display: "none" }}
           desktopStyle={{ display: "block" }}
           desktopClassName="desktop-class"
