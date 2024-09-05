@@ -97,9 +97,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: ▶️ Start website in background
-        run: |
-          npm run build 
-          npm run start &
+        run: npm run dev &
 
       - name: ▶️ Audit URLs using Lighthouse
         uses: treosh/lighthouse-ci-action@v12
