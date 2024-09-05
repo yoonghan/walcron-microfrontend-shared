@@ -155,17 +155,11 @@ function MobileTopMenu({
           tabIndex={0}
           onClick={onTopMenuClick}
           onKeyUp={onTopMenuKeyClick}
-          aria-label={`Expand ${topMenuItem.label}`}
-          aria-expanded={isSubMenuOpened}
+          aria-label={`${isSubMenuOpened ? "Expanded" : "Collapsed"} ${topMenuItem.label}`}
         >
           <input type="radio" name="top_menu" value={topMenuItem.label} />
         </label>
-        {menuLink(
-          topMenuItem.label,
-          topMenuItem.url,
-          unCheckSideMenu,
-          isSubMenuOpened
-        )}
+        {menuLink(topMenuItem.label, topMenuItem.url, unCheckSideMenu)}
         <div className={style.subnav_content}>
           <ul role="menu">
             {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}

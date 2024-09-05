@@ -59,7 +59,7 @@ test.describe("disabled javascript in mobile", () => {
 
     await page
       .getByRole("menu")
-      .getByLabel("Expand Visitor Info", { exact: true })
+      .getByLabel("Collapsed Visitor Info", { exact: true })
       .click();
 
     await page

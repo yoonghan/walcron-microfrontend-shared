@@ -43,8 +43,7 @@ export default function Announcement({
           <i aria-label="next announcement"></i>
         </button>
       )}
-      <label className={styles.close}>
-        <span aria-label="Close Announcement"></span>
+      <label className={styles.close} aria-label="Close Announcement">
         <input type="checkbox" />
       </label>
     </div>
