@@ -916,10 +916,14 @@ function er({
       className: `${w.subnav} ${v ? w.open : ""}`,
       onBlur: E,
       ref: x,
-      "aria-expanded": v,
       children: [
         /* @__PURE__ */ a.jsxs("div", { className: w.top_menu_container, children: [
-          l(t.label, t.url),
+          l(
+            t.label,
+            t.url,
+            void 0,
+            v
+          ),
           /* @__PURE__ */ a.jsx(
             "button",
             {
@@ -953,30 +957,27 @@ function nr({
     },
     []
   );
-  return t.items !== void 0 ? /* @__PURE__ */ a.jsxs(
-    "li",
-    {
-      role: "menuitem",
-      className: w.subnav,
-      "aria-expanded": v,
-      children: [
-        /* @__PURE__ */ a.jsx(
-          "label",
-          {
-            className: w.top__menu,
-            tabIndex: 0,
-            onClick: x,
-            onKeyUp: i,
-            "aria-label": `Expand ${t.label}`,
-            children: /* @__PURE__ */ a.jsx("input", { type: "radio", name: "top_menu", value: t.label })
-          }
-        ),
-        l(t.label, t.url, f),
-        /* @__PURE__ */ a.jsx("div", { className: w.subnav_content, children: /* @__PURE__ */ a.jsx("ul", { role: "menu", children: u(t.items, t.url, f) }) })
-      ]
-    },
-    t.label
-  ) : /* @__PURE__ */ a.jsx("li", { role: "menuitem", children: l(t.label, t.url, f) }, t.label);
+  return t.items !== void 0 ? /* @__PURE__ */ a.jsxs("li", { role: "menuitem", className: w.subnav, children: [
+    /* @__PURE__ */ a.jsx(
+      "label",
+      {
+        className: w.top__menu,
+        tabIndex: 0,
+        onClick: x,
+        onKeyUp: i,
+        "aria-label": `Expand ${t.label}`,
+        "aria-expanded": v,
+        children: /* @__PURE__ */ a.jsx("input", { type: "radio", name: "top_menu", value: t.label })
+      }
+    ),
+    l(
+      t.label,
+      t.url,
+      f,
+      v
+    ),
+    /* @__PURE__ */ a.jsx("div", { className: w.subnav_content, children: /* @__PURE__ */ a.jsx("ul", { role: "menu", children: u(t.items, t.url, f) }) })
+  ] }, t.label) : /* @__PURE__ */ a.jsx("li", { role: "menuitem", children: l(t.label, t.url, f) }, t.label);
 }
 function rr({
   menuLink: l,
