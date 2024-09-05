@@ -9,7 +9,12 @@ import React, {
 } from "react";
 import style from "./style.module.css";
 
-type MenuLink = (text: string, href: string, onClick?: () => void) => ReactNode;
+type MenuLink = (
+  text: string,
+  href: string,
+  onClick?: () => void,
+  isAriaExpanded?: boolean
+) => ReactNode;
 
 type SubMenu = (
   subMenu: SubMenuItem[],
@@ -81,10 +86,14 @@ function DesktopTopMenu({
         className={`${style.subnav} ${isSubMenuOpened ? style.open : ""}`}
         onBlur={onMenuBlur}
         ref={liRef}
-        aria-expanded={isSubMenuOpened}
       >
         <div className={style.top_menu_container}>
-          {menuLink(topMenuItem.label, topMenuItem.url)}
+          {menuLink(
+            topMenuItem.label,
+            topMenuItem.url,
+            undefined,
+            isSubMenuOpened
+          )}
           <button
             onClick={onExpandButtonClick}
             onKeyUp={onExpandButtonKeyUp}
@@ -140,22 +149,23 @@ function MobileTopMenu({
 
   if (topMenuItem.items !== undefined) {
     return (
-      <li
-        key={topMenuItem.label}
-        role="menuitem"
-        className={style.subnav}
-        aria-expanded={isSubMenuOpened}
-      >
+      <li key={topMenuItem.label} role="menuitem" className={style.subnav}>
         <label
           className={style.top__menu}
           tabIndex={0}
           onClick={onTopMenuClick}
           onKeyUp={onTopMenuKeyClick}
           aria-label={`Expand ${topMenuItem.label}`}
+          aria-expanded={isSubMenuOpened}
         >
           <input type="radio" name="top_menu" value={topMenuItem.label} />
         </label>
-        {menuLink(topMenuItem.label, topMenuItem.url, unCheckSideMenu)}
+        {menuLink(
+          topMenuItem.label,
+          topMenuItem.url,
+          unCheckSideMenu,
+          isSubMenuOpened
+        )}
         <div className={style.subnav_content}>
           <ul role="menu">
             {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
