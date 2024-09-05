@@ -87,14 +87,14 @@ var K = {};
 var Be;
 function Tn() {
   return Be || (Be = 1, process.env.NODE_ENV !== "production" && function() {
-    var l = ne, t = Symbol.for("react.element"), u = Symbol.for("react.portal"), f = Symbol.for("react.fragment"), v = Symbol.for("react.strict_mode"), p = Symbol.for("react.profiler"), x = Symbol.for("react.provider"), i = Symbol.for("react.context"), o = Symbol.for("react.forward_ref"), E = Symbol.for("react.suspense"), h = Symbol.for("react.suspense_list"), y = Symbol.for("react.memo"), b = Symbol.for("react.lazy"), g = Symbol.for("react.offscreen"), P = Symbol.iterator, $ = "@@iterator";
+    var l = ne, t = Symbol.for("react.element"), u = Symbol.for("react.portal"), f = Symbol.for("react.fragment"), v = Symbol.for("react.strict_mode"), p = Symbol.for("react.profiler"), x = Symbol.for("react.provider"), i = Symbol.for("react.context"), o = Symbol.for("react.forward_ref"), E = Symbol.for("react.suspense"), h = Symbol.for("react.suspense_list"), y = Symbol.for("react.memo"), b = Symbol.for("react.lazy"), g = Symbol.for("react.offscreen"), P = Symbol.iterator, A = "@@iterator";
     function T(e) {
       if (e === null || typeof e != "object")
         return null;
-      var n = P && e[P] || e[$];
+      var n = P && e[P] || e[A];
       return typeof n == "function" ? n : null;
     }
-    var C = l.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+    var O = l.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
     function k(e) {
       {
         for (var n = arguments.length, r = new Array(n > 1 ? n - 1 : 0), s = 1; s < n; s++)
@@ -104,7 +104,7 @@ function Tn() {
     }
     function U(e, n, r) {
       {
-        var s = C.ReactDebugCurrentFrame, _ = s.getStackAddendum();
+        var s = O.ReactDebugCurrentFrame, _ = s.getStackAddendum();
         _ !== "" && (n += "%s", r = r.concat([_]));
         var m = r.map(function(d) {
           return String(d);
@@ -238,7 +238,7 @@ function Tn() {
         V < 0 && k("disabledDepth fell below zero. This is a bug in React. Please file an issue.");
       }
     }
-    var re = C.ReactCurrentDispatcher, te;
+    var re = O.ReactCurrentDispatcher, te;
     function J(e, n, r) {
       {
         if (te === void 0)
@@ -306,17 +306,17 @@ function Tn() {
       } catch (S) {
         if (S && s && typeof S.stack == "string") {
           for (var c = S.stack.split(`
-`), O = s.stack.split(`
-`), R = c.length - 1, j = O.length - 1; R >= 1 && j >= 0 && c[R] !== O[j]; )
+`), C = s.stack.split(`
+`), R = c.length - 1, j = C.length - 1; R >= 1 && j >= 0 && c[R] !== C[j]; )
             j--;
           for (; R >= 1 && j >= 0; R--, j--)
-            if (c[R] !== O[j]) {
+            if (c[R] !== C[j]) {
               if (R !== 1 || j !== 1)
                 do
-                  if (R--, j--, j < 0 || c[R] !== O[j]) {
-                    var A = `
+                  if (R--, j--, j < 0 || c[R] !== C[j]) {
+                    var $ = `
 ` + c[R].replace(" at new ", " at ");
-                    return e.displayName && A.includes("<anonymous>") && (A = A.replace("<anonymous>", e.displayName)), typeof e == "function" && q.set(e, A), A;
+                    return e.displayName && $.includes("<anonymous>") && ($ = $.replace("<anonymous>", e.displayName)), typeof e == "function" && q.set(e, $), $;
                   }
                 while (R >= 1 && j >= 0);
               break;
@@ -364,7 +364,7 @@ function Tn() {
         }
       return "";
     }
-    var M = Object.prototype.hasOwnProperty, ke = {}, Te = C.ReactDebugCurrentFrame;
+    var M = Object.prototype.hasOwnProperty, ke = {}, Te = O.ReactDebugCurrentFrame;
     function X(e) {
       if (e) {
         var n = e._owner, r = G(e.type, e._source, n ? n.type : null);
@@ -380,8 +380,8 @@ function Tn() {
             var c = void 0;
             try {
               if (typeof e[d] != "function") {
-                var O = Error((s || "React class") + ": " + r + " type `" + d + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof e[d] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
-                throw O.name = "Invariant Violation", O;
+                var C = Error((s || "React class") + ": " + r + " type `" + d + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof e[d] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
+                throw C.name = "Invariant Violation", C;
               }
               c = e[d](n, d, s, r, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
             } catch (R) {
@@ -403,19 +403,19 @@ function Tn() {
     }
     function rn(e) {
       try {
-        return Oe(e), !1;
+        return Ce(e), !1;
       } catch {
         return !0;
       }
     }
-    function Oe(e) {
+    function Ce(e) {
       return "" + e;
     }
-    function Ce(e) {
+    function Oe(e) {
       if (rn(e))
-        return k("The provided key is an unsupported type %s. This value must be coerced to a string before before using it here.", nn(e)), Oe(e);
+        return k("The provided key is an unsupported type %s. This value must be coerced to a string before before using it here.", nn(e)), Ce(e);
     }
-    var z = C.ReactCurrentOwner, tn = {
+    var z = O.ReactCurrentOwner, tn = {
       key: !0,
       ref: !0,
       __self: !0,
@@ -497,8 +497,8 @@ function Tn() {
     };
     function fn(e, n, r, s, _) {
       {
-        var m, d = {}, c = null, O = null;
-        r !== void 0 && (Ce(r), c = "" + r), on(n) && (Ce(n.key), c = "" + n.key), an(n) && (O = n.ref, sn(n, _));
+        var m, d = {}, c = null, C = null;
+        r !== void 0 && (Oe(r), c = "" + r), on(n) && (Oe(n.key), c = "" + n.key), an(n) && (C = n.ref, sn(n, _));
         for (m in n)
           M.call(n, m) && !tn.hasOwnProperty(m) && (d[m] = n[m]);
         if (e && e.defaultProps) {
@@ -506,27 +506,27 @@ function Tn() {
           for (m in R)
             d[m] === void 0 && (d[m] = R[m]);
         }
-        if (c || O) {
+        if (c || C) {
           var j = typeof e == "function" ? e.displayName || e.name || "Unknown" : e;
-          c && ln(d, j), O && cn(d, j);
+          c && ln(d, j), C && cn(d, j);
         }
-        return un(e, c, O, _, s, z.current, d);
+        return un(e, c, C, _, s, z.current, d);
       }
     }
-    var se = C.ReactCurrentOwner, Ae = C.ReactDebugCurrentFrame;
+    var se = O.ReactCurrentOwner, $e = O.ReactDebugCurrentFrame;
     function Y(e) {
       if (e) {
         var n = e._owner, r = G(e.type, e._source, n ? n.type : null);
-        Ae.setExtraStackFrame(r);
+        $e.setExtraStackFrame(r);
       } else
-        Ae.setExtraStackFrame(null);
+        $e.setExtraStackFrame(null);
     }
     var le;
     le = !1;
     function ce(e) {
       return typeof e == "object" && e !== null && e.$$typeof === t;
     }
-    function $e() {
+    function Ae() {
       {
         if (se.current) {
           var e = N(se.current.type);
@@ -544,7 +544,7 @@ Check the render method of \`` + e + "`.";
     var Ne = {};
     function vn(e) {
       {
-        var n = $e();
+        var n = Ae();
         if (!n) {
           var r = typeof e == "string" ? e : e.displayName || e.name;
           r && (n = `
@@ -630,8 +630,8 @@ Check the top-level render call using <` + r + ">.");
         if (!d) {
           var c = "";
           (e === void 0 || typeof e == "object" && e !== null && Object.keys(e).length === 0) && (c += " You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.");
-          var O = dn();
-          O ? c += O : c += $e();
+          var C = dn();
+          C ? c += C : c += Ae();
           var R;
           e === null ? R = "null" : ie(e) ? R = "array" : e !== void 0 && e.$$typeof === t ? (R = "<" + (N(e.type) || "Unknown") + " />", c = " Did you accidentally export a JSX literal instead of a component?") : R = typeof e, k("React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", R, c);
         }
@@ -639,17 +639,17 @@ Check the top-level render call using <` + r + ">.");
         if (j == null)
           return j;
         if (d) {
-          var A = n.children;
-          if (A !== void 0)
+          var $ = n.children;
+          if ($ !== void 0)
             if (s)
-              if (ie(A)) {
-                for (var B = 0; B < A.length; B++)
-                  Fe(A[B], e);
-                Object.freeze && Object.freeze(A);
+              if (ie($)) {
+                for (var B = 0; B < $.length; B++)
+                  Fe($[B], e);
+                Object.freeze && Object.freeze($);
               } else
                 k("React.jsx: Static children should always be an array. You are likely explicitly calling React.jsxs or React.jsxDEV. Use the Babel transform instead.");
             else
-              Fe(A, e);
+              Fe($, e);
         }
         if (M.call(n, "key")) {
           var D = N(e), S = Object.keys(n).filter(function(xn) {
@@ -681,9 +681,9 @@ React keys must be passed directly to JSX without using spread:
 process.env.NODE_ENV === "production" ? ve.exports = kn() : ve.exports = Tn();
 var a = ve.exports;
 const fe = `
-`, he = "[\\.|,]", On = new RegExp(
+`, he = "[\\.|,]", Cn = new RegExp(
   `.*\\]${he}?$`
-), Cn = new RegExp(
+), On = new RegExp(
   `\\]${he}?$`,
   "g"
 ), Sn = new RegExp(
@@ -691,9 +691,9 @@ const fe = `
 );
 function sr(l, t) {
   function u(i, o) {
-    if (i.match(On) && i.indexOf("|") > -1) {
+    if (i.match(Cn) && i.indexOf("|") > -1) {
       const E = i.replace(
-        Cn,
+        On,
         "]"
       ), y = E.substring(
         1,
@@ -740,10 +740,10 @@ const lr = () => {
       window.removeEventListener("resize", u);
     };
   }, []), l;
-}, Pn = "_accordion_okvze_1", An = "_tab_okvze_27", $n = "_tab__content_okvze_38", de = {
+}, Pn = "_accordion_okvze_1", $n = "_tab_okvze_27", An = "_tab__content_okvze_38", de = {
   accordion: Pn,
-  tab: An,
-  tab__content: $n
+  tab: $n,
+  tab__content: An
 };
 function cr({
   model: l,
@@ -823,8 +823,8 @@ function fr({ model: l, onScrollMonitor: t }) {
     t && t(), p.current && (window.scrollY > x ? p.current.classList.add(Z.sticky) : p.current.classList.remove(Z.sticky));
   }, [x, t]), E = W(
     (b) => {
-      const g = b[0].target, P = l.findIndex((C) => C.hashId === g.id), $ = P < 0 ? 0 : P, T = v.current[$];
-      T !== null && b[0].isIntersecting && (T.scrollIntoViewIfNeeded(!0), f($));
+      const g = b[0].target, P = l.findIndex((O) => O.hashId === g.id), A = P < 0 ? 0 : P, T = v.current[A];
+      T !== null && b[0].isIntersecting && (T.scrollIntoViewIfNeeded(!0), f(A));
     },
     [l]
   ), h = W(() => {
@@ -835,8 +835,8 @@ function fr({ model: l, onScrollMonitor: t }) {
       threshold: [1]
     });
     return l.forEach((P) => {
-      const $ = document.getElementById(P.hashId);
-      $ !== null && ($.clientHeight < window.innerHeight ? g.observe($) : b.observe($));
+      const A = document.getElementById(P.hashId);
+      A !== null && (A.clientHeight < window.innerHeight ? g.observe(A) : b.observe(A));
     }), [b, g];
   }, [E, l]), y = W(
     (b) => () => {
@@ -965,17 +965,11 @@ function nr({
         tabIndex: 0,
         onClick: x,
         onKeyUp: i,
-        "aria-label": `Expand ${t.label}`,
-        "aria-expanded": v,
+        "aria-label": `${v ? "Expanded" : "Collapsed"} ${t.label}`,
         children: /* @__PURE__ */ a.jsx("input", { type: "radio", name: "top_menu", value: t.label })
       }
     ),
-    l(
-      t.label,
-      t.url,
-      f,
-      v
-    ),
+    l(t.label, t.url, f),
     /* @__PURE__ */ a.jsx("div", { className: w.subnav_content, children: /* @__PURE__ */ a.jsx("ul", { role: "menu", children: u(t.items, t.url, f) }) })
   ] }, t.label) : /* @__PURE__ */ a.jsx("li", { role: "menuitem", children: l(t.label, t.url, f) }, t.label);
 }
@@ -990,13 +984,13 @@ function rr({
   desktopClassName: i = "",
   mobileClassName: o = ""
 }) {
-  const E = ee(null), h = (T, C) => C === void 0 || C === "" ? T : C.replace(/^#/, `${T}#`), y = () => {
+  const E = ee(null), h = (T, O) => O === void 0 || O === "" ? T : O.replace(/^#/, `${T}#`), y = () => {
     E.current && (E.current.checked = !1, document.body.style.overflow = "auto");
   }, b = (T) => {
     document.body.style.overflow = T.target.checked ? "hidden" : "auto";
-  }, g = (T, C, k) => T.map((U) => /* @__PURE__ */ a.jsx("li", { role: "menuitem", children: l(
+  }, g = (T, O, k) => T.map((U) => /* @__PURE__ */ a.jsx("li", { role: "menuitem", children: l(
     U.label,
-    h(C, U.url),
+    h(O, U.url),
     k
   ) }, U.label)), P = f.map((T) => /* @__PURE__ */ a.jsx(
     er,
@@ -1007,7 +1001,7 @@ function rr({
       unCheckSideMenu: y
     },
     T.label
-  )), $ = f.map((T) => /* @__PURE__ */ a.jsx(
+  )), A = f.map((T) => /* @__PURE__ */ a.jsx(
     nr,
     {
       menuLink: l,
@@ -1041,7 +1035,7 @@ function rr({
             t("/", y, -1),
             v && v
           ] }),
-          /* @__PURE__ */ a.jsx("nav", { role: "menubar", className: w.menu, children: /* @__PURE__ */ a.jsx("ul", { role: "menu", "aria-orientation": "horizontal", children: $ }) })
+          /* @__PURE__ */ a.jsx("nav", { role: "menubar", className: w.menu, children: /* @__PURE__ */ a.jsx("ul", { role: "menu", "aria-orientation": "horizontal", children: A }) })
         ]
       }
     ),
