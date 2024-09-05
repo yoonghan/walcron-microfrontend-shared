@@ -805,10 +805,7 @@ function ur({
         ),
         /* @__PURE__ */ a.jsx("p", { children: t[f] }),
         !i && /* @__PURE__ */ a.jsx("button", { onClick: x, className: I.button, children: /* @__PURE__ */ a.jsx("i", { "aria-label": "next announcement" }) }),
-        /* @__PURE__ */ a.jsxs("label", { className: I.close, children: [
-          /* @__PURE__ */ a.jsx("span", { "aria-label": "Close Announcement" }),
-          /* @__PURE__ */ a.jsx("input", { type: "checkbox" })
-        ] })
+        /* @__PURE__ */ a.jsx("label", { className: I.close, "aria-label": "Close Announcement", children: /* @__PURE__ */ a.jsx("input", { type: "checkbox" }) })
       ]
     }
   );
