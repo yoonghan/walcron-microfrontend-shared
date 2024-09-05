@@ -1,6 +1,6 @@
 import { default as React, CSSProperties, ReactNode } from 'react';
 
-type MenuLink = (text: string, href: string, onClick?: () => void) => ReactNode;
+type MenuLink = (text: string, href: string, onClick?: () => void, isAriaExpanded?: boolean) => ReactNode;
 type TopMenuItem = {
     label: string;
     url: string;
