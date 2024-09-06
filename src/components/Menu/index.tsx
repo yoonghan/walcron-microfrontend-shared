@@ -82,7 +82,6 @@ function DesktopTopMenu({
   if (topMenuItem.items !== undefined) {
     return (
       <li
-        role="menuitem"
         className={`${style.subnav} ${isSubMenuOpened ? style.open : ""}`}
         onBlur={onMenuBlur}
         ref={liRef}
@@ -111,7 +110,7 @@ function DesktopTopMenu({
     );
   } else {
     return (
-      <li key={topMenuItem.label} role="menuitem">
+      <li key={topMenuItem.label}>
         <div className={style.top_menu_container}>
           {menuLink(topMenuItem.label, topMenuItem.url)}
           <div className={style.expand_dummy}></div>
@@ -149,7 +148,7 @@ function MobileTopMenu({
 
   if (topMenuItem.items !== undefined) {
     return (
-      <li key={topMenuItem.label} role="menuitem" className={style.subnav}>
+      <li key={topMenuItem.label} className={style.subnav}>
         <label
           className={style.top__menu}
           tabIndex={0}
@@ -169,7 +168,7 @@ function MobileTopMenu({
     );
   } else {
     return (
-      <li key={topMenuItem.label} role="menuitem">
+      <li key={topMenuItem.label}>
         {menuLink(topMenuItem.label, topMenuItem.url, unCheckSideMenu)}
       </li>
     );
@@ -224,7 +223,7 @@ export function MutableMenu({
     onClick?: () => void
   ) =>
     subMenu.map((subMenuItem) => (
-      <li key={subMenuItem.label} role="menuitem">
+      <li key={subMenuItem.label}>
         {menuLink(
           subMenuItem.label,
           replaceWithTopMenuUrlIfAHashlinkOrEmpty(topMenuUrl, subMenuItem.url),
@@ -276,7 +275,7 @@ export function MutableMenu({
         <nav role="menubar" className={style.menu}>
           <ul role="menu" aria-orientation="horizontal">
             {mobileTopMenu}
-          </ul>
+          </ul>{" "}
         </nav>
       </div>
       <div
@@ -285,9 +284,9 @@ export function MutableMenu({
       >
         <nav role="menubar" className={style.menu}>
           <ul role="menu" aria-orientation="horizontal">
-            <li role="menuitem">{homeLogoLink(style["home-logo"])}</li>
+            <li>{homeLogoLink(style["home-logo"])}</li>
             {desktopTopMenu}
-            <li role="menuitem">{shortcutComponent && shortcutComponent}</li>
+            <li>{shortcutComponent && shortcutComponent}</li>
           </ul>
         </nav>
       </div>
