@@ -72,7 +72,7 @@ function Page() {
             url: "/about-us",
           },
           {
-            label: "Have An Event",
+            label: "Event",
             url: "/have-an-event",
             items: [
               {
