@@ -9,11 +9,7 @@ import React, {
 } from "react";
 import style from "./style.module.css";
 
-type MenuLink = (
-  text: string,
-  href: string,
-  onClick?: () => void
-) => ReactNode;
+type MenuLink = (text: string, href: string, onClick?: () => void) => ReactNode;
 
 type SubMenu = (
   subMenu: SubMenuItem[],
@@ -86,11 +82,7 @@ function DesktopTopMenu({
         ref={liRef}
       >
         <div className={style.top_menu_container}>
-          {menuLink(
-            topMenuItem.label,
-            topMenuItem.url,
-            undefined
-          )}
+          {menuLink(topMenuItem.label, topMenuItem.url, undefined)}
           <button
             onClick={onExpandButtonClick}
             onKeyUp={onExpandButtonKeyUp}
@@ -270,18 +262,16 @@ export function MutableMenu({
           {homeLink("/", unCheckSideMenu, -1)}
           {shortcutComponent && shortcutComponent}
         </div>
-        <nav role="menubar" className={style.menu}>
-          <ul role="menu" aria-orientation="horizontal">
-            {mobileTopMenu}
-          </ul>{" "}
+        <nav className={style.menu}>
+          <ul>{mobileTopMenu}</ul>{" "}
         </nav>
       </div>
       <div
         className={`${style.desktop__nav} ${desktopClassName}`}
         style={desktopStyle}
       >
-        <nav role="menubar" className={style.menu}>
-          <ul role="menu" aria-orientation="horizontal">
+        <nav className={style.menu}>
+          <ul>
             <li>{homeLogoLink(style["home-logo"])}</li>
             {desktopTopMenu}
             <li>{shortcutComponent && shortcutComponent}</li>
