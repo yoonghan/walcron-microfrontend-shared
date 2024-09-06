@@ -4,19 +4,13 @@ import React from "react";
 export { Page };
 
 function Page() {
-  const MenuLink = (
-    text: string,
-    href: string,
-    onClick?: () => void,
-    isAriaExpanded?: boolean
-  ) => (
+  const MenuLink = (text: string, href: string, onClick?: () => void) => (
     <a
       href={href}
       onClick={(e) => {
         e.preventDefault();
         onClick && onClick();
       }}
-      aria-expanded={isAriaExpanded}
     >
       {text}
     </a>

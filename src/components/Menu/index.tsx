@@ -12,8 +12,7 @@ import style from "./style.module.css";
 type MenuLink = (
   text: string,
   href: string,
-  onClick?: () => void,
-  isAriaExpanded?: boolean
+  onClick?: () => void
 ) => ReactNode;
 
 type SubMenu = (
@@ -90,8 +89,7 @@ function DesktopTopMenu({
           {menuLink(
             topMenuItem.label,
             topMenuItem.url,
-            undefined,
-            isSubMenuOpened
+            undefined
           )}
           <button
             onClick={onExpandButtonClick}
