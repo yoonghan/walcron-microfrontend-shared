@@ -86,7 +86,7 @@ function DesktopTopMenu({
           <button
             onClick={onExpandButtonClick}
             onKeyUp={onExpandButtonKeyUp}
-            aria-label={`Expand ${topMenuItem.label}`}
+            aria-label={`${topMenuItem.label}`}
             aria-expanded={isSubMenuOpened}
             className={style.expand}
           ></button>

@@ -287,85 +287,70 @@ describe("Menu", () => {
       );
 
     it("should show aria-expanded=true when top menu's subbutton is clicked and has submenus on click again will close", async () => {
-      const getTopMenu = () => screen.getByRole("link", { name: "Top Menu" });
-
       renderDesktopWithAccessibility();
-      await userEvent.click(
-        screen.getByRole("button", { name: "Expand Top Menu" })
-      );
-      expect(
-        screen.getByRole("button", { name: "Expand Top Menu" })
-      ).toHaveAttribute("aria-expanded", "true");
-      expect(getTopMenu().parentElement?.parentElement).toHaveClass("open");
 
-      await userEvent.click(
-        screen.getByRole("button", { name: "Expand Top Menu" })
-      );
+      const topMenuButton = screen.getByRole("button", { name: "Top Menu" });
+
+      await userEvent.click(topMenuButton);
+      expect(topMenuButton).toHaveAttribute("aria-expanded", "true");
       expect(
-        screen.getByRole("button", { name: "Expand Top Menu" })
-      ).toHaveAttribute("aria-expanded", "false");
+        screen.getByRole("link", { name: "Top Menu" }).parentElement
+          ?.parentElement
+      ).toHaveClass("open");
+
+      await userEvent.click(topMenuButton);
+      expect(topMenuButton).toHaveAttribute("aria-expanded", "false");
     });
 
     it("should show aria-expanded=true when top menu's subbutton is clicked and is independant", async () => {
       renderDesktopWithAccessibility();
-      await userEvent.click(
-        screen.getByRole("button", { name: "Expand Top Menu" })
-      );
-      expect(
-        screen.getByRole("button", { name: "Expand Top Menu" })
-      ).toHaveAttribute("aria-expanded", "true");
-      expect(
-        screen.getByRole("button", { name: "Expand Top Menu 2" })
-      ).toHaveAttribute("aria-expanded", "false");
+      const topMenuButton = screen.getByRole("button", { name: "Top Menu" });
+      const topMenuButton_2 = screen.getByRole("button", {
+        name: "Top Menu 2",
+      });
 
-      await userEvent.click(
-        screen.getByRole("button", { name: "Expand Top Menu 2" })
-      );
-      expect(
-        screen.getByRole("button", { name: "Expand Top Menu 2" })
-      ).toHaveAttribute("aria-expanded", "true");
-      expect(
-        screen.getByRole("button", { name: "Expand Top Menu" })
-      ).toHaveAttribute("aria-expanded", "false");
+      await userEvent.click(topMenuButton);
+      expect(topMenuButton).toHaveAttribute("aria-expanded", "true");
+      expect(topMenuButton_2).toHaveAttribute("aria-expanded", "false");
+
+      await userEvent.click(topMenuButton_2);
+      expect(topMenuButton_2).toHaveAttribute("aria-expanded", "true");
+      expect(topMenuButton).toHaveAttribute("aria-expanded", "false");
     });
 
     it("should show aria-expanded=true when using keyboard navigation", async () => {
       renderDesktopWithAccessibility();
 
-      await userEvent.type(
-        screen.getByRole("button", { name: "Expand Top Menu" }),
-        "{space}"
-      ); //menu should open
+      const topMenuButton = screen.getByRole("button", { name: "Top Menu" });
 
-      const topMenuItem = screen.getByRole("button", {
-        name: "Expand Top Menu",
-      });
+      await userEvent.type(topMenuButton, "{space}"); //menu should open
+
       await userEvent.tab(); //next sub menu focus should remain open
-      expect(topMenuItem).toHaveAttribute("aria-expanded", "true");
+      expect(topMenuButton).toHaveAttribute("aria-expanded", "true");
 
       await userEvent.tab(); //next next sub menu focus should remain open
-      expect(topMenuItem).toHaveAttribute("aria-expanded", "true");
+      expect(topMenuButton).toHaveAttribute("aria-expanded", "true");
 
       await userEvent.tab(); //next menu should close on item
-      expect(topMenuItem).toHaveAttribute("aria-expanded", "false");
+      expect(topMenuButton).toHaveAttribute("aria-expanded", "false");
     });
 
     it("should be able control expand button using keyboard", async () => {
       renderDesktopWithAccessibility();
 
-      const topMenu = screen.getByRole("button", { name: "Expand Top Menu" });
+      const topMenuButton = screen.getByRole("button", { name: "Top Menu" });
 
-      await userEvent.type(topMenu, "{space}");
-      expect(topMenu).toHaveAttribute("aria-expanded", "true");
+      await userEvent.type(topMenuButton, "{space}");
+      expect(topMenuButton).toHaveAttribute("aria-expanded", "true");
 
       await userEvent.keyboard("{arrowup}");
-      expect(topMenu).toHaveAttribute("aria-expanded", "false");
+      expect(topMenuButton).toHaveAttribute("aria-expanded", "false");
 
       await userEvent.keyboard("{arrowdown}");
-      expect(topMenu).toHaveAttribute("aria-expanded", "true");
+      expect(topMenuButton).toHaveAttribute("aria-expanded", "true");
 
       await userEvent.keyboard("{escape}");
-      expect(topMenu).toHaveAttribute("aria-expanded", "false");
+      expect(topMenuButton).toHaveAttribute("aria-expanded", "false");
     });
   });
 
