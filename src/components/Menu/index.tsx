@@ -266,18 +266,16 @@ export function MutableMenu({
           <ul>{mobileTopMenu}</ul>{" "}
         </nav>
       </div>
-      <div
+      <nav
         className={`${style.desktop__nav} ${desktopClassName}`}
         style={desktopStyle}
       >
-        <nav className={style.menu}>
-          <ul>
-            <li>{homeLogoLink(style["home-logo"])}</li>
-            {desktopTopMenu}
-            <li>{shortcutComponent && shortcutComponent}</li>
-          </ul>
-        </nav>
-      </div>
+        <ul>
+          <li>{homeLogoLink(style["home-logo"])}</li>
+          {desktopTopMenu}
+          <li>{shortcutComponent && shortcutComponent}</li>
+        </ul>
+      </nav>
     </>
   );
 }

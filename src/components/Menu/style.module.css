@@ -69,7 +69,7 @@
   padding: 10px;
 }
 
-.desktop__nav .menu {
+.desktop__nav {
   width: 100%;
   height: 100%;
   position: static;
@@ -97,13 +97,13 @@
   border-width: 0 1px 1px 1px;
 }
 
-.desktop__nav .menu > ul {
+.desktop__nav > ul {
   display: flex;
   gap: 10px;
   align-items: center;
 }
 
-.desktop__nav .menu > ul li:last-child {
+.desktop__nav > ul li:last-child {
   margin-left: auto;
 }
 
