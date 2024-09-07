@@ -30,16 +30,24 @@ type SubMenuItem = {
 
 export type MenuType = TopMenuItem[];
 
+const isKeyboardClickEvent = (key: string) => {
+  switch (key) {
+    case "Space":
+    case " ":
+    case "Enter":
+      return true;
+  }
+  return false;
+};
+
 function DesktopTopMenu({
   menuLink,
   topMenuItem,
   subMenu,
-  unCheckSideMenu,
 }: {
   menuLink: MenuLink;
   topMenuItem: TopMenuItem;
   subMenu: SubMenu;
-  unCheckSideMenu: () => void;
 }) {
   const [isSubMenuOpened, setSubMenuOpened] = useState(false);
   const liRef = useRef(null);
@@ -93,7 +101,7 @@ function DesktopTopMenu({
         </div>
         <div className={style.subnav_content}>
           <ul role="menu" onFocus={(e) => e.stopPropagation()}>
-            {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
+            {subMenu(topMenuItem.items, topMenuItem.url)}
           </ul>
         </div>
       </li>
@@ -129,7 +137,7 @@ function MobileTopMenu({
 
   const onTopMenuKeyClick = useCallback(
     (event: React.KeyboardEvent<HTMLLabelElement>) => {
-      if (event.key === "Space" || event.key === " " || event.key === "Enter") {
+      if (isKeyboardClickEvent(event.key)) {
         (event.currentTarget.firstElementChild as HTMLInputElement).click();
       }
     },
@@ -205,6 +213,12 @@ export function MutableMenu({
     }
   };
 
+  const checkSideMenu = (event: React.KeyboardEvent<HTMLLabelElement>) => {
+    if (sideMenuRef.current && isKeyboardClickEvent(event.key)) {
+      sideMenuRef.current.checked = !sideMenuRef.current.checked;
+    }
+  };
+
   const onSideMenuChange = (event: ChangeEvent<HTMLInputElement>) => {
     document.body.style.overflow = event.target.checked ? "hidden" : "auto";
   };
@@ -229,7 +243,6 @@ export function MutableMenu({
       menuLink={menuLink}
       topMenuItem={topMenuItem}
       subMenu={subMenu}
-      unCheckSideMenu={unCheckSideMenu}
       key={topMenuItem.label}
     />
   ));
@@ -254,7 +267,8 @@ export function MutableMenu({
           <label
             className={style.hamb}
             aria-label={menuName || "Main Menu"}
-            aria-controls="mobile-menu"
+            tabIndex={0}
+            onKeyUp={checkSideMenu}
           >
             <input
               className={style.side__menu}
@@ -268,11 +282,7 @@ export function MutableMenu({
           {homeLink("/", unCheckSideMenu, -1)}
           {shortcutComponent && shortcutComponent}
         </div>
-        <nav
-          className={style.menu}
-          aria-labelledby="mobile-menu"
-          id="mobile-menu"
-        >
+        <nav className={style.menu}>
           <ul>{mobileTopMenu}</ul>{" "}
         </nav>
       </div>

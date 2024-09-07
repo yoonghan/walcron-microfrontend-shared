@@ -428,5 +428,17 @@ describe("Menu", () => {
         screen.getByRole("radio", { name: "Expanded Top Menu" })
       ).toBeInTheDocument();
     });
+
+    it("should show aria-expanded=true when menu is clicked", async () => {
+      renderMobileWithAccessibility();
+
+      await userEvent.click(screen.getByLabelText("Main Menu"));
+      expect(screen.getByRole("checkbox", { name: "Main Menu" })).toBeChecked();
+
+      await userEvent.keyboard("{Space}"); //will close it
+      expect(
+        screen.getByRole("checkbox", { name: "Main Menu" })
+      ).not.toBeChecked();
+    });
   });
 });
