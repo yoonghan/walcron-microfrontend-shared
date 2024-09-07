@@ -128,7 +128,10 @@ function MobileTopMenu({
   if (topMenuItem.items !== undefined) {
     return (
       <li key={topMenuItem.label} className={style.subnav} role="menu">
-        <label className={style.top__menu} aria-label={topMenuItem.label}>
+        <label
+          className={style.top__menu}
+          aria-label={`Expandable ${topMenuItem.label}`}
+        >
           <input
             type="checkbox"
             name="top_menu"

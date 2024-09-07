@@ -38,7 +38,7 @@ test.describe("disabled javascript in mobile", () => {
       page.getByRole("link", { name: "Zoo Negara Malaysia" })
     ).toBeInViewport();
 
-    const hamburgerMenu = page.getByLabel("Main Menu");
+    const hamburgerMenu = page.getByLabel("Hamburger Menu");
 
     await hamburgerMenu.click();
 
@@ -55,12 +55,9 @@ test.describe("disabled javascript in mobile", () => {
   }) => {
     await page.goto("http://localhost:3000/menu");
 
-    await page.getByLabel("Main Menu").click();
+    await page.getByLabel("Hamburger Menu").click();
 
-    await page
-      .getByRole("menu")
-      .getByLabel("Collapsed Visitor Info", { exact: true })
-      .click();
+    await page.getByLabel("Expandable Visitor Info", { exact: true }).click();
 
     await page
       .getByRole("link", {
@@ -75,7 +72,7 @@ test.describe("disabled javascript in mobile", () => {
   test("menu that had no child can be clicked", async ({ page }) => {
     await page.goto("http://localhost:3000/menu");
 
-    await page.getByLabel("Main Menu").click();
+    await page.getByLabel("Hamburger Menu").click();
 
     await page
       .getByRole("link", {

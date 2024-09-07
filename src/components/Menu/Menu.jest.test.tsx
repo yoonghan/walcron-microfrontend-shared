@@ -90,7 +90,9 @@ describe("Menu", () => {
     );
     expect(getByLabelText("Hamburger Menu")).toBeInTheDocument();
 
-    expect(getByRole("menuitemcheckbox", { name: "Zoo Negara" })).toBeVisible();
+    expect(
+      getByRole("menuitemcheckbox", { name: "Expandable Zoo Negara" })
+    ).toBeVisible();
     expect(getByRole("link", { name: "About Us" })).toBeVisible();
     expect(getByRole("link", { name: "Zoo Negara Logo" })).toBeVisible();
   });
@@ -199,7 +201,7 @@ describe("Menu", () => {
       expect(sideMenuCheckBox).toBeChecked();
 
       await userEvent.click(
-        getByRole("menuitemcheckbox", { name: "Zoo Negara" })
+        getByRole("menuitemcheckbox", { name: "Expandable Zoo Negara" })
       );
       expect(sideMenuCheckBox).toBeChecked();
     });
@@ -381,7 +383,7 @@ describe("Menu", () => {
     it("should show aria-expanded=true when top menu's subbutton is clicked and has submenus on click again will close", async () => {
       renderMobileWithAccessibility();
       const topMenu = screen.getByRole("menuitemcheckbox", {
-        name: "Top Menu",
+        name: "Expandable Top Menu",
       });
 
       await userEvent.click(topMenu);
