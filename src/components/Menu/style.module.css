@@ -174,10 +174,8 @@
 
 .mobile__nav .top__menu > input,
 .mobile__nav .side__menu {
-  height: 0;
-  width: 0;
-  border: 0;
-  display: contents;
+  opacity: 0;
+  position: absolute;
 } /* Hide checkbox */
 
 /* Toggle menu icon */

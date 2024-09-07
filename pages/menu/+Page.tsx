@@ -24,6 +24,7 @@ function Page() {
         e.preventDefault();
         onClick();
       }}
+      role="none"
     >
       Zoo Negara Malaysia
     </a>
@@ -125,6 +126,7 @@ function Page() {
           },
         ]}
         shortcutComponent={<button>+ Buy Now</button>}
+        menuName="kids menu"
       ></Menu>
     </header>
   );

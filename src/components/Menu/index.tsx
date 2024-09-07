@@ -30,16 +30,6 @@ type SubMenuItem = {
 
 export type MenuType = TopMenuItem[];
 
-const isKeyboardClickEvent = (key: string) => {
-  switch (key) {
-    case "Space":
-    case " ":
-    case "Enter":
-      return true;
-  }
-  return false;
-};
-
 function DesktopTopMenu({
   menuLink,
   topMenuItem,
@@ -135,26 +125,19 @@ function MobileTopMenu({
     setSubMenuOpened(!isSubMenuOpened);
   }, [isSubMenuOpened]);
 
-  const onTopMenuKeyClick = useCallback(
-    (event: React.KeyboardEvent<HTMLLabelElement>) => {
-      if (isKeyboardClickEvent(event.key)) {
-        (event.currentTarget.firstElementChild as HTMLInputElement).click();
-      }
-    },
-    []
-  );
-
   if (topMenuItem.items !== undefined) {
     return (
-      <li key={topMenuItem.label} className={style.subnav}>
-        <label
-          className={style.top__menu}
-          tabIndex={0}
-          onClick={onTopMenuClick}
-          onKeyUp={onTopMenuKeyClick}
-          aria-label={`${isSubMenuOpened ? "Expanded" : "Collapsed"} ${topMenuItem.label}`}
-        >
-          <input type="radio" name="top_menu" value={topMenuItem.label} />
+      <li key={topMenuItem.label} className={style.subnav} role="menu">
+        <label className={style.top__menu} aria-label={topMenuItem.label}>
+          <input
+            type="checkbox"
+            name="top_menu"
+            value={topMenuItem.label}
+            onClick={onTopMenuClick}
+            aria-expanded={isSubMenuOpened}
+            aria-haspopup={true}
+            role="menuitemcheckbox"
+          />
         </label>
         {menuLink(topMenuItem.label, topMenuItem.url, unCheckSideMenu)}
         <div className={style.subnav_content}>
@@ -196,7 +179,8 @@ export function MutableMenu({
   mobileClassName?: string;
   menuName?: string;
 }) {
-  const sideMenuRef = useRef<HTMLInputElement>(null);
+  const sideMenuRef = useRef<HTMLInputElement>(null); //remain for non-javascript
+  const [isOpenedHamburger, setIsOpenedHamburger] = useState(false);
 
   const replaceWithTopMenuUrlIfAHashlinkOrEmpty = (
     topMenuUrl: string,
@@ -213,14 +197,10 @@ export function MutableMenu({
     }
   };
 
-  const checkSideMenu = (event: React.KeyboardEvent<HTMLLabelElement>) => {
-    if (sideMenuRef.current && isKeyboardClickEvent(event.key)) {
-      sideMenuRef.current.checked = !sideMenuRef.current.checked;
-    }
-  };
-
   const onSideMenuChange = (event: ChangeEvent<HTMLInputElement>) => {
-    document.body.style.overflow = event.target.checked ? "hidden" : "auto";
+    const isChecked = event.target.checked;
+    setIsOpenedHamburger(isChecked);
+    document.body.style.overflow = isChecked ? "hidden" : "auto";
   };
 
   const subMenu = (
@@ -267,14 +247,15 @@ export function MutableMenu({
           <label
             className={style.hamb}
             aria-label={menuName || "Hamburger Menu"}
-            tabIndex={0}
-            onKeyUp={checkSideMenu}
           >
             <input
               className={style.side__menu}
               type="checkbox"
               ref={sideMenuRef}
               onChange={onSideMenuChange}
+              aria-expanded={isOpenedHamburger === true}
+              aria-haspopup={true}
+              aria-controls={"hamburger-menu"}
             />
             <span className={style.hamb_line}></span>
           </label>
@@ -282,7 +263,9 @@ export function MutableMenu({
           {shortcutComponent && shortcutComponent}
         </div>
         <nav className={style.menu}>
-          <ul>{mobileTopMenu}</ul>{" "}
+          <ul role="none" id="hamburger-menu" aria-labelledby="hamburger-menu">
+            {mobileTopMenu}
+          </ul>{" "}
         </nav>
       </div>
       <nav

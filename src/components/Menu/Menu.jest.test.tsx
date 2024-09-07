@@ -90,7 +90,7 @@ describe("Menu", () => {
     );
     expect(getByLabelText("Hamburger Menu")).toBeInTheDocument();
 
-    expect(getByRole("radio", { name: "Collapsed Zoo Negara" })).toBeVisible();
+    expect(getByRole("menuitemcheckbox", { name: "Zoo Negara" })).toBeVisible();
     expect(getByRole("link", { name: "About Us" })).toBeVisible();
     expect(getByRole("link", { name: "Zoo Negara Logo" })).toBeVisible();
   });
@@ -143,22 +143,6 @@ describe("Menu", () => {
     );
   });
 
-  it("should not have link for mobile view, and click checks the radio", async () => {
-    const { getByRole } = renderMenuWithItems(false);
-
-    expect(
-      getByRole("radio", { name: "Collapsed Zoo Negara" })
-    ).not.toHaveAttribute("href");
-
-    expect(
-      getByRole("radio", { name: "Collapsed Zoo Negara" })
-    ).not.toBeChecked();
-    await userEvent.click(getByRole("radio", { name: "Collapsed Zoo Negara" }));
-    expect(getByRole("radio", { name: "Expanded Zoo Negara" })).toBeChecked();
-
-    expect(getByRole("link", { name: "News" })).toHaveAttribute("href");
-  });
-
   it("should render shortcut components for mobile if exist", () => {
     const { getByRole } = renderMenuWithItems(
       false,
@@ -183,7 +167,9 @@ describe("Menu", () => {
     const renderMenuItemAndGetCheckBox = () => {
       const { getByRole } = renderMenuWithItems();
       return {
-        sideMenuCheckBox: getByRole("checkbox", { name: "Hamburger Menu" }),
+        sideMenuCheckBox: getByRole("checkbox", {
+          name: "Hamburger Menu",
+        }),
         getByRole,
       };
     };
@@ -213,7 +199,7 @@ describe("Menu", () => {
       expect(sideMenuCheckBox).toBeChecked();
 
       await userEvent.click(
-        getByRole("radio", { name: "Collapsed Zoo Negara" })
+        getByRole("menuitemcheckbox", { name: "Zoo Negara" })
       );
       expect(sideMenuCheckBox).toBeChecked();
     });
@@ -394,52 +380,30 @@ describe("Menu", () => {
 
     it("should show aria-expanded=true when top menu's subbutton is clicked and has submenus on click again will close", async () => {
       renderMobileWithAccessibility();
-      await userEvent.click(
-        screen.getByRole("radio", { name: "Collapsed Top Menu" })
-      );
-      await userEvent.click(
-        screen.getByRole("radio", { name: "Expanded Top Menu" })
-      );
-    });
+      const topMenu = screen.getByRole("menuitemcheckbox", {
+        name: "Top Menu",
+      });
 
-    it("should show aria-expanded=true when using keyboard navigation", async () => {
-      renderMobileWithAccessibility();
+      await userEvent.click(topMenu);
+      expect(topMenu).toHaveAttribute("aria-expanded", "true");
 
-      await userEvent.click(
-        screen.getByRole("radio", { name: "Collapsed Top Menu" })
-      ); //menu should open
-      expect(
-        screen.getByRole("radio", { name: "Expanded Top Menu" })
-      ).toBeInTheDocument();
-
-      await userEvent.keyboard("{Space}"); //will close it
-      expect(
-        screen.getByRole("radio", { name: "Collapsed Top Menu" })
-      ).toBeInTheDocument();
-
-      await userEvent.keyboard("{Enter}"); //will open it
-      expect(
-        screen.getByRole("radio", { name: "Expanded Top Menu" })
-      ).toBeInTheDocument();
-
-      await userEvent.keyboard(" "); //will remain..some bug here it
-      expect(
-        screen.getByRole("radio", { name: "Expanded Top Menu" })
-      ).toBeInTheDocument();
+      await userEvent.click(topMenu);
+      expect(topMenu).toHaveAttribute("aria-expanded", "false");
     });
 
     it("should show aria-expanded=true when menu is clicked", async () => {
       renderMobileWithAccessibility();
+      const hamburgerMenu = screen.getByRole("checkbox", {
+        name: "Hamburger Menu",
+      });
 
-      await userEvent.click(screen.getByLabelText("Hamburger Menu"));
-      expect(
-        screen.getByRole("checkbox", { name: "Hamburger Menu" })
-      ).toBeChecked();
+      await userEvent.click(hamburgerMenu);
+      expect(hamburgerMenu).toBeChecked();
+      expect(hamburgerMenu).toHaveAttribute("aria-expanded", "true");
 
-      await userEvent.keyboard("{Space}"); //will close it
-      expect(
-        screen.getByRole("checkbox", { name: "Hamburger Menu" })
-      ).not.toBeChecked();
+      await userEvent.click(hamburgerMenu);
+      expect(hamburgerMenu).not.toBeChecked();
+      expect(hamburgerMenu).toHaveAttribute("aria-expanded", "false");
     });
   });
 });
