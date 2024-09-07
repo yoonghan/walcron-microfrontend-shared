@@ -82,14 +82,13 @@ describe("Menu", () => {
     );
 
   it("should will display mobile home text that links to home", () => {
-    const { getByRole, getByText, getByLabelText } = renderMenuWithItems();
+    const { getByRole, getByLabelText } = renderMenuWithItems();
 
     expect(getByRole("link", { name: "Zoo Negara Malaysia" })).toHaveAttribute(
       "href",
       "/"
     );
-    expect(getByText("Hamburger Menu")).toHaveClass("hamb-hidden");
-    expect(getByLabelText("Main Menu")).toBeInTheDocument();
+    expect(getByLabelText("Hamburger Menu")).toBeInTheDocument();
 
     expect(getByRole("radio", { name: "Collapsed Zoo Negara" })).toBeVisible();
     expect(getByRole("link", { name: "About Us" })).toBeVisible();
@@ -184,7 +183,7 @@ describe("Menu", () => {
     const renderMenuItemAndGetCheckBox = () => {
       const { getByRole } = renderMenuWithItems();
       return {
-        sideMenuCheckBox: getByRole("checkbox", { name: "Main Menu" }),
+        sideMenuCheckBox: getByRole("checkbox", { name: "Hamburger Menu" }),
         getByRole,
       };
     };
@@ -432,12 +431,14 @@ describe("Menu", () => {
     it("should show aria-expanded=true when menu is clicked", async () => {
       renderMobileWithAccessibility();
 
-      await userEvent.click(screen.getByLabelText("Main Menu"));
-      expect(screen.getByRole("checkbox", { name: "Main Menu" })).toBeChecked();
+      await userEvent.click(screen.getByLabelText("Hamburger Menu"));
+      expect(
+        screen.getByRole("checkbox", { name: "Hamburger Menu" })
+      ).toBeChecked();
 
       await userEvent.keyboard("{Space}"); //will close it
       expect(
-        screen.getByRole("checkbox", { name: "Main Menu" })
+        screen.getByRole("checkbox", { name: "Hamburger Menu" })
       ).not.toBeChecked();
     });
   });

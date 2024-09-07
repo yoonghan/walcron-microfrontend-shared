@@ -266,7 +266,7 @@ export function MutableMenu({
         <div className={style["mobile-menu"]}>
           <label
             className={style.hamb}
-            aria-label={menuName || "Main Menu"}
+            aria-label={menuName || "Hamburger Menu"}
             tabIndex={0}
             onKeyUp={checkSideMenu}
           >
@@ -277,7 +277,6 @@ export function MutableMenu({
               onChange={onSideMenuChange}
             />
             <span className={style["hamb-line"]}></span>
-            <span className={style["hamb-hidden"]}>Hamburger Menu</span>
           </label>
           {homeLink("/", unCheckSideMenu, -1)}
           {shortcutComponent && shortcutComponent}

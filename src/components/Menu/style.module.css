@@ -173,10 +173,6 @@
   top: -8px;
 }
 
-.mobile__nav .hamb-hidden {
-  display: none;
-}
-
 .mobile__nav .top__menu > input,
 .mobile__nav .side__menu {
   height: 0;
