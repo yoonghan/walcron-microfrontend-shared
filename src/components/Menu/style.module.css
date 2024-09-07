@@ -64,7 +64,7 @@
   padding: 0 2rem;
 }
 
-.desktop__nav .home-logo {
+.desktop__nav .home_logo {
   display: inline;
   padding: 10px;
 }
@@ -147,7 +147,7 @@
   padding: 40px 0;
 }
 
-.mobile__nav .hamb-line {
+.mobile__nav .hamb_line {
   background: var(--menu-color-text);
   display: block;
   height: 2px;
@@ -155,8 +155,8 @@
   width: 24px;
 }
 
-.mobile__nav .hamb-line::before,
-.mobile__nav .hamb-line::after {
+.mobile__nav .hamb_line::before,
+.mobile__nav .hamb_line::after {
   background: var(--menu-color-text);
   content: "";
   display: block;
@@ -165,11 +165,11 @@
   transition: all 0.2s ease-out;
   width: 100%;
 }
-.mobile__nav .hamb-line::before {
+.mobile__nav .hamb_line::before {
   top: 8px;
 }
 
-.mobile__nav .hamb-line::after {
+.mobile__nav .hamb_line::after {
   top: -8px;
 }
 
@@ -186,14 +186,14 @@
   max-height: calc(100% - 80px);
   display: block;
 }
-.mobile-menu:has(.side__menu:checked) .hamb .hamb-line {
+.mobile-menu:has(.side__menu:checked) .hamb .hamb_line {
   background: transparent;
 }
-.mobile-menu:has(.side__menu:checked) .hamb .hamb-line::before {
+.mobile-menu:has(.side__menu:checked) .hamb .hamb_line::before {
   transform: rotate(-45deg);
   top: 0;
 }
-.mobile-menu:has(.side__menu:checked) .hamb .hamb-line::after {
+.mobile-menu:has(.side__menu:checked) .hamb .hamb_line::after {
   transform: rotate(45deg);
   top: 0;
 }

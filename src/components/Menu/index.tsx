@@ -276,7 +276,7 @@ export function MutableMenu({
               ref={sideMenuRef}
               onChange={onSideMenuChange}
             />
-            <span className={style["hamb-line"]}></span>
+            <span className={style.hamb_line}></span>
           </label>
           {homeLink("/", unCheckSideMenu, -1)}
           {shortcutComponent && shortcutComponent}
@@ -291,7 +291,7 @@ export function MutableMenu({
         aria-label={menuName}
       >
         <ul>
-          <li>{homeLogoLink(style["home-logo"])}</li>
+          <li>{homeLogoLink(style.home_logo)}</li>
           {desktopTopMenu}
           <li>{shortcutComponent && shortcutComponent}</li>
         </ul>
