@@ -9,12 +9,7 @@ import React, {
 } from "react";
 import style from "./style.module.css";
 
-type MenuLink = (
-  text: string,
-  href: string,
-  onClick?: () => void,
-  isAriaExpanded?: boolean
-) => ReactNode;
+type MenuLink = (text: string, href: string, onClick?: () => void) => ReactNode;
 
 type SubMenu = (
   subMenu: SubMenuItem[],
@@ -39,12 +34,10 @@ function DesktopTopMenu({
   menuLink,
   topMenuItem,
   subMenu,
-  unCheckSideMenu,
 }: {
   menuLink: MenuLink;
   topMenuItem: TopMenuItem;
   subMenu: SubMenu;
-  unCheckSideMenu: () => void;
 }) {
   const [isSubMenuOpened, setSubMenuOpened] = useState(false);
   const liRef = useRef(null);
@@ -82,36 +75,30 @@ function DesktopTopMenu({
   if (topMenuItem.items !== undefined) {
     return (
       <li
-        role="menuitem"
         className={`${style.subnav} ${isSubMenuOpened ? style.open : ""}`}
         onBlur={onMenuBlur}
         ref={liRef}
       >
         <div className={style.top_menu_container}>
-          {menuLink(
-            topMenuItem.label,
-            topMenuItem.url,
-            undefined,
-            isSubMenuOpened
-          )}
+          {menuLink(topMenuItem.label, topMenuItem.url, undefined)}
           <button
             onClick={onExpandButtonClick}
             onKeyUp={onExpandButtonKeyUp}
-            aria-label={`Expand ${topMenuItem.label}`}
+            aria-label={`${topMenuItem.label}`}
             aria-expanded={isSubMenuOpened}
             className={style.expand}
           ></button>
         </div>
         <div className={style.subnav_content}>
           <ul role="menu" onFocus={(e) => e.stopPropagation()}>
-            {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
+            {subMenu(topMenuItem.items, topMenuItem.url)}
           </ul>
         </div>
       </li>
     );
   } else {
     return (
-      <li key={topMenuItem.label} role="menuitem">
+      <li key={topMenuItem.label}>
         <div className={style.top_menu_container}>
           {menuLink(topMenuItem.label, topMenuItem.url)}
           <div className={style.expand_dummy}></div>
@@ -138,26 +125,22 @@ function MobileTopMenu({
     setSubMenuOpened(!isSubMenuOpened);
   }, [isSubMenuOpened]);
 
-  const onTopMenuKeyClick = useCallback(
-    (event: React.KeyboardEvent<HTMLLabelElement>) => {
-      if (event.key === "Space" || event.key === " " || event.key === "Enter") {
-        (event.currentTarget.firstElementChild as HTMLInputElement).click();
-      }
-    },
-    []
-  );
-
   if (topMenuItem.items !== undefined) {
     return (
-      <li key={topMenuItem.label} role="menuitem" className={style.subnav}>
+      <li key={topMenuItem.label} className={style.subnav} role="menu">
         <label
           className={style.top__menu}
-          tabIndex={0}
-          onClick={onTopMenuClick}
-          onKeyUp={onTopMenuKeyClick}
-          aria-label={`${isSubMenuOpened ? "Expanded" : "Collapsed"} ${topMenuItem.label}`}
+          aria-label={`Expandable ${topMenuItem.label}`}
         >
-          <input type="radio" name="top_menu" value={topMenuItem.label} />
+          <input
+            type="checkbox"
+            name="top_menu"
+            value={topMenuItem.label}
+            onClick={onTopMenuClick}
+            aria-expanded={isSubMenuOpened}
+            aria-haspopup={true}
+            role="menuitemcheckbox"
+          />
         </label>
         {menuLink(topMenuItem.label, topMenuItem.url, unCheckSideMenu)}
         <div className={style.subnav_content}>
@@ -169,7 +152,7 @@ function MobileTopMenu({
     );
   } else {
     return (
-      <li key={topMenuItem.label} role="menuitem">
+      <li key={topMenuItem.label}>
         {menuLink(topMenuItem.label, topMenuItem.url, unCheckSideMenu)}
       </li>
     );
@@ -186,6 +169,7 @@ export function MutableMenu({
   desktopStyle = {},
   desktopClassName = "",
   mobileClassName = "",
+  menuName = undefined,
 }: {
   menuLink: MenuLink;
   homeLink: (href: string, onClick: () => void, tabIndex: number) => ReactNode;
@@ -196,8 +180,10 @@ export function MutableMenu({
   desktopStyle?: CSSProperties;
   desktopClassName?: string;
   mobileClassName?: string;
+  menuName?: string;
 }) {
-  const sideMenuRef = useRef<HTMLInputElement>(null);
+  const sideMenuRef = useRef<HTMLInputElement>(null); //remain for non-javascript
+  const [isOpenedHamburger, setIsOpenedHamburger] = useState(false);
 
   const replaceWithTopMenuUrlIfAHashlinkOrEmpty = (
     topMenuUrl: string,
@@ -215,7 +201,9 @@ export function MutableMenu({
   };
 
   const onSideMenuChange = (event: ChangeEvent<HTMLInputElement>) => {
-    document.body.style.overflow = event.target.checked ? "hidden" : "auto";
+    const isChecked = event.target.checked;
+    setIsOpenedHamburger(isChecked);
+    document.body.style.overflow = isChecked ? "hidden" : "auto";
   };
 
   const subMenu = (
@@ -224,7 +212,7 @@ export function MutableMenu({
     onClick?: () => void
   ) =>
     subMenu.map((subMenuItem) => (
-      <li key={subMenuItem.label} role="menuitem">
+      <li key={subMenuItem.label}>
         {menuLink(
           subMenuItem.label,
           replaceWithTopMenuUrlIfAHashlinkOrEmpty(topMenuUrl, subMenuItem.url),
@@ -238,7 +226,6 @@ export function MutableMenu({
       menuLink={menuLink}
       topMenuItem={topMenuItem}
       subMenu={subMenu}
-      unCheckSideMenu={unCheckSideMenu}
       key={topMenuItem.label}
     />
   ));
@@ -260,37 +247,41 @@ export function MutableMenu({
         style={mobileStyle}
       >
         <div className={style["mobile-menu"]}>
-          <label className={style.hamb} aria-label="Main Menu">
+          <label
+            className={style.hamb}
+            aria-label={menuName || "Hamburger Menu"}
+          >
             <input
               className={style.side__menu}
               type="checkbox"
               ref={sideMenuRef}
               onChange={onSideMenuChange}
+              aria-expanded={isOpenedHamburger === true}
+              aria-haspopup={true}
+              aria-controls={"hamburger-menu"}
             />
-            <span className={style["hamb-line"]}></span>
-            <span className={style["hamb-hidden"]}>Hamburger Menu</span>
+            <span className={style.hamb_line}></span>
           </label>
           {homeLink("/", unCheckSideMenu, -1)}
           {shortcutComponent && shortcutComponent}
         </div>
-        <nav role="menubar" className={style.menu}>
-          <ul role="menu" aria-orientation="horizontal">
+        <nav className={style.menu}>
+          <ul role="none" id="hamburger-menu" aria-labelledby="hamburger-menu">
             {mobileTopMenu}
-          </ul>
+          </ul>{" "}
         </nav>
       </div>
-      <div
+      <nav
         className={`${style.desktop__nav} ${desktopClassName}`}
         style={desktopStyle}
+        aria-label={menuName}
       >
-        <nav role="menubar" className={style.menu}>
-          <ul role="menu" aria-orientation="horizontal">
-            <li role="menuitem">{homeLogoLink(style["home-logo"])}</li>
-            {desktopTopMenu}
-            <li role="menuitem">{shortcutComponent && shortcutComponent}</li>
-          </ul>
-        </nav>
-      </div>
+        <ul>
+          <li>{homeLogoLink(style.home_logo)}</li>
+          {desktopTopMenu}
+          <li>{shortcutComponent && shortcutComponent}</li>
+        </ul>
+      </nav>
     </>
   );
 }
