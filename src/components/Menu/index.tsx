@@ -90,9 +90,7 @@ function DesktopTopMenu({
           ></button>
         </div>
         <div className={style.subnav_content}>
-          <ul role="menu" onFocus={(e) => e.stopPropagation()}>
-            {subMenu(topMenuItem.items, topMenuItem.url)}
-          </ul>
+          <ul>{subMenu(topMenuItem.items, topMenuItem.url)}</ul>
         </div>
       </li>
     );
@@ -144,7 +142,7 @@ function MobileTopMenu({
         </label>
         {menuLink(topMenuItem.label, topMenuItem.url, unCheckSideMenu)}
         <div className={style.subnav_content}>
-          <ul role="menu">
+          <ul>
             {subMenu(topMenuItem.items, topMenuItem.url, unCheckSideMenu)}
           </ul>
         </div>
