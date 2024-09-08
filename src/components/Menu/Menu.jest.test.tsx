@@ -5,19 +5,13 @@ import userEvent from "@testing-library/user-event";
 import { describe, it, expect } from "vitest";
 
 describe("Menu", () => {
-  const MenuLink = (
-    text: string,
-    href: string,
-    onClick?: () => void,
-    isAriaExpanded?: boolean
-  ) => (
+  const MenuLink = (text: string, href: string, onClick?: () => void) => (
     <a
       href={href}
       onClick={(e) => {
         e.preventDefault();
         onClick && onClick();
       }}
-      aria-expanded={isAriaExpanded}
     >
       {text}
     </a>
@@ -276,7 +270,10 @@ describe("Menu", () => {
     it("should show aria-expanded=true when top menu's subbutton is clicked and has submenus on click again will close", async () => {
       renderDesktopWithAccessibility();
 
-      const topMenuButton = screen.getByRole("button", { name: "Top Menu" });
+      const topMenuButton = screen.getByRole("button", {
+        name: "Top Menu",
+        expanded: false,
+      });
 
       await userEvent.click(topMenuButton);
       expect(topMenuButton).toHaveAttribute("aria-expanded", "true");
@@ -291,9 +288,13 @@ describe("Menu", () => {
 
     it("should show aria-expanded=true when top menu's subbutton is clicked and is independant", async () => {
       renderDesktopWithAccessibility();
-      const topMenuButton = screen.getByRole("button", { name: "Top Menu" });
+      const topMenuButton = screen.getByRole("button", {
+        name: "Top Menu",
+        expanded: false,
+      });
       const topMenuButton_2 = screen.getByRole("button", {
         name: "Top Menu 2",
+        expanded: false,
       });
 
       await userEvent.click(topMenuButton);
@@ -308,7 +309,10 @@ describe("Menu", () => {
     it("should show aria-expanded=true when using keyboard navigation", async () => {
       renderDesktopWithAccessibility();
 
-      const topMenuButton = screen.getByRole("button", { name: "Top Menu" });
+      const topMenuButton = screen.getByRole("button", {
+        name: "Top Menu",
+        expanded: false,
+      });
 
       await userEvent.type(topMenuButton, "{space}"); //menu should open
 
@@ -325,7 +329,10 @@ describe("Menu", () => {
     it("should be able control expand button using keyboard", async () => {
       renderDesktopWithAccessibility();
 
-      const topMenuButton = screen.getByRole("button", { name: "Top Menu" });
+      const topMenuButton = screen.getByRole("button", {
+        name: "Top Menu",
+        expanded: false,
+      });
 
       await userEvent.type(topMenuButton, "{space}");
       expect(topMenuButton).toHaveAttribute("aria-expanded", "true");
@@ -384,6 +391,7 @@ describe("Menu", () => {
       renderMobileWithAccessibility();
       const topMenu = screen.getByRole("menuitemcheckbox", {
         name: "Expandable Top Menu",
+        expanded: false,
       });
 
       await userEvent.click(topMenu);
@@ -397,6 +405,7 @@ describe("Menu", () => {
       renderMobileWithAccessibility();
       const hamburgerMenu = screen.getByRole("checkbox", {
         name: "Hamburger Menu",
+        expanded: false,
       });
 
       await userEvent.click(hamburgerMenu);
