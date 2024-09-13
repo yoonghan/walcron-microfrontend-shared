@@ -264,17 +264,14 @@ export function MutableMenu({
           >
             <div className={style.hamb_line}></div>
           </button>
-          <label
-            className={`${style.hamb} ${isJavascriptEnabled ? "hide" : "show"}`}
-            aria-label={menuName || "Hamburger Menu"}
-          >
+          <label className={`${isJavascriptEnabled ? "hide" : "show"}`}>
             <input
               className={style.side__menu}
               type="checkbox"
               ref={sideMenuRef}
               onChange={onSideMenuChange}
             />
-            <span className={style.hamb_line}></span>
+            {menuName || "Hamburger Menu"}
           </label>
           {homeLink("/", unCheckSideMenu, -1)}
           {shortcutComponent && shortcutComponent}

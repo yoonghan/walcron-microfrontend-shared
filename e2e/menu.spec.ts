@@ -1,4 +1,7 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
+
+const gotoMenuPage = async (page: Page) =>
+  await page.goto("http://localhost:3000/menu");
 
 test.describe("desktop view", () => {
   test.use({
@@ -6,7 +9,7 @@ test.describe("desktop view", () => {
   });
 
   test("menu pop-up on hover", async ({ page }) => {
-    await page.goto("http://localhost:3000/menu");
+    await gotoMenuPage(page);
 
     const firstTopMenuItem = page.getByRole("link", {
       name: "Visitor Info",
@@ -26,19 +29,20 @@ test.describe("desktop view", () => {
   });
 });
 
-test.describe("disabled javascript in mobile", () => {
+test.describe("mobile view", () => {
   test.use({
     viewport: { width: 900, height: 1200 },
-    javaScriptEnabled: false,
   });
 
   test("menu pop up in hamburger", async ({ page }) => {
-    await page.goto("http://localhost:3000/menu");
+    await gotoMenuPage(page);
     await expect(
       page.getByRole("link", { name: "Zoo Negara Malaysia" })
     ).toBeInViewport();
 
-    const hamburgerMenu = page.getByLabel("Hamburger Menu");
+    const hamburgerMenu = page.getByRole("button", {
+      name: "Hamburger Menu",
+    });
 
     await hamburgerMenu.click();
 
@@ -49,13 +53,41 @@ test.describe("disabled javascript in mobile", () => {
 
     await expect(menuitem).not.toBeInViewport();
   });
+});
+
+test.describe("disabled javascript in mobile", () => {
+  test.use({
+    viewport: { width: 900, height: 1200 },
+    javaScriptEnabled: false,
+  });
+
+  const getHamburgerMenu = (page: Page) =>
+    page.getByRole("checkbox", {
+      name: "Hamburger Menu",
+    });
+
+  test("menu pop up in hamburger", async ({ page }) => {
+    await gotoMenuPage(page);
+    await expect(
+      page.getByRole("link", { name: "Zoo Negara Malaysia" })
+    ).toBeInViewport();
+
+    await getHamburgerMenu(page).click();
+
+    const menuitem = page.getByRole("link", { name: "Visitor Info" });
+    await expect(menuitem).toBeVisible();
+
+    await getHamburgerMenu(page).click();
+
+    await expect(menuitem).not.toBeInViewport();
+  });
 
   test("menu that has child will be expanded (with +) and child is clickable", async ({
     page,
   }) => {
-    await page.goto("http://localhost:3000/menu");
+    await gotoMenuPage(page);
 
-    await page.getByLabel("Hamburger Menu").click();
+    await getHamburgerMenu(page).click();
 
     await page.getByLabel("Expandable Visitor Info", { exact: true }).click();
 
@@ -70,9 +102,9 @@ test.describe("disabled javascript in mobile", () => {
   });
 
   test("menu that had no child can be clicked", async ({ page }) => {
-    await page.goto("http://localhost:3000/menu");
+    await gotoMenuPage(page);
 
-    await page.getByLabel("Hamburger Menu").click();
+    await getHamburgerMenu(page).click();
 
     await page
       .getByRole("link", {
