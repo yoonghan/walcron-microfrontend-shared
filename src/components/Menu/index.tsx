@@ -4,7 +4,7 @@ import React, {
   ReactNode,
   memo,
   useCallback,
-  useLayoutEffect,
+  useEffect,
   useRef,
   useState,
 } from "react";
@@ -186,7 +186,7 @@ export function MutableMenu({
 
   /* state for switching between button and checkbox display */
   const [isJavascriptEnabled, setJavaScriptEnabled] = useState(false);
-  useLayoutEffect(() => {
+  useEffect(() => {
     setJavaScriptEnabled(true);
   }, []);
 
