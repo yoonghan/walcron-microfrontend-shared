@@ -114,6 +114,14 @@
   box-shadow: 2px 2px 2px -4px black;
 }
 
+.mobile__nav :global(.hide) {
+  display: none;
+}
+
+.mobile__nav :global(.show) {
+  display: block;
+}
+
 .mobile__nav .menu {
   width: 100%;
   height: 100%;
@@ -144,6 +152,8 @@
 .mobile__nav .hamb {
   cursor: pointer;
   padding: 40px 0;
+  border: none; /* remove button style */
+  background: transparent;
 }
 
 .mobile__nav .hamb_line {
@@ -163,6 +173,7 @@
   position: absolute;
   transition: all 0.2s ease-out;
   width: 100%;
+  left: 0;
 }
 .mobile__nav .hamb_line::before {
   top: 8px;

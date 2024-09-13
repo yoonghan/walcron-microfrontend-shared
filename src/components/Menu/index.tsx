@@ -4,6 +4,7 @@ import React, {
   ReactNode,
   memo,
   useCallback,
+  useLayoutEffect,
   useRef,
   useState,
 } from "react";
@@ -183,6 +184,12 @@ export function MutableMenu({
   const sideMenuRef = useRef<HTMLInputElement>(null); //remain for non-javascript
   const [isOpenedHamburger, setIsOpenedHamburger] = useState(false);
 
+  /* state for switching between button and checkbox display */
+  const [isJavascriptEnabled, setJavaScriptEnabled] = useState(false);
+  useLayoutEffect(() => {
+    setJavaScriptEnabled(true);
+  }, []);
+
   const replaceWithTopMenuUrlIfAHashlinkOrEmpty = (
     topMenuUrl: string,
     url?: string
@@ -245,8 +252,20 @@ export function MutableMenu({
         style={mobileStyle}
       >
         <div className={style["mobile-menu"]}>
+          <button
+            aria-expanded={isOpenedHamburger === true}
+            aria-haspopup={true}
+            aria-controls={"hamburger-menu"}
+            className={`${style.hamb} ${isJavascriptEnabled ? "show" : "hide"}`}
+            aria-label={menuName || "Hamburger Menu"}
+            onClick={() => {
+              sideMenuRef.current?.click();
+            }}
+          >
+            <div className={style.hamb_line}></div>
+          </button>
           <label
-            className={style.hamb}
+            className={`${style.hamb} ${isJavascriptEnabled ? "hide" : "show"}`}
             aria-label={menuName || "Hamburger Menu"}
           >
             <input
@@ -254,9 +273,6 @@ export function MutableMenu({
               type="checkbox"
               ref={sideMenuRef}
               onChange={onSideMenuChange}
-              aria-expanded={isOpenedHamburger === true}
-              aria-haspopup={true}
-              aria-controls={"hamburger-menu"}
             />
             <span className={style.hamb_line}></span>
           </label>
