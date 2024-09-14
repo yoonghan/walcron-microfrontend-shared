@@ -34,24 +34,66 @@ test.describe("mobile view", () => {
     viewport: { width: 900, height: 1200 },
   });
 
+  const getHamburgerMenu = (page: Page) =>
+    page.getByRole("button", {
+      name: "Hamburger Menu",
+    });
+
   test("menu pop up in hamburger", async ({ page }) => {
     await gotoMenuPage(page);
     await expect(
       page.getByRole("link", { name: "Zoo Negara Malaysia" })
     ).toBeInViewport();
 
-    const hamburgerMenu = page.getByRole("button", {
-      name: "Hamburger Menu",
-    });
-
-    await hamburgerMenu.click();
+    await getHamburgerMenu(page).click();
 
     const menuitem = page.getByRole("link", { name: "Visitor Info" });
     await expect(menuitem).toBeVisible();
 
-    await hamburgerMenu.click();
+    await getHamburgerMenu(page).click();
 
     await expect(menuitem).not.toBeInViewport();
+  });
+
+  test("menu that has child will be expanded (with +) and child is clickable", async ({
+    page,
+  }) => {
+    await gotoMenuPage(page);
+
+    await getHamburgerMenu(page).click();
+
+    await page.getByRole("button", { name: "Expandable Visitor Info" }).click();
+
+    await page
+      .getByRole("link", {
+        name: "Opening Hours And Rates",
+        exact: true,
+      })
+      .click();
+
+    expect(page.url, "/visitor-info");
+  });
+
+  test("menu have change able submenu with label - and +", async ({ page }) => {
+    const assertContent = async (button, expectedContent: string) => {
+      const contentStyle = await button.evaluate((element) =>
+        window.getComputedStyle(element, ":before").getPropertyValue("content")
+      );
+
+      expect(contentStyle).toEqual(`"${expectedContent}"`);
+    };
+
+    await gotoMenuPage(page);
+
+    await getHamburgerMenu(page).click();
+
+    const button = await page.getByRole("button", {
+      name: "Expandable Visitor Info",
+    });
+    await assertContent(button, "+");
+
+    await button.click();
+    await assertContent(button, "-");
   });
 });
 
@@ -89,7 +131,9 @@ test.describe("disabled javascript in mobile", () => {
 
     await getHamburgerMenu(page).click();
 
-    await page.getByLabel("Expandable Visitor Info", { exact: true }).click();
+    await page
+      .getByRole("menuitemcheckbox", { name: "Expandable Visitor Info" })
+      .click();
 
     await page
       .getByRole("link", {
@@ -113,5 +157,32 @@ test.describe("disabled javascript in mobile", () => {
       })
       .click();
     expect(page.url, "/about-us");
+  });
+
+  test("menu have change able submenu with label - and +", async ({ page }) => {
+    const assertContent = async (button, expectedContent: string) => {
+      const contentStyle = await button.evaluate((element: Element) => {
+        const parentLabel = element.parentElement;
+        if (parentLabel !== null)
+          return window
+            .getComputedStyle(parentLabel, ":before")
+            .getPropertyValue("content");
+        else return null;
+      });
+
+      expect(contentStyle).toEqual(`"${expectedContent}"`);
+    };
+
+    await gotoMenuPage(page);
+
+    await getHamburgerMenu(page).click();
+
+    const checkbox = await page.getByRole("menuitemcheckbox", {
+      name: "Expandable Visitor Info",
+    });
+    await assertContent(checkbox, "+");
+
+    await checkbox.click();
+    await assertContent(checkbox, "-");
   });
 });
