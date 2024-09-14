@@ -19,7 +19,7 @@
     "walcoorperation",
     "shared walcron components"
   ],
-  "version": "8.6.1",
+  "version": "9.0.0",
   "type": "module",
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
