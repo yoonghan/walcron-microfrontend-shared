@@ -114,6 +114,18 @@
   box-shadow: 2px 2px 2px -4px black;
 }
 
+.mobile__nav :global(.hide) {
+  display: none;
+}
+
+.mobile__nav :global(.show) {
+  display: block;
+}
+
+.mobile__nav :global(.show-inline) {
+  display: inline-block;
+}
+
 .mobile__nav .menu {
   width: 100%;
   height: 100%;
@@ -144,6 +156,8 @@
 .mobile__nav .hamb {
   cursor: pointer;
   padding: 40px 0;
+  border: none; /* remove button style */
+  background: transparent;
 }
 
 .mobile__nav .hamb_line {
@@ -163,6 +177,7 @@
   position: absolute;
   transition: all 0.2s ease-out;
   width: 100%;
+  left: 0;
 }
 .mobile__nav .hamb_line::before {
   top: 8px;
@@ -171,12 +186,6 @@
 .mobile__nav .hamb_line::after {
   top: -8px;
 }
-
-.mobile__nav .top__menu > input,
-.mobile__nav .side__menu {
-  opacity: 0;
-  position: absolute;
-} /* Hide checkbox */
 
 /* Toggle menu icon */
 .mobile__nav:has(.side__menu:checked) .menu {
@@ -219,15 +228,23 @@
   cursor: pointer;
 }
 
+.mobile__nav .top__menu {
+  border: 0;
+  background-color: transparent;
+  color: var(--menu-color-text);
+}
+
 .mobile__nav .top__menu::before {
   content: "+";
   display: inline-block;
   padding-right: 0.5rem;
   font-size: 1.25rem;
+  font-family: monospace;
 }
 
-.mobile__nav .top__menu:has(input:checked)::before {
-  content: "–";
+.mobile__nav .top__menu:has(input:checked)::before,
+.mobile__nav .top__menu:has(~ .top__menu input:checked)::before {
+  content: "-";
 }
 
 header:has(.side__menu:checked) {

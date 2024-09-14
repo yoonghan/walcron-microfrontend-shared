@@ -16,6 +16,7 @@ describe("Menu", () => {
       {text}
     </a>
   );
+
   const HomeLink = (href: string, onClick: () => void, tabIndex: number) => (
     <a
       href={href}
@@ -76,17 +77,20 @@ describe("Menu", () => {
     );
 
   it("should will display mobile home text that links to home", () => {
-    const { getByRole, getByLabelText } = renderMenuWithItems();
+    const { getByRole } = renderMenuWithItems();
 
     expect(getByRole("link", { name: "Zoo Negara Malaysia" })).toHaveAttribute(
       "href",
       "/"
     );
-    expect(getByLabelText("Hamburger Menu")).toBeInTheDocument();
 
     expect(
       getByRole("menuitemcheckbox", { name: "Expandable Zoo Negara" })
     ).toBeVisible();
+
+    expect(getByRole("button", { name: "Hamburger Menu" })).toBeVisible();
+    expect(getByRole("checkbox", { name: "Hamburger Menu" })).toBeVisible();
+
     expect(getByRole("link", { name: "About Us" })).toBeVisible();
     expect(getByRole("link", { name: "Zoo Negara Logo" })).toBeVisible();
   });
@@ -174,6 +178,47 @@ describe("Menu", () => {
       expect(element).not.toBeChecked();
       expect(document.body.style.overflow).toBe("auto");
     };
+
+    it("should have correct aria and className for hamburger menu buttons", () => {
+      const { getByRole } = renderMenuItemAndGetCheckBox();
+      const hamburgerMenuButton = getByRole("button", {
+        name: "Hamburger Menu",
+      });
+      const hamburgerMenuCheckbox = getByRole("checkbox", {
+        name: "Hamburger Menu",
+      });
+
+      expect(hamburgerMenuButton).toHaveAttribute("aria-haspopup", "true");
+      expect(hamburgerMenuButton).toHaveAttribute(
+        "aria-controls",
+        "hamburger-menu"
+      );
+      expect(hamburgerMenuButton).toHaveAttribute("aria-expanded", "false");
+
+      expect(hamburgerMenuButton).toHaveClass("show");
+      expect(hamburgerMenuCheckbox.parentElement).toHaveClass("hide");
+    });
+
+    it("should have correct aria and className for submenu expandable buttons", async () => {
+      const { getByRole } = renderMenuItemAndGetCheckBox();
+      await userEvent.click(
+        getByRole("button", {
+          name: "Hamburger Menu",
+        })
+      );
+      const subMenuItemButton = getByRole("button", {
+        name: "Expandable Zoo Negara",
+      });
+      const subMenuItemCheckbox = getByRole("menuitemcheckbox", {
+        name: "Expandable Zoo Negara",
+      });
+
+      expect(subMenuItemButton).toHaveAttribute("aria-haspopup", "true");
+      expect(subMenuItemButton).toHaveAttribute("aria-expanded", "false");
+
+      expect(subMenuItemButton).toHaveClass("show-inline");
+      expect(subMenuItemCheckbox.parentElement).toHaveClass("hide");
+    });
 
     it("should uncheck the checkbox of side menu, as mobile have cache to stay on page while render new page", async () => {
       const { sideMenuCheckBox, getByRole } = renderMenuItemAndGetCheckBox();
@@ -389,32 +434,40 @@ describe("Menu", () => {
 
     it("should show aria-expanded=true when top menu's subbutton is clicked and has submenus on click again will close", async () => {
       renderMobileWithAccessibility();
-      const topMenu = screen.getByRole("menuitemcheckbox", {
+      const topMenuCheckbox = screen.getByRole("menuitemcheckbox", {
+        name: "Expandable Top Menu",
+      });
+      const topMenuButton = screen.getByRole("button", {
         name: "Expandable Top Menu",
         expanded: false,
       });
 
-      await userEvent.click(topMenu);
-      expect(topMenu).toHaveAttribute("aria-expanded", "true");
+      await userEvent.click(topMenuButton);
+      expect(topMenuCheckbox).toBeChecked();
+      expect(topMenuButton).toHaveAttribute("aria-expanded", "true");
 
-      await userEvent.click(topMenu);
-      expect(topMenu).toHaveAttribute("aria-expanded", "false");
+      await userEvent.click(topMenuButton);
+      expect(topMenuCheckbox).not.toBeChecked();
+      expect(topMenuButton).toHaveAttribute("aria-expanded", "false");
     });
 
     it("should show aria-expanded=true when menu is clicked", async () => {
       renderMobileWithAccessibility();
-      const hamburgerMenu = screen.getByRole("checkbox", {
+      const hamburgerMenuButton = screen.getByRole("button", {
         name: "Hamburger Menu",
         expanded: false,
       });
+      const hamburgerMenuCheckbox = screen.getByRole("checkbox", {
+        name: "Hamburger Menu",
+      });
 
-      await userEvent.click(hamburgerMenu);
-      expect(hamburgerMenu).toBeChecked();
-      expect(hamburgerMenu).toHaveAttribute("aria-expanded", "true");
+      await userEvent.click(hamburgerMenuButton);
+      expect(hamburgerMenuCheckbox).toBeChecked();
+      expect(hamburgerMenuButton).toHaveAttribute("aria-expanded", "true");
 
-      await userEvent.click(hamburgerMenu);
-      expect(hamburgerMenu).not.toBeChecked();
-      expect(hamburgerMenu).toHaveAttribute("aria-expanded", "false");
+      await userEvent.click(hamburgerMenuButton);
+      expect(hamburgerMenuCheckbox).not.toBeChecked();
+      expect(hamburgerMenuButton).toHaveAttribute("aria-expanded", "false");
     });
   });
 });
