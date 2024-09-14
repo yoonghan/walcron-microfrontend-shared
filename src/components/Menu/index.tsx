@@ -119,6 +119,12 @@ function MobileTopMenu({
   unCheckSideMenu: () => void;
 }) {
   const [isSubMenuOpened, setSubMenuOpened] = useState(false);
+  /* state for switching between button and checkbox display */
+  const checkboxRef = useRef<HTMLInputElement>(null);
+  const [isJavascriptEnabled, setJavaScriptEnabled] = useState(false);
+  useEffect(() => {
+    setJavaScriptEnabled(true);
+  }, []);
 
   const onTopMenuClick = useCallback(() => {
     setSubMenuOpened(!isSubMenuOpened);
@@ -127,19 +133,27 @@ function MobileTopMenu({
   if (topMenuItem.items !== undefined) {
     return (
       <li key={topMenuItem.label} className={style.subnav} role="menu">
-        <label
-          className={style.top__menu}
+        <button
+          aria-expanded={isSubMenuOpened}
+          aria-haspopup={true}
           aria-label={`Expandable ${topMenuItem.label}`}
+          onClick={() => {
+            checkboxRef.current?.click();
+          }}
+          className={`${style.top__menu} ${isJavascriptEnabled ? "show-inline" : "hide"}`}
+        ></button>
+        <label
+          className={`${style.top__menu} ${isJavascriptEnabled ? "hide" : "show-inline"}`}
         >
           <input
             type="checkbox"
             name="top_menu"
+            ref={checkboxRef}
             value={topMenuItem.label}
             onClick={onTopMenuClick}
-            aria-expanded={isSubMenuOpened}
-            aria-haspopup={true}
             role="menuitemcheckbox"
           />
+          {`Expandable ${topMenuItem.label}`}
         </label>
         {menuLink(topMenuItem.label, topMenuItem.url, unCheckSideMenu)}
         <div className={style.subnav_content}>

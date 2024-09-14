@@ -122,6 +122,10 @@
   display: block;
 }
 
+.mobile__nav :global(.show-inline) {
+  display: inline-block;
+}
+
 .mobile__nav .menu {
   width: 100%;
   height: 100%;
@@ -183,11 +187,6 @@
   top: -8px;
 }
 
-.mobile__nav .top__menu > input {
-  opacity: 0;
-  position: absolute;
-} /* Hide checkbox */
-
 /* Toggle menu icon */
 .mobile__nav:has(.side__menu:checked) .menu {
   max-height: calc(100% - 80px);
@@ -229,15 +228,23 @@
   cursor: pointer;
 }
 
+.mobile__nav .top__menu {
+  border: 0;
+  background-color: transparent;
+  color: var(--menu-color-text);
+}
+
 .mobile__nav .top__menu::before {
   content: "+";
   display: inline-block;
   padding-right: 0.5rem;
   font-size: 1.25rem;
+  font-family: monospace;
 }
 
-.mobile__nav .top__menu:has(input:checked)::before {
-  content: "–";
+.mobile__nav .top__menu:has(input:checked)::before,
+.mobile__nav .top__menu:has(~ .top__menu input:checked)::before {
+  content: "-";
 }
 
 header:has(.side__menu:checked) {

@@ -179,7 +179,7 @@ describe("Menu", () => {
       expect(document.body.style.overflow).toBe("auto");
     };
 
-    it("should have correct aria and className for expandable buttons", () => {
+    it("should have correct aria and className for hamburger menu buttons", () => {
       const { getByRole } = renderMenuItemAndGetCheckBox();
       const hamburgerMenuButton = getByRole("button", {
         name: "Hamburger Menu",
@@ -197,6 +197,27 @@ describe("Menu", () => {
 
       expect(hamburgerMenuButton).toHaveClass("show");
       expect(hamburgerMenuCheckbox.parentElement).toHaveClass("hide");
+    });
+
+    it("should have correct aria and className for submenu expandable buttons", async () => {
+      const { getByRole } = renderMenuItemAndGetCheckBox();
+      await userEvent.click(
+        getByRole("button", {
+          name: "Hamburger Menu",
+        })
+      );
+      const subMenuItemButton = getByRole("button", {
+        name: "Expandable Zoo Negara",
+      });
+      const subMenuItemCheckbox = getByRole("menuitemcheckbox", {
+        name: "Expandable Zoo Negara",
+      });
+
+      expect(subMenuItemButton).toHaveAttribute("aria-haspopup", "true");
+      expect(subMenuItemButton).toHaveAttribute("aria-expanded", "false");
+
+      expect(subMenuItemButton).toHaveClass("show-inline");
+      expect(subMenuItemCheckbox.parentElement).toHaveClass("hide");
     });
 
     it("should uncheck the checkbox of side menu, as mobile have cache to stay on page while render new page", async () => {
@@ -413,16 +434,21 @@ describe("Menu", () => {
 
     it("should show aria-expanded=true when top menu's subbutton is clicked and has submenus on click again will close", async () => {
       renderMobileWithAccessibility();
-      const topMenu = screen.getByRole("menuitemcheckbox", {
+      const topMenuCheckbox = screen.getByRole("menuitemcheckbox", {
+        name: "Expandable Top Menu",
+      });
+      const topMenuButton = screen.getByRole("button", {
         name: "Expandable Top Menu",
         expanded: false,
       });
 
-      await userEvent.click(topMenu);
-      expect(topMenu).toHaveAttribute("aria-expanded", "true");
+      await userEvent.click(topMenuButton);
+      expect(topMenuCheckbox).toBeChecked();
+      expect(topMenuButton).toHaveAttribute("aria-expanded", "true");
 
-      await userEvent.click(topMenu);
-      expect(topMenu).toHaveAttribute("aria-expanded", "false");
+      await userEvent.click(topMenuButton);
+      expect(topMenuCheckbox).not.toBeChecked();
+      expect(topMenuButton).toHaveAttribute("aria-expanded", "false");
     });
 
     it("should show aria-expanded=true when menu is clicked", async () => {
