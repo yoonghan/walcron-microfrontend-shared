@@ -270,7 +270,6 @@ export function MutableMenu({
             <button
               aria-expanded={isOpenedHamburger === true}
               aria-haspopup={true}
-              aria-controls={"hamburger-menu"}
               className={`${style.hamb} ${isJavascriptEnabled ? "show" : "hide"}`}
               aria-label={menuName || "Hamburger Menu"}
               onClick={() => {
@@ -295,9 +294,7 @@ export function MutableMenu({
           {shortcutComponent && shortcutComponent}
         </div>
         <nav className={style.menu}>
-          <ul role="none" id="hamburger-menu" aria-labelledby="hamburger-menu">
-            {mobileTopMenu}
-          </ul>{" "}
+          <ul role="none">{mobileTopMenu}</ul>{" "}
         </nav>
       </div>
       <nav
