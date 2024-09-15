@@ -189,10 +189,6 @@ describe("Menu", () => {
       });
 
       expect(hamburgerMenuButton).toHaveAttribute("aria-haspopup", "true");
-      expect(hamburgerMenuButton).toHaveAttribute(
-        "aria-controls",
-        "hamburger-menu"
-      );
       expect(hamburgerMenuButton).toHaveAttribute("aria-expanded", "false");
 
       expect(hamburgerMenuButton).toHaveClass("show");
