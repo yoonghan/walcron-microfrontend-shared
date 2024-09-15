@@ -266,27 +266,31 @@ export function MutableMenu({
         style={mobileStyle}
       >
         <div className={style["mobile-menu"]}>
-          <button
-            aria-expanded={isOpenedHamburger === true}
-            aria-haspopup={true}
-            aria-controls={"hamburger-menu"}
-            className={`${style.hamb} ${isJavascriptEnabled ? "show" : "hide"}`}
-            aria-label={menuName || "Hamburger Menu"}
-            onClick={() => {
-              sideMenuRef.current?.click();
-            }}
-          >
-            <div className={style.hamb_line}></div>
-          </button>
-          <label className={`${isJavascriptEnabled ? "hide" : "show"}`}>
-            <input
-              className={style.side__menu}
-              type="checkbox"
-              ref={sideMenuRef}
-              onChange={onSideMenuChange}
-            />
-            {menuName || "Hamburger Menu"}
-          </label>
+          <div className={style.menu_hamburger}>
+            <button
+              aria-expanded={isOpenedHamburger === true}
+              aria-haspopup={true}
+              aria-controls={"hamburger-menu"}
+              className={`${style.hamb} ${isJavascriptEnabled ? "show" : "hide"}`}
+              aria-label={menuName || "Hamburger Menu"}
+              onClick={() => {
+                sideMenuRef.current?.click();
+              }}
+            >
+              <div className={style.hamb_line}></div>
+            </button>
+            <label
+              className={isJavascriptEnabled ? "hide" : "show"}
+              aria-label={menuName || "Hamburger Menu"}
+            >
+              <input
+                className={style.side__menu}
+                type="checkbox"
+                ref={sideMenuRef}
+                onChange={onSideMenuChange}
+              />
+            </label>
+          </div>
           {homeLink("/", unCheckSideMenu, -1)}
           {shortcutComponent && shortcutComponent}
         </div>
