@@ -154,10 +154,10 @@
 }
 
 .mobile__nav .hamb {
-  cursor: pointer;
-  padding: 40px 0;
   border: none; /* remove button style */
   background: transparent;
+  padding: 100% 0;
+  width: 100%;
 }
 
 .mobile__nav .hamb_line {
@@ -165,7 +165,6 @@
   display: block;
   height: 2px;
   position: relative;
-  width: 24px;
 }
 
 .mobile__nav .hamb_line::before,
@@ -185,6 +184,13 @@
 
 .mobile__nav .hamb_line::after {
   top: -8px;
+}
+
+.mobile__nav .menu_hamburger {
+  display: flex;
+  align-items: center;
+  min-height: 84px;
+  width: 24px;
 }
 
 /* Toggle menu icon */
