@@ -20,7 +20,7 @@ export default function Accordion({
 }) {
   const [radioTracker, setRadioTracker] = useState<string>("");
 
-  const onInputClick = useCallback(
+  const onInputClickUncheckRadio = useCallback(
     (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
       const target = event.currentTarget;
       if (radioTracker === target.value) {
@@ -42,12 +42,12 @@ export default function Accordion({
             isSingle={isSingle}
             value={idx}
             groupName={groupName}
-            onInputClick={onInputClick}
+            onInputClick={onInputClickUncheckRadio}
             content={accordianItem.content}
           />
         );
       }),
-    [model, isSingle, groupName, onInputClick]
+    [model, isSingle, groupName, onInputClickUncheckRadio]
   );
 
   return <div className={styles.accordion}>{renderedAccordions}</div>;
