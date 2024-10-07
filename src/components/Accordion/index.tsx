@@ -37,24 +37,51 @@ export default function Accordion({
     () =>
       model.map((accordianItem, idx) => {
         return (
-          <div key={accordianItem.label} className={styles.tab}>
-            <label>
-              {accordianItem.label}
-              <input
-                type={isSingle ? "radio" : "checkbox"}
-                value={idx}
-                name={groupName}
-                onClick={isSingle ? onInputClick : undefined}
-              />
-            </label>
-            <div className={styles.tab__content}>
-              <p>{accordianItem.content}</p>
-            </div>
-          </div>
+          <AccordionSection
+            label={accordianItem.label}
+            isSingle={isSingle}
+            value={idx}
+            groupName={groupName}
+            onInputClick={onInputClick}
+            content={accordianItem.content}
+          />
         );
       }),
     [model, isSingle, groupName, onInputClick]
   );
 
   return <div className={styles.accordion}>{renderedAccordions}</div>;
+}
+
+function AccordionSection({
+  label,
+  isSingle,
+  value,
+  groupName,
+  onInputClick,
+  content,
+}: {
+  label: string;
+  isSingle: boolean;
+  value: number;
+  groupName: string;
+  onInputClick: (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
+  content: ReactNode;
+}) {
+  return (
+    <div key={label} className={styles.tab}>
+      <label>
+        {label}
+        <input
+          type={isSingle ? "radio" : "checkbox"}
+          value={value}
+          name={groupName}
+          onClick={isSingle ? onInputClick : undefined}
+        />
+      </label>
+      <div className={styles.tab__content}>
+        <p>{content}</p>
+      </div>
+    </div>
+  );
 }
