@@ -59,4 +59,15 @@ describe("Accordion", () => {
       "https://www.zoonegara.my"
     );
   });
+
+  it("should enable div to be clickable", async () => {
+    const { getByText } = renderAccordion();
+    const item1 = "Item 1";
+    const firstItemElement = getByText(item1).parentElement;
+    if (firstItemElement !== null) {
+      await userEvent.click(firstItemElement);
+      const radio = screen.getByRole("radio", { name: item1 });
+      expect(radio).toBeChecked();
+    }
+  });
 });

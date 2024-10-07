@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useMemo, useState } from "react";
+import { ReactNode, useCallback, useMemo, useRef, useState } from "react";
 import styles from "./accordion.module.css";
 
 type AccordionItem = {
@@ -38,6 +38,7 @@ export default function Accordion({
       model.map((accordianItem, idx) => {
         return (
           <AccordionSection
+            key={accordianItem.label}
             label={accordianItem.label}
             isSingle={isSingle}
             value={idx}
@@ -68,9 +69,21 @@ function AccordionSection({
   onInputClick: (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
   content: ReactNode;
 }) {
+  const labelRef = useRef<HTMLLabelElement>(null);
+
+  const onDivClick = useCallback(() => {
+    if (labelRef.current) {
+      labelRef.current.click();
+    }
+  }, []);
+
   return (
-    <div key={label} className={styles.tab}>
-      <label>
+    <div
+      className={styles.tab}
+      tabIndex={labelRef.current ? 0 : undefined}
+      onClick={onDivClick}
+    >
+      <label ref={labelRef}>
         {label}
         <input
           type={isSingle ? "radio" : "checkbox"}
