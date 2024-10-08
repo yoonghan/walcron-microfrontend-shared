@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useMemo, useState } from "react";
+import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 import styles from "./accordion.module.css";
 
 type AccordionItem = {
@@ -20,7 +20,7 @@ export default function Accordion({
 }) {
   const [radioTracker, setRadioTracker] = useState<string>("");
 
-  const onInputClick = useCallback(
+  const onInputClickUncheckRadio = useCallback(
     (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
       const target = event.currentTarget;
       if (radioTracker === target.value) {
@@ -37,24 +37,75 @@ export default function Accordion({
     () =>
       model.map((accordianItem, idx) => {
         return (
-          <div key={accordianItem.label} className={styles.tab}>
-            <label>
-              {accordianItem.label}
-              <input
-                type={isSingle ? "radio" : "checkbox"}
-                value={idx}
-                name={groupName}
-                onClick={isSingle ? onInputClick : undefined}
-              />
-            </label>
-            <div className={styles.tab__content}>
-              <p>{accordianItem.content}</p>
-            </div>
-          </div>
+          <AccordionSection
+            key={accordianItem.label}
+            label={accordianItem.label}
+            isSingle={isSingle}
+            value={idx}
+            groupName={groupName}
+            onInputClick={onInputClickUncheckRadio}
+            content={accordianItem.content}
+          />
         );
       }),
-    [model, isSingle, groupName, onInputClick]
+    [model, isSingle, groupName, onInputClickUncheckRadio]
   );
 
   return <div className={styles.accordion}>{renderedAccordions}</div>;
+}
+
+function AccordionSection({
+  label,
+  isSingle,
+  value,
+  groupName,
+  onInputClick,
+  content,
+}: {
+  label: string;
+  isSingle: boolean;
+  value: number;
+  groupName: string;
+  onInputClick: (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
+  content: ReactNode;
+}) {
+  const [isJavascriptEnabled, setJavascriptEnabled] = useState(false);
+
+  const onDivKeyUp = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === " " || event.key === "Enter") {
+        const firstChild = event.currentTarget
+          .firstElementChild as HTMLLabelElement;
+        if (firstChild !== null) {
+          firstChild.click();
+        }
+      }
+    },
+    []
+  );
+
+  useEffect(() => {
+    setJavascriptEnabled(true);
+  }, []);
+
+  return (
+    <div
+      className={`${styles.tab} ${isJavascriptEnabled ? styles.selectable : ""}`}
+      tabIndex={isJavascriptEnabled ? 0 : undefined}
+      onKeyUp={onDivKeyUp}
+    >
+      <label>
+        {label}
+        <input
+          type={isSingle ? "radio" : "checkbox"}
+          value={value}
+          name={groupName}
+          onClick={isSingle ? onInputClick : undefined}
+        />
+      </label>
+      <div className={styles.tab__content}>
+        <p>{content}</p>
+      </div>
+    </div>
+  );
 }

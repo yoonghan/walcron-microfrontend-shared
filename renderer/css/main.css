@@ -12,4 +12,9 @@
 
   --minimenu-color: orange;
   --minimenu-color-text: purple;
+
+  --accordion-color: orange;
+  --accordion-color-text: black;
+  --accordion-alt-color: blue;
+  --accordion-alt-color-text: black;
 }
