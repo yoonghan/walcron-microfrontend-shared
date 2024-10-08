@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Accordion from ".";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, test } from "vitest";
 
 describe("Accordion", () => {
   const renderAccordion = (isSingle?: boolean) =>
@@ -60,14 +60,26 @@ describe("Accordion", () => {
     );
   });
 
-  it("should enable div to be clickable", async () => {
+  test.each([" ", "{enter}"])(
+    "should enable div to handle keyevents",
+    async (key) => {
+      const { getByText } = renderAccordion();
+      const item1 = "Item 1";
+      const firstItemElement = getByText(item1).parentElement;
+      if (firstItemElement !== null) {
+        await userEvent.type(firstItemElement, key);
+        const radio = screen.getByRole("radio", { name: item1 });
+        expect(radio).toBeChecked();
+      }
+    }
+  );
+
+  it("should add 'selectable' classname if javascript is enabled", async () => {
     const { getByText } = renderAccordion();
     const item1 = "Item 1";
     const firstItemElement = getByText(item1).parentElement;
     if (firstItemElement !== null) {
-      await userEvent.click(firstItemElement);
-      const radio = screen.getByRole("radio", { name: item1 });
-      expect(radio).toBeChecked();
+      expect(firstItemElement).toHaveClass("selectable");
     }
   });
 });

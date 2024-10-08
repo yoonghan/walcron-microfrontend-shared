@@ -1,4 +1,11 @@
-import { ReactNode, useCallback, useMemo, useRef, useState } from "react";
+import {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import styles from "./accordion.module.css";
 
 type AccordionItem = {
@@ -69,21 +76,32 @@ function AccordionSection({
   onInputClick: (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
   content: ReactNode;
 }) {
-  const labelRef = useRef<HTMLLabelElement>(null);
+  const [isJavascriptEnabled, setJavascriptEnabled] = useState(false);
 
-  const onDivClick = useCallback(() => {
-    if (labelRef.current) {
-      labelRef.current.click();
-    }
+  const onDivKeyUp = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === " " || event.key === "Enter") {
+        const firstChild = event.currentTarget
+          .firstElementChild as HTMLLabelElement;
+        if (firstChild !== null) {
+          firstChild.click();
+        }
+      }
+    },
+    []
+  );
+
+  useEffect(() => {
+    setJavascriptEnabled(true);
   }, []);
 
   return (
     <div
-      className={styles.tab}
-      tabIndex={labelRef.current ? 0 : undefined}
-      onClick={onDivClick}
+      className={`${styles.tab} ${isJavascriptEnabled ? styles.selectable : ""}`}
+      tabIndex={isJavascriptEnabled ? 0 : undefined}
+      onKeyUp={onDivKeyUp}
     >
-      <label ref={labelRef}>
+      <label>
         {label}
         <input
           type={isSingle ? "radio" : "checkbox"}
