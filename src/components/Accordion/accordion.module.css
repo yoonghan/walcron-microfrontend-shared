@@ -49,7 +49,7 @@
   transition: all 0.35s;
 }
 
-.tab__content p {
+.tab__content > div {
   margin: 0;
   padding: 1rem;
   background: var(--accordion-alt-color);
