@@ -103,9 +103,7 @@ function AccordionSection({
           onClick={isSingle ? onInputClick : undefined}
         />
       </label>
-      <div className={styles.tab__content}>
-        <p>{content}</p>
-      </div>
+      <div className={styles.tab__content}><div>{content}</div></div>
     </div>
   );
 }
