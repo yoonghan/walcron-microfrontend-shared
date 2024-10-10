@@ -10,6 +10,7 @@ import {
   Menu,
   MutableMenu,
   reportWebVitals,
+  ScrollableCard,
 } from ".";
 
 describe("Integration test", () => {
@@ -32,6 +33,10 @@ describe("Integration test", () => {
 
     it("should expose MutableMenu", () => {
       expect(MutableMenu).toBeDefined;
+    });
+
+    it("should expose ScrollableCard", () => {
+      expect(ScrollableCard).toBeDefined;
     });
   });
 

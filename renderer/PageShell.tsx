@@ -3,10 +3,10 @@ export { PageShell };
 import React from "react";
 import logoUrl from "./logo.svg";
 import { PageContextProvider } from "./usePageContext";
-import { Link } from "./Link";
 import type { PageContext } from "vike/types";
 import "./css/index.css";
 import "./PageShell.css";
+import { Menus } from "./menus";
 
 function PageShell({
   children,
@@ -21,11 +21,7 @@ function PageShell({
         <Layout>
           <Sidebar>
             <Logo />
-            <Link href="/menu">Menu</Link>
-            <Link href="/minimenu">Mini Menu</Link>
-            <Link href="/accordion/multiple">Accordion - Multiple</Link>
-            <Link href="/accordion/single">Accordion - Single</Link>
-            <Link href="/announcement">Announcement</Link>
+            <Menus />
           </Sidebar>
           <Content>{children}</Content>
         </Layout>
@@ -39,7 +35,6 @@ function Layout({ children }: { children: React.ReactNode }) {
     <div
       style={{
         display: "flex",
-        maxWidth: 900,
         margin: "auto",
       }}
     >

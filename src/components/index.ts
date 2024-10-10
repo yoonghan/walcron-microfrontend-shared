@@ -6,3 +6,4 @@ export { default as Announcement } from "./Announcement";
 export { default as MiniMenu } from "./MiniMenu";
 export { default as Menu } from "./Menu";
 export { MutableMenu } from "./Menu";
+export { default as ScrollableCard } from "./ScrollableCard";
