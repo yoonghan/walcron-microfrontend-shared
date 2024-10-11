@@ -1133,11 +1133,14 @@ function on({
     )
   ] });
 }
-const gn = Er(on, () => !0), ln = "_container_g967s_1", cn = {
+const gn = Er(on, () => !0), ln = "_container_1dzxe_1", cn = {
   container: ln
 };
-function xn({ model: s }) {
-  return /* @__PURE__ */ a.jsx("ul", { className: cn.container, children: s.map(({ content: t }, u) => /* @__PURE__ */ a.jsx("li", { children: t }, `sc-${u}`)) });
+function xn({
+  model: s,
+  className: t
+}) {
+  return /* @__PURE__ */ a.jsx("ul", { className: `${cn.container} ${t}`, children: s.map(({ content: u }, c) => /* @__PURE__ */ a.jsx("li", { children: u }, `sc-${c}`)) });
 }
 export {
   bn as Accordion,
