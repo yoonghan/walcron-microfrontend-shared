@@ -1,0 +1,39 @@
+.container > li:nth-child(1) {
+  --index: 0;
+}
+
+.container > li:nth-child(2) {
+  --index: 1;
+}
+
+.container > li:nth-child(3) {
+  --index: 2;
+}
+
+.container > li:nth-child(4) {
+  --index: 3;
+}
+
+.container > li:nth-child(5) {
+  --index: 4;
+}
+
+.container > li:nth-child(6) {
+  --index: 5;
+}
+
+.container > li:nth-child(7) {
+  --index: 6;
+}
+
+.container > li:nth-child(8) {
+  --index: 7;
+}
+
+.container > li:nth-child(9) {
+  --index: 8;
+}
+
+.container > li:nth-child(10) {
+  --index: 9;
+}
