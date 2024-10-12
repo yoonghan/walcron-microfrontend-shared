@@ -276,6 +276,7 @@ export function MutableMenu({
               onClick={() => {
                 sideMenuRef.current?.click();
               }}
+              tabIndex={0}
             >
               <div className={style.hamb_line}></div>
             </div>
