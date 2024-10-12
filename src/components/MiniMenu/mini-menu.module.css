@@ -10,8 +10,13 @@
   color: var(--minimenu-color-text);
   display: flex;
   gap: 1rem;
-  justify-content: center;
   padding: 2rem;
+}
+
+.minimenu::before,
+.minimenu::after {
+  content: "";
+  margin: auto;
 }
 
 .minimenu div[role="separator"] {
