@@ -987,7 +987,7 @@ function on({
   const h = F(() => {
     p(!_);
   }, [_]);
-  return t.items !== void 0 ? /* @__PURE__ */ a.jsxs("li", { className: j.subnav, role: "menu", children: [
+  return t.items !== void 0 ? /* @__PURE__ */ a.jsxs("li", { className: j.subnav, children: [
     /* @__PURE__ */ a.jsx(
       "button",
       {
@@ -1078,8 +1078,9 @@ function sn({
           /* @__PURE__ */ a.jsxs("div", { className: j["mobile-menu"], children: [
             /* @__PURE__ */ a.jsxs("div", { className: j.menu_hamburger, children: [
               /* @__PURE__ */ a.jsx(
-                "button",
+                "div",
                 {
+                  role: "button",
                   "aria-expanded": w === !0,
                   "aria-haspopup": !0,
                   className: `${j.hamb} ${y ? "show" : "hide"}`,

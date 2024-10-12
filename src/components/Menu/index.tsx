@@ -132,7 +132,7 @@ function MobileTopMenu({
 
   if (topMenuItem.items !== undefined) {
     return (
-      <li key={topMenuItem.label} className={style.subnav} role="menu">
+      <li key={topMenuItem.label} className={style.subnav}>
         <button
           aria-expanded={isSubMenuOpened}
           aria-haspopup={true}
@@ -267,7 +267,8 @@ export function MutableMenu({
       >
         <div className={style["mobile-menu"]}>
           <div className={style.menu_hamburger}>
-            <button
+            <div
+              role="button"
               aria-expanded={isOpenedHamburger === true}
               aria-haspopup={true}
               className={`${style.hamb} ${isJavascriptEnabled ? "show" : "hide"}`}
@@ -277,7 +278,7 @@ export function MutableMenu({
               }}
             >
               <div className={style.hamb_line}></div>
-            </button>
+            </div>
             <label
               className={isJavascriptEnabled ? "hide" : "show"}
               aria-label={menuName || "Hamburger Menu"}
