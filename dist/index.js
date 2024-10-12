@@ -1,14 +1,14 @@
-import ae, { useEffect as B, useState as A, useCallback as F, useMemo as yr, useRef as X, memo as Er } from "react";
+import ae, { useEffect as I, useState as A, useCallback as F, useMemo as yr, useRef as X, memo as Er } from "react";
 const fn = ({
   appName: o,
   containerName: t,
   props: u
 }) => {
-  B(() => {
+  I(() => {
     window.dispatchEvent(
       new CustomEvent(`[${o}] navigated`, { detail: u.pathname })
     );
-  }, [o, u.pathname]), B(() => {
+  }, [o, u.pathname]), I(() => {
     function c(_) {
       const p = _.detail;
       u.pathname !== p && u.navigate(p);
@@ -514,7 +514,7 @@ function kr() {
       }
     }
     var ve = N.ReactCurrentOwner, Fe = N.ReactDebugCurrentFrame;
-    function I(e) {
+    function B(e) {
       if (e) {
         var r = e._owner, n = ee(e.type, e._source, r ? r.type : null);
         Fe.setExtraStackFrame(n);
@@ -564,10 +564,10 @@ Check the top-level render call using <` + n + ">.");
           return;
         Le[n] = !0;
         var s = "";
-        e && e._owner && e._owner !== ve.current && (s = " It was passed a child from " + z(e._owner.type) + "."), I(e), k('Each child in a list should have a unique "key" prop.%s%s See https://reactjs.org/link/warning-keys for more information.', n, s), I(null);
+        e && e._owner && e._owner !== ve.current && (s = " It was passed a child from " + z(e._owner.type) + "."), B(e), k('Each child in a list should have a unique "key" prop.%s%s See https://reactjs.org/link/warning-keys for more information.', n, s), B(null);
       }
     }
-    function Be(e, r) {
+    function Ie(e, r) {
       {
         if (typeof e != "object")
           return;
@@ -616,14 +616,14 @@ Check the top-level render call using <` + n + ">.");
         for (var r = Object.keys(e.props), n = 0; n < r.length; n++) {
           var s = r[n];
           if (s !== "children" && s !== "key") {
-            I(e), k("Invalid prop `%s` supplied to `React.Fragment`. React.Fragment can only have `key` and `children` props.", s), I(null);
+            B(e), k("Invalid prop `%s` supplied to `React.Fragment`. React.Fragment can only have `key` and `children` props.", s), B(null);
             break;
           }
         }
-        e.ref !== null && (I(e), k("Invalid attribute `ref` supplied to `React.Fragment`."), I(null));
+        e.ref !== null && (B(e), k("Invalid attribute `ref` supplied to `React.Fragment`."), B(null));
       }
     }
-    var Ie = {};
+    var Be = {};
     function Ue(e, r, n, s, b, g) {
       {
         var v = Je(e);
@@ -644,25 +644,25 @@ Check the top-level render call using <` + n + ">.");
             if (s)
               if (fe($)) {
                 for (var U = 0; U < $.length; U++)
-                  Be($[U], e);
+                  Ie($[U], e);
                 Object.freeze && Object.freeze($);
               } else
                 k("React.jsx: Static children should always be an array. You are likely explicitly calling React.jsxs or React.jsxDEV. Use the Babel transform instead.");
             else
-              Be($, e);
+              Ie($, e);
         }
         if (M.call(r, "key")) {
           var Y = z(e), O = Object.keys(r).filter(function(xr) {
             return xr !== "key";
           }), be = O.length > 0 ? "{key: someKey, " + O.join(": ..., ") + ": ...}" : "{key: someKey}";
-          if (!Ie[Y + be]) {
+          if (!Be[Y + be]) {
             var gr = O.length > 0 ? "{" + O.join(": ..., ") + ": ...}" : "{}";
             k(`A props object containing a "key" prop is being spread into JSX:
   let props = %s;
   <%s {...props} />
 React keys must be passed directly to JSX without using spread:
   let props = %s;
-  <%s key={someKey} {...props} />`, be, Y, gr, Y), Ie[Y + be] = !0;
+  <%s key={someKey} {...props} />`, be, Y, gr, Y), Be[Y + be] = !0;
           }
         }
         return e === c ? _r(R) : vr(R), R;
@@ -729,7 +729,7 @@ const hn = () => {
     height: window.innerHeight,
     width: window.innerWidth
   });
-  return B(() => {
+  return I(() => {
     const u = jr(function() {
       t({
         height: window.innerHeight,
@@ -791,7 +791,7 @@ function Nr({
     },
     []
   );
-  return B(() => {
+  return I(() => {
     i(!0);
   }, []), /* @__PURE__ */ a.jsxs(
     "div",
@@ -851,10 +851,10 @@ function pn({
     }
   );
 }
-const Lr = "_minimenu_1exl9_1", Yr = "_sticky_1exl9_1", Br = "_underline_1exl9_32", ne = {
+const Lr = "_minimenu_1exl9_1", Yr = "_sticky_1exl9_1", Ir = "_underline_1exl9_32", ne = {
   minimenu: Lr,
   sticky: Yr,
-  underline: Br
+  underline: Ir
 };
 function mn({ model: o, onScrollMonitor: t }) {
   const [u, c] = A(0), _ = X([]), p = X(null), [x, i] = A(0), l = F(() => {
@@ -882,7 +882,7 @@ function mn({ model: o, onScrollMonitor: t }) {
     },
     []
   );
-  return B(() => {
+  return I(() => {
     var y;
     const m = f();
     return i(((y = p.current) == null ? void 0 : y.getBoundingClientRect().top) || 0), l(), window.addEventListener("scroll", l), () => {
@@ -904,8 +904,8 @@ function mn({ model: o, onScrollMonitor: t }) {
     )
   ] }, m.hashId)) });
 }
-const Ir = "_desktop__nav_1xz1z_1", Ur = "_mobile__nav_1xz1z_1", Vr = "_top_menu_container_1xz1z_6", Hr = "_expand_1xz1z_12", Jr = "_expand_dummy_1xz1z_13", Mr = "_home_logo_1xz1z_67", Kr = "_subnav_content_1xz1z_78", qr = "_subnav_1xz1z_78", Gr = "_open_1xz1z_88", Xr = "_grow_1xz1z_1", Zr = "_menu_1xz1z_129", Qr = "_hamb_1xz1z_156", en = "_hamb_line_1xz1z_163", rn = "_menu_hamburger_1xz1z_189", nn = "_side__menu_1xz1z_197", tn = "_top__menu_1xz1z_214", j = {
-  desktop__nav: Ir,
+const Br = "_desktop__nav_1xz1z_1", Ur = "_mobile__nav_1xz1z_1", Vr = "_top_menu_container_1xz1z_6", Hr = "_expand_1xz1z_12", Jr = "_expand_dummy_1xz1z_13", Mr = "_home_logo_1xz1z_67", Kr = "_subnav_content_1xz1z_78", qr = "_subnav_1xz1z_78", Gr = "_open_1xz1z_88", Xr = "_grow_1xz1z_1", Zr = "_menu_1xz1z_129", Qr = "_hamb_1xz1z_156", en = "_hamb_line_1xz1z_163", rn = "_menu_hamburger_1xz1z_189", nn = "_side__menu_1xz1z_197", tn = "_top__menu_1xz1z_214", j = {
+  desktop__nav: Br,
   mobile__nav: Ur,
   top_menu_container: Vr,
   expand: Hr,
@@ -981,7 +981,7 @@ function on({
   unCheckSideMenu: c
 }) {
   const [_, p] = A(!1), x = X(null), [i, l] = A(!1);
-  B(() => {
+  I(() => {
     l(!0);
   }, []);
   const h = F(() => {
@@ -1038,7 +1038,7 @@ function sn({
   menuName: h = void 0
 }) {
   const f = X(null), [w, m] = A(!1), [y, S] = A(!1);
-  B(() => {
+  I(() => {
     S(!0);
   }, []);
   const P = (T, W) => W === void 0 || W === "" ? T : W.replace(/^#/, `${T}#`), D = () => {
@@ -1089,6 +1089,7 @@ function sn({
                     var T;
                     (T = f.current) == null || T.click();
                   },
+                  tabIndex: 0,
                   children: /* @__PURE__ */ a.jsx("div", { className: j.hamb_line })
                 }
               ),
