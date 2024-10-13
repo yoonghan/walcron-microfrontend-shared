@@ -155,12 +155,14 @@
 
 .mobile__nav .hamb {
   border: none; /* remove button style */
+  cursor: pointer;
   background: transparent;
   padding: 100% 0;
   width: 100%;
 }
 
 .mobile__nav .hamb_line {
+  display: block; /* override to mimic div */
   background: var(--menu-color-text);
   display: block;
   height: 2px;
