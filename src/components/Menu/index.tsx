@@ -267,7 +267,7 @@ export function MutableMenu({
       >
         <div className={style["mobile-menu"]}>
           <div className={style.menu_hamburger}>
-            <div
+            <button
               role="button"
               aria-expanded={isOpenedHamburger === true}
               aria-haspopup={true}
@@ -276,10 +276,9 @@ export function MutableMenu({
               onClick={() => {
                 sideMenuRef.current?.click();
               }}
-              tabIndex={0}
             >
-              <div className={style.hamb_line}></div>
-            </div>
+              <span className={style.hamb_line}></span>
+            </button>
             <label
               className={isJavascriptEnabled ? "hide" : "show"}
               aria-label={menuName || "Hamburger Menu"}
