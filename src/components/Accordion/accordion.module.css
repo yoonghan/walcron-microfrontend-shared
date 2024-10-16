@@ -40,12 +40,12 @@
 }
 
 .tab:has(label > input:checked) > .tab__content {
-  max-height: 20rem;
+  max-height: 50rem;
 }
 
 .tab__content {
   max-height: 0;
-  overflow: hidden;
+  overflow: auto;
   transition: all 0.35s;
 }
 
