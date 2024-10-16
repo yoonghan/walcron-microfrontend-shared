@@ -740,7 +740,7 @@ const bn = () => {
       window.removeEventListener("resize", u);
     };
   }, []), s;
-}, $r = "_accordion_11xxy_1", Pr = "_tab_11xxy_24", Ar = "_selectable_11xxy_29", Nr = "_tab__content_11xxy_42", te = {
+}, $r = "_accordion_8a78m_1", Pr = "_tab_8a78m_24", Ar = "_selectable_8a78m_29", Nr = "_tab__content_8a78m_42", te = {
   accordion: $r,
   tab: Pr,
   selectable: Ar,
