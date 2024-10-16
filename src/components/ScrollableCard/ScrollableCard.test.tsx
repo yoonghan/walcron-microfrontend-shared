@@ -24,4 +24,23 @@ describe("ScrollableCard", () => {
       "supported-class"
     );
   });
+
+  it("should render reversed card correctly", () => {
+    render(
+      <ScrollableCard
+        model={[
+          { content: "I am card # 1" },
+          { content: "I am card # 2" },
+          { content: "I am card # 3" },
+        ]}
+        className="supported-class"
+        data-testid={"test"}
+        isReversed={true}
+      ></ScrollableCard>
+    );
+
+    expect(screen.getByText("I am card # 3").parentElement).toHaveClass(
+      "reversed"
+    );
+  });
 });
