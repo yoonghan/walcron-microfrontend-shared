@@ -8,12 +8,16 @@ interface Model {
 function ScrollableCard({
   model,
   className,
+  isReversed = false,
 }: {
   model: Model[];
   className: string;
+  isReversed?: boolean;
 }) {
   return (
-    <ul className={`${styles.container} ${className}`}>
+    <ul
+      className={`${styles.container} ${className} ${isReversed ? styles.reversed : ""}`}
+    >
       {model.map(({ content }, idx) => (
         <li key={`sc-${idx}`}>{content}</li>
       ))}

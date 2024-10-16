@@ -12,6 +12,7 @@ function Menus() {
       <Link href="/accordion/single">Accordion - Single</Link>
       <Link href="/announcement">Announcement</Link>
       <Link href="/scrollable-card">Scrollable Card</Link>
+      <Link href="/scrollable-card-reversed">Scrollable Card Reversed</Link>
     </>
   );
 }
