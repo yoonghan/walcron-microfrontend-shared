@@ -1,10 +1,10 @@
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Announcement from ".";
+import Announcement, { AnnouncementsType } from ".";
 import { describe, it, expect } from "vitest";
 
 describe("Announcement", () => {
-  const announcements = ["announcement 1", "announcement 2", "announcement 3"];
+  const announcements: AnnouncementsType = ["announcement 1", "announcement 2", "announcement 3"];
 
   const renderAnnouncement = () =>
     render(

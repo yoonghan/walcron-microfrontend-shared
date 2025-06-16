@@ -6,17 +6,19 @@ import {
   disconnect,
   intersectionFn,
 } from "../../__mocks__/intersectionObserver";
-import MiniMenu from ".";
+import MiniMenu, { MiniMenuItems } from ".";
 import userEvent from "@testing-library/user-event";
 
 describe("MiniMenu", () => {
+  const model: MiniMenuItems[] = [
+    { hashId: "about-us", title: "About Us" },
+    { hashId: "five-pillars", title: "Five Pillars" },
+  ]
+
   const renderComponent = () =>
     render(
       <MiniMenu
-        model={[
-          { hashId: "about-us", title: "About Us" },
-          { hashId: "five-pillars", title: "Five Pillars" },
-        ]}
+        model={model}
       />
     );
 
