@@ -1,5 +1,4 @@
 import { default as React, CSSProperties, ReactNode } from 'react';
-
 type MenuLink = (text: string, href: string, onClick?: () => void) => ReactNode;
 type TopMenuItem = {
     label: string;
