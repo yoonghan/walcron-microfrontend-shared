@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-
 type AccordionItem = {
     label: string;
     content: string | ReactNode;
