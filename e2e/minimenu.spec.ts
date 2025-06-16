@@ -1,25 +1,25 @@
 import { test, expect, Page } from "@playwright/test";
 
-// test.describe("disabled javascript", () => {
-//   test.use({ javaScriptEnabled: false });
+test.describe("disabled javascript", () => {
+  test.use({ javaScriptEnabled: false });
 
-//   test("on link click", async ({ page }) => {
-//     await page.goto("/minimenu");
-//     const title = await page.getByText("Title: Objective", { exact: true });
+  test("on link click", async ({ page }) => {
+    await page.goto("/minimenu");
+    const title = await page.getByText("Title: Objective", { exact: true });
 
-//     expect(
-//       await title.evaluate((node) => node.getBoundingClientRect().top)
-//     ).toBeGreaterThan(100);
+    expect(
+      await title.evaluate((node) => node.getBoundingClientRect().top)
+    ).toBeGreaterThan(100);
 
-//     await page.getByRole("link", { name: "Objective" }).click();
+    await page.getByRole("link", { name: "Objective" }).click();
 
-//     expect(
-//       await title.evaluate((node) =>
-//         Math.floor(node.getBoundingClientRect().top)
-//       )
-//     ).toBe(0);
-//   });
-// });
+    expect(
+      await title.evaluate((node) =>
+        Math.floor(node.getBoundingClientRect().top)
+      )
+    ).toBe(-1);
+  });
+});
 
 test.describe("enabled javascript", () => {
   const wheelY = async (page: Page, scrollY: number) => {
@@ -27,18 +27,18 @@ test.describe("enabled javascript", () => {
     await page.waitForTimeout(200);
   };
 
-  // test("hash link to work", async ({ page }) => {
-  //   await page.goto("/minimenu#faq");
-  //   const title = await page.getByText("Title: Frequent Asked Questions", {
-  //     exact: true,
-  //   });
+  test("hash link to work", async ({ page }) => {
+    await page.goto("/minimenu#faq");
+    const title = await page.getByText("Title: Frequent Asked Questions", {
+      exact: true,
+    });
 
-  //   expect(
-  //     await title.evaluate((node) =>
-  //       Math.floor(node.getBoundingClientRect().top)
-  //     )
-  //   ).toBe(0);
-  // });
+    expect(
+      await title.evaluate((node) =>
+        Math.floor(node.getBoundingClientRect().top)
+      )
+    ).toBe(-1);
+  });
 
   test("scroll with observation", async ({ page }) => {
     const scrollY = 1000;
