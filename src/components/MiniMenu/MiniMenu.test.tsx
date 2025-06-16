@@ -168,7 +168,7 @@ describe("MiniMenu", () => {
     it("should disconnect when unmount", () => {
       const { unmount } = renderComponent();
       unmount();
-      expect(disconnect).toHaveBeenCalledTimes(2);
+      expect(disconnect).toHaveBeenCalledTimes(4);
     });
   });
 
