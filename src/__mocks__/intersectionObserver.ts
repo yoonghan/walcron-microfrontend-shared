@@ -13,7 +13,7 @@ class IntersectionObserver {
   threshold;
 
   constructor(
-    intersection: Mock<unknown[], unknown>,
+    intersection: Mock,
     { threshold }: { threshold: number[] }
   ) {
     intersectionFn = intersection;
@@ -29,7 +29,7 @@ class IntersectionObserver {
 
 (window.IntersectionObserver as unknown) = IntersectionObserver;
 
-(window.HTMLElement as any).prototype.scrollIntoViewIfNeeded = function () {
+(window.HTMLElement as unknown as { prototype: { scrollIntoViewIfNeeded: () => void } }).prototype.scrollIntoViewIfNeeded = function () {
   /*empty mock*/
 };
 
