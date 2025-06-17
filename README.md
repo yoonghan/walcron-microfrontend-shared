@@ -29,6 +29,10 @@ To run tests
 
 `npm run test`
 
+## Breaking changes
+
+10 to 11: /dist/style.css has been renamed as /dist/index.css
+
 ## Publishing commands
 
 _NOTE_: Remember to expose all files into index.ts and add into integration test before publishing.
