@@ -19,7 +19,7 @@
     "walcoorperation",
     "shared walcron components"
   ],
-  "version": "11.1.2",
+  "version": "11.1.0",
   "type": "module",
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
@@ -28,7 +28,8 @@
     ".": {
       "import": "./dist/index.js",
       "require": "./dist/index.umd.cjs"
-    }
+    },
+    "./dist/style.css": "./dist/index.css"
   },
   "scripts": {
     "dev": "node --loader ts-node/esm ./server/index.ts",
