@@ -268,7 +268,6 @@ export function MutableMenu({
         <div className={style["mobile-menu"]}>
           <div className={style.menu_hamburger}>
             <button
-              role="button"
               aria-expanded={isOpenedHamburger === true}
               aria-haspopup={true}
               className={`${style.hamb} ${isJavascriptEnabled ? "show" : "hide"}`}
@@ -295,7 +294,7 @@ export function MutableMenu({
           {shortcutComponent && shortcutComponent}
         </div>
         <nav className={style.menu}>
-          <ul role="none">{mobileTopMenu}</ul>{" "}
+          <ul role="menu">{mobileTopMenu}</ul>{" "}
         </nav>
       </div>
       <nav

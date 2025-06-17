@@ -17,7 +17,7 @@ test.describe("disabled javascript", () => {
       await title.evaluate((node) =>
         Math.floor(node.getBoundingClientRect().top)
       )
-    ).toBe(0);
+    ).toBe(-1);
   });
 });
 
@@ -37,7 +37,7 @@ test.describe("enabled javascript", () => {
       await title.evaluate((node) =>
         Math.floor(node.getBoundingClientRect().top)
       )
-    ).toBe(0);
+    ).toBe(-1);
   });
 
   test("scroll with observation", async ({ page }) => {

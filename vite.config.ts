@@ -44,6 +44,8 @@ export default defineConfig({
         "playwright-report",
         ".eslintrc.cjs",
         "playwright.config.ts",
+        "dist",
+        "vite.config.ts",
       ],
       thresholds: {
         branches: 100,

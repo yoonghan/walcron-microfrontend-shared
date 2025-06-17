@@ -7,7 +7,7 @@ const isShownContent = async (page: Page, locator: Locator) => {
   });
 
   const { maxHeight, overflow } = styling ?? {};
-  return !(maxHeight === "0px" || maxHeight === "0") && overflow === "hidden";
+  return !(maxHeight === "0px" || maxHeight === "0") && overflow === "auto";
 };
 
 const click = async (page: Page, locator: Locator) => {

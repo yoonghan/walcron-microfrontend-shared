@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import Menu from ".";
+import Menu, { MenuType } from ".";
 import { ReactNode } from "react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect } from "vitest";
@@ -40,34 +40,36 @@ describe("Menu", () => {
     </a>
   );
 
-  const renderMenuWithItems = (
+  function renderMenuWithItems (
     isDesktop = false,
     shortcutComponent?: ReactNode
-  ) =>
-    render(
+  ) {
+    const model: MenuType = [
+      {
+        label: "Zoo Negara",
+        url: "/about-us",
+        items: [
+          {
+            label: "About Us",
+          },
+          {
+            label: "Zoo Negara Logo",
+            url: "#logo",
+          },
+        ],
+      },
+      {
+        label: "News",
+        url: "/sample-us",
+      },
+    ]
+
+    return render(
       <Menu
         menuLink={MenuLink}
         homeLink={HomeLink}
         homeLogoLink={HomeLogoLink}
-        model={[
-          {
-            label: "Zoo Negara",
-            url: "/about-us",
-            items: [
-              {
-                label: "About Us",
-              },
-              {
-                label: "Zoo Negara Logo",
-                url: "#logo",
-              },
-            ],
-          },
-          {
-            label: "News",
-            url: "/sample-us",
-          },
-        ]}
+        model={model}
         shortcutComponent={shortcutComponent}
         mobileStyle={!isDesktop ? { display: "block" } : { display: "none" }}
         desktopStyle={isDesktop ? { display: "block" } : { display: "none" }}
@@ -75,6 +77,7 @@ describe("Menu", () => {
         mobileClassName="mobile-class"
       />
     );
+  }
 
   it("should will display mobile home text that links to home", () => {
     const { getByRole } = renderMenuWithItems();
