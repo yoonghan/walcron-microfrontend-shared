@@ -21,6 +21,9 @@ test.describe("disabled javascript", () => {
   });
 });
 
+//make sure test do not share and not in parallel.
+test.describe.configure({mode: "serial"})
+
 test.describe("enabled javascript", () => {
   const wheelY = async (page: Page, scrollY: number) => {
     await page.mouse.wheel(0, scrollY);
@@ -43,7 +46,7 @@ test.describe("enabled javascript", () => {
   test("scroll with observation", async ({ page }) => {
     const scrollY = 1000;
     await page.goto("/minimenu");
-    const title = await page.getByText("Title: Frequent Asked Questions", {
+    const title = page.getByText("Title: Frequent Asked Questions", {
       exact: true,
     });
 
@@ -60,28 +63,31 @@ test.describe("enabled javascript", () => {
     ).toBe(oldOffsetHeight - scrollY);
   });
 
-  // test("minimenu is underlined when scrolled", async ({ page }) => {
-  //   page.setViewportSize({ width: 1024, height: 600 });
+  test("minimenu is underlined when scrolled", async ({ page }) => {
+    const skippable = !!(process.env.IGNORE_SKIPPABLE_TEST)
+    test.skip(skippable, "Test is flaky and was runnable locally after vike update.")
+    page.setViewportSize({ width: 1024, height: 600 });
 
-  //   const assertClassHasUnderline = async (link: string) => {
-  //     const className = await page
-  //       .getByRole("link", { name: link })
-  //       .evaluate((node) => node.getAttribute("class"));
-  //     expect(className).toContain("underline");
-  //   };
+    const assertClassHasUnderline = async (link: string) => {
+      const className = await page
+        .getByRole("link", { name: link })
+        .evaluate((node) => node.getAttribute("class"));
+      expect(className).toContain("underline");
+    };
 
-  //   await page.goto("/minimenu");
-  //   await page.waitForTimeout(200);
+    await page.goto("/minimenu");
+    await page.waitForTimeout(200);
+    await assertClassHasUnderline("About Us");
 
-  //   await wheelY(page, 600);
-  //   await assertClassHasUnderline("Purpose");
+    await wheelY(page, 600);
+    await assertClassHasUnderline("Purpose");
 
-  //   await wheelY(page, 350);
+    await wheelY(page, 350);
 
-  //   await wheelY(page, 50);
-  //   await assertClassHasUnderline("Objective");
+    await wheelY(page, 50);
+    await assertClassHasUnderline("Objective");
 
-  //   await wheelY(page, 700);
-  //   await assertClassHasUnderline("Mission");
-  // });
+    await wheelY(page, 700);
+    await assertClassHasUnderline("Mission");
+  });
 });
