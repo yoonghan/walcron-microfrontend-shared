@@ -18,5 +18,6 @@ export const Primary: Story = {
       { hashId: "about-us", title: "About Us" },
       { hashId: "five-pillars", title: "Five Pillars" },
     ],
+    onScrollMonitor: () => {}
   },
 };
