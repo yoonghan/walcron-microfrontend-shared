@@ -86,7 +86,7 @@
     "vite": "^6.3.5",
     "vite-plugin-dts": "^4.5.4",
     "vitest": "^3.2.3",
-    "web-vitals": "^3.5.2"
+    "web-vitals": "^5.1.0"
   },
   "clean-package": {
     "indent": 2,
