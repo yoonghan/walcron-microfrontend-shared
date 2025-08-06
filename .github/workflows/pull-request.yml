@@ -5,6 +5,8 @@ on:
 
 jobs:
   version-checker:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - name: 🛑 Cancel previous runs
