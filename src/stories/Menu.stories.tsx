@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import Menu from "../components/Menu";
-import React from "react";
 
 const meta: Meta = {
   title: "Walcron/Menu",

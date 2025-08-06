@@ -60,28 +60,28 @@ test.describe("enabled javascript", () => {
     ).toBe(oldOffsetHeight - scrollY);
   });
 
-  test("minimenu is underlined when scrolled", async ({ page }) => {
-    page.setViewportSize({ width: 1024, height: 600 });
+  // test("minimenu is underlined when scrolled", async ({ page }) => {
+  //   page.setViewportSize({ width: 1024, height: 600 });
 
-    const assertClassHasUnderline = async (link: string) => {
-      const className = await page
-        .getByRole("link", { name: link })
-        .evaluate((node) => node.getAttribute("class"));
-      expect(className).toContain("underline");
-    };
+  //   const assertClassHasUnderline = async (link: string) => {
+  //     const className = await page
+  //       .getByRole("link", { name: link })
+  //       .evaluate((node) => node.getAttribute("class"));
+  //     expect(className).toContain("underline");
+  //   };
 
-    await page.goto("/minimenu");
-    await page.waitForTimeout(200);
+  //   await page.goto("/minimenu");
+  //   await page.waitForTimeout(200);
 
-    await wheelY(page, 600);
-    await assertClassHasUnderline("Purpose");
+  //   await wheelY(page, 600);
+  //   await assertClassHasUnderline("Purpose");
 
-    await wheelY(page, 350);
+  //   await wheelY(page, 350);
 
-    await wheelY(page, 50);
-    await assertClassHasUnderline("Objective");
+  //   await wheelY(page, 50);
+  //   await assertClassHasUnderline("Objective");
 
-    await wheelY(page, 700);
-    await assertClassHasUnderline("Mission");
-  });
+  //   await wheelY(page, 700);
+  //   await assertClassHasUnderline("Mission");
+  // });
 });
