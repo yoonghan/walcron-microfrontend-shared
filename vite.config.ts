@@ -46,6 +46,7 @@ export default defineConfig({
         "playwright.config.ts",
         "dist",
         "vite.config.ts",
+        "register.js"
       ],
       thresholds: {
         branches: 100,
