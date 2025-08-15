@@ -4,10 +4,9 @@ type AccordionItem = {
     content: string | ReactNode;
 };
 type AccordionProps = AccordionItem[];
-export default function Accordion({ model, groupName, isSingle, }: {
+export default function Accordion({ model, groupName, isSingle, }: Readonly<{
     model: AccordionProps;
     groupName: string;
     isSingle?: boolean;
-    anchorElem?: (link: string, text: string) => ReactNode;
-}): import("react/jsx-runtime").JSX.Element;
+}>): import("react/jsx-runtime").JSX.Element;
 export {};
