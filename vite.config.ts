@@ -1,9 +1,9 @@
-import { resolve } from "path";
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import dts from "vite-plugin-dts";
-import vike from "vike/plugin";
-import { configDefaults } from "vitest/config";
+import { resolve } from "path"
+import { defineConfig } from "vite"
+import react from "@vitejs/plugin-react"
+import dts from "vite-plugin-dts"
+import vike from "vike/plugin"
+import { configDefaults } from "vitest/config"
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -42,11 +42,11 @@ export default defineConfig({
         "src/stories/*",
         ".storybook",
         "playwright-report",
-        ".eslintrc.cjs",
         "playwright.config.ts",
         "dist",
         "vite.config.ts",
-        "register.js"
+        "register.js",
+        "eslint.config.js",
       ],
       thresholds: {
         branches: 100,
@@ -61,4 +61,4 @@ export default defineConfig({
       },
     },
   },
-});
+})

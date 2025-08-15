@@ -1,8 +1,8 @@
-import "./code.css";
-import ScrollableCard from "../../src/components/ScrollableCard";
-import React from "react";
+import "./code.css"
+import ScrollableCard from "../../src/components/ScrollableCard"
+import React from "react"
 
-export { Page };
+export { Page }
 
 const cards = [
   {
@@ -34,7 +34,7 @@ const cards = [
       </div>
     ),
   },
-];
+]
 
 function Page() {
   return (
@@ -46,5 +46,5 @@ function Page() {
       <ScrollableCard model={cards} className="container" />
       <div style={{ height: "100vh" }}>Footer</div>
     </>
-  );
+  )
 }

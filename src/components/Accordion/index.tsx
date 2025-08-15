@@ -1,37 +1,38 @@
-import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
-import styles from "./accordion.module.css";
+import { ReactNode, useCallback, useEffect, useMemo, useState } from "react"
+import styles from "./accordion.module.css"
 
 type AccordionItem = {
-  label: string;
-  content: string | ReactNode;
-};
+  label: string
+  content: string | ReactNode
+}
 
-type AccordionProps = AccordionItem[];
+type AccordionProps = AccordionItem[]
 
 export default function Accordion({
   model,
   groupName,
   isSingle = true,
 }: {
-  model: AccordionProps;
-  groupName: string;
-  isSingle?: boolean;
-  anchorElem?: (link: string, text: string) => ReactNode;
+  model: AccordionProps
+  groupName: string
+  isSingle?: boolean
+  anchorElem?: (link: string, text: string) => ReactNode
 }) {
-  const [radioTracker, setRadioTracker] = useState<string>("");
-
+  const [radioTracker, setRadioTracker] = useState<string>("")
+  const x = "hi & hello" // Example variable to demonstrate usage
+  console.log(x)
   const onInputClickUncheckRadio = useCallback(
     (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-      const target = event.currentTarget;
+      const target = event.currentTarget
       if (radioTracker === target.value) {
-        target.checked = false;
-        setRadioTracker("");
+        target.checked = false
+        setRadioTracker("")
       } else {
-        setRadioTracker(target.value);
+        setRadioTracker(target.value)
       }
     },
-    [radioTracker]
-  );
+    [radioTracker],
+  )
 
   const renderedAccordions = useMemo(
     () =>
@@ -46,12 +47,12 @@ export default function Accordion({
             onInputClick={onInputClickUncheckRadio}
             content={accordianItem.content}
           />
-        );
+        )
       }),
-    [model, isSingle, groupName, onInputClickUncheckRadio]
-  );
+    [model, isSingle, groupName, onInputClickUncheckRadio],
+  )
 
-  return <div className={styles.accordion}>{renderedAccordions}</div>;
+  return <div className={styles.accordion}>{renderedAccordions}</div>
 }
 
 function AccordionSection({
@@ -62,31 +63,31 @@ function AccordionSection({
   onInputClick,
   content,
 }: {
-  label: string;
-  isSingle: boolean;
-  value: number;
-  groupName: string;
-  onInputClick: (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
-  content: ReactNode;
+  label: string
+  isSingle: boolean
+  value: number
+  groupName: string
+  onInputClick: (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void
+  content: ReactNode
 }) {
-  const [isJavascriptEnabled, setJavascriptEnabled] = useState(false);
+  const [isJavascriptEnabled, setJavascriptEnabled] = useState(false)
 
   const onDivKeyUp = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (event.key === " " || event.key === "Enter") {
         const firstChild = event.currentTarget
-          .firstElementChild as HTMLLabelElement;
+          .firstElementChild as HTMLLabelElement
         if (firstChild !== null) {
-          firstChild.click();
+          firstChild.click()
         }
       }
     },
-    []
-  );
+    [],
+  )
 
   useEffect(() => {
-    setJavascriptEnabled(true);
-  }, []);
+    setJavascriptEnabled(true)
+  }, [])
 
   return (
     <div
@@ -103,7 +104,9 @@ function AccordionSection({
           onClick={isSingle ? onInputClick : undefined}
         />
       </label>
-      <div className={styles.tab__content}><div>{content}</div></div>
+      <div className={styles.tab__content}>
+        <div>{content}</div>
+      </div>
     </div>
-  );
+  )
 }

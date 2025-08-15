@@ -1,33 +1,33 @@
-import Menu from "../../src/components/Menu";
-import React from "react";
+import Menu from "../../src/components/Menu"
+import React from "react"
 
-export { Page };
+export { Page }
 
 function Page() {
   const MenuLink = (text: string, href: string, onClick?: () => void) => (
     <a
       href={href}
       onClick={(e) => {
-        e.preventDefault();
-        onClick && onClick();
+        e.preventDefault()
+        if (onClick) onClick()
       }}
     >
       {text}
     </a>
-  );
+  )
 
   const HomeLink = (href: string, onClick: () => void, tabIndex: number) => (
     <a
       href={href}
       tabIndex={tabIndex}
       onClick={(e) => {
-        e.preventDefault();
-        onClick();
+        e.preventDefault()
+        onClick()
       }}
     >
       Zoo Negara Malaysia
     </a>
-  );
+  )
 
   const HomeLogoLink = (helperClassName: string) => (
     <a
@@ -37,7 +37,7 @@ function Page() {
     >
       Home
     </a>
-  );
+  )
 
   return (
     <header>
@@ -127,5 +127,5 @@ function Page() {
         shortcutComponent={<button>+ Buy Now</button>}
       ></Menu>
     </header>
-  );
+  )
 }

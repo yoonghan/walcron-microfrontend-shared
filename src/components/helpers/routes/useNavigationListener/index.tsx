@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect } from "react"
 
 /*
  Since we can't expose react-router-dom, we used it as a general component
@@ -8,18 +8,18 @@ const useNavigationListener = ({
   containerName,
   props,
 }: {
-  appName: string;
-  containerName: string;
+  appName: string
+  containerName: string
   props: {
-    pathname: string;
-    navigate: (location: string) => void;
-  };
+    pathname: string
+    navigate: (location: string) => void
+  }
 }) => {
   useEffect(() => {
     window.dispatchEvent(
-      new CustomEvent(`[${appName}] navigated`, { detail: props.pathname })
-    );
-  }, [appName, props.pathname]);
+      new CustomEvent(`[${appName}] navigated`, { detail: props.pathname }),
+    )
+  }, [appName, props.pathname])
 
   // useEffect(() => {
   //   const stateLocation =
@@ -29,26 +29,26 @@ const useNavigationListener = ({
 
   useEffect(() => {
     function shellNavigationHandler(event: Event) {
-      const pathname = (event as CustomEvent<string>).detail;
+      const pathname = (event as CustomEvent<string>).detail
       //matchRoutes(routes(), { pathname }) not usable
       if (props.pathname === pathname) {
-        return;
+        return
       }
-      props.navigate(pathname);
+      props.navigate(pathname)
     }
 
     window.addEventListener(
       `[${containerName}] navigated`,
-      shellNavigationHandler
-    );
+      shellNavigationHandler,
+    )
 
     return () => {
       window.removeEventListener(
         `[${containerName}] navigated`,
-        shellNavigationHandler
-      );
-    };
-  }, [containerName, props]);
-};
+        shellNavigationHandler,
+      )
+    }
+  }, [containerName, props])
+}
 
-export default useNavigationListener;
+export default useNavigationListener

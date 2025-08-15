@@ -1,8 +1,8 @@
-import { ReactNode } from "react";
-import styles from "./scrollable-card.module.css";
+import { ReactNode } from "react"
+import styles from "./scrollable-card.module.css"
 
 interface Model {
-  content: ReactNode;
+  content: ReactNode
 }
 
 function ScrollableCard({
@@ -10,9 +10,9 @@ function ScrollableCard({
   className,
   isReversed = false,
 }: {
-  model: Model[];
-  className: string;
-  isReversed?: boolean;
+  model: Model[]
+  className: string
+  isReversed?: boolean
 }) {
   return (
     <ul
@@ -22,7 +22,7 @@ function ScrollableCard({
         <li key={`sc-${idx}`}>{content}</li>
       ))}
     </ul>
-  );
+  )
 }
 
-export default ScrollableCard;
+export default ScrollableCard

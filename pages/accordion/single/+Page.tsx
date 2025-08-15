@@ -1,7 +1,7 @@
-import React from "react";
-import Accordion from "../../../src/components/Accordion";
+import React from "react"
+import Accordion from "../../../src/components/Accordion"
 
-export { Page };
+export { Page }
 
 function Page() {
   return (
@@ -22,5 +22,5 @@ function Page() {
         isSingle={true}
       ></Accordion>
     </>
-  );
+  )
 }

@@ -1,2 +1,2 @@
-export { debounce } from "./debounce";
-export { htmlConvertor } from "./htmlConvertor";
+export { debounce } from "./debounce"
+export { htmlConvertor } from "./htmlConvertor"
