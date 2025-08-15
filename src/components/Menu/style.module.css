@@ -164,7 +164,6 @@
 .mobile__nav .hamb_line {
   display: block; /* override to mimic div */
   background: var(--menu-color-text);
-  display: block;
   height: 2px;
   position: relative;
 }
