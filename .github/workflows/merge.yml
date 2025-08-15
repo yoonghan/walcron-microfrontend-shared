@@ -1,9 +1,9 @@
-name: Report merged result on master
+name: Report merged result on main
 
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   validate:
