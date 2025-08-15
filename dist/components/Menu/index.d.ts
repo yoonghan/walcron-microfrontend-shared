@@ -10,7 +10,7 @@ type SubMenuItem = {
     url?: string;
 };
 export type MenuType = TopMenuItem[];
-export declare function MutableMenu({ menuLink, homeLink, homeLogoLink, model, shortcutComponent, mobileStyle, desktopStyle, desktopClassName, mobileClassName, menuName, }: {
+export declare function MutableMenu({ menuLink, homeLink, homeLogoLink, model, shortcutComponent, mobileStyle, desktopStyle, desktopClassName, mobileClassName, menuName, }: Readonly<{
     menuLink: MenuLink;
     homeLink: (href: string, onClick: () => void, tabIndex: number) => ReactNode;
     homeLogoLink: (helperClassName: string) => ReactNode;
@@ -21,6 +21,6 @@ export declare function MutableMenu({ menuLink, homeLink, homeLogoLink, model, s
     desktopClassName?: string;
     mobileClassName?: string;
     menuName?: string;
-}): import("react/jsx-runtime").JSX.Element;
+}>): import("react/jsx-runtime").JSX.Element;
 declare const Menu: React.MemoExoticComponent<typeof MutableMenu>;
 export default Menu;

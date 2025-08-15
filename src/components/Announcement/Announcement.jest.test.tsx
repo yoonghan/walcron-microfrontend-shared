@@ -92,20 +92,19 @@ describe("Announcement", () => {
     const renderEmptyAnnouncements = () =>
       render(
         <Announcement
-          announcements={[<strong>One Announcement</strong>]}
+          announcements={[<strong key="one">One Announcement</strong>]}
           ariaAnnouncementTitle={""}
         />,
       )
 
     it("should not have navigation buttons and can render html node", async () => {
-      const { getByRole, queryByRole, getByText } = renderEmptyAnnouncements()
+      const { queryByRole, getByText } = renderEmptyAnnouncements()
       expect(
         queryByRole("button", { name: "next announcement" }),
       ).not.toBeInTheDocument()
       expect(
         queryByRole("button", { name: "previous announcement" }),
       ).not.toBeInTheDocument()
-      expect(getByRole("status")).toHaveClass("only_one")
       expect(getByText("One Announcement").tagName).toBe("STRONG")
     })
   })

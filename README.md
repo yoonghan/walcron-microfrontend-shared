@@ -6,6 +6,12 @@ A shared library used within the eco-system of Walcron. All components can be re
 
 [![Build Status][build-badge]][build]
 [![Code Coverage][coverage-badge]][coverage]
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=yoonghan_walcron-microfrontend-shared&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=yoonghan_walcron-microfrontend-shared)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=yoonghan_walcron-microfrontend-shared&metric=bugs)](https://sonarcloud.io/summary/new_code?id=yoonghan_walcron-microfrontend-shared)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=yoonghan_walcron-microfrontend-shared&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=yoonghan_walcron-microfrontend-shared)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=yoonghan_walcron-microfrontend-shared&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=yoonghan_walcron-microfrontend-shared)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=yoonghan_walcron-microfrontend-shared&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=yoonghan_walcron-microfrontend-shared)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=yoonghan_walcron-microfrontend-shared&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=yoonghan_walcron-microfrontend-shared)
 
 ## Getting started
 

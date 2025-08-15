@@ -27,7 +27,7 @@ export function htmlConvertor(
 ) {
   function substituteAnchorWithLink(word: string, parentKey: number) {
     if (
-      word.match(regExpOfWordHasClosingAnchorBracket) &&
+      regExpOfWordHasClosingAnchorBracket.exec(word) &&
       word.indexOf("|") > -1
     ) {
       const wordWifCloseBracket = word.replace(
@@ -47,7 +47,7 @@ export function htmlConvertor(
       return (
         <React.Fragment key={parentKey}>
           {LinkElem(link, text)}
-          {word.match(regExpEndsWithAcceptableEndSymbol)
+          {regExpEndsWithAcceptableEndSymbol.exec(word)
             ? `${word.slice(-1)}`
             : ""}
         </React.Fragment>
@@ -82,11 +82,11 @@ export function htmlConvertor(
     }
 
     if (word.startsWith("*")) {
-      return <strong key={idx}>{word.substring(1, word.length)}</strong>
+      return <strong key={word}>{word.substring(1, word.length)}</strong>
     } else if (word.startsWith("[")) {
       return substituteAnchorWithLink(word, idx)
     } else if (word === "!!") {
-      return <br key={idx} />
+      return <br key={word} />
     } else {
       return word.replaceAll(unbreakableSpaceTextReplacement, " ")
     }

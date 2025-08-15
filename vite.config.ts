@@ -34,7 +34,7 @@ export default defineConfig({
     exclude: [...configDefaults.exclude, "e2e/*", "playwright*"],
     coverage: {
       provider: "v8",
-      reporter: ["text", "cobertura"],
+      reporter: ["text", "cobertura", "lcov"],
       exclude: [
         "pages",
         "server",

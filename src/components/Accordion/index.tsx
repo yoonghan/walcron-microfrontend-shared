@@ -12,12 +12,11 @@ export default function Accordion({
   model,
   groupName,
   isSingle = true,
-}: {
+}: Readonly<{
   model: AccordionProps
   groupName: string
   isSingle?: boolean
-  anchorElem?: (link: string, text: string) => ReactNode
-}) {
+}>) {
   const [radioTracker, setRadioTracker] = useState<string>("")
 
   const onInputClickUncheckRadio = useCallback(
@@ -61,28 +60,15 @@ function AccordionSection({
   groupName,
   onInputClick,
   content,
-}: {
+}: Readonly<{
   label: string
   isSingle: boolean
   value: number
   groupName: string
   onInputClick: (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => void
   content: ReactNode
-}) {
-  const [isJavascriptEnabled, setJavascriptEnabled] = useState(false)
-
-  const onDivKeyUp = useCallback(
-    (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (event.key === " " || event.key === "Enter") {
-        const firstChild = event.currentTarget
-          .firstElementChild as HTMLLabelElement
-        if (firstChild !== null) {
-          firstChild.click()
-        }
-      }
-    },
-    [],
-  )
+}>) {
+  const [javascriptEnabled, setJavascriptEnabled] = useState(false)
 
   useEffect(() => {
     setJavascriptEnabled(true)
@@ -90,9 +76,7 @@ function AccordionSection({
 
   return (
     <div
-      className={`${styles.tab} ${isJavascriptEnabled ? styles.selectable : ""}`}
-      tabIndex={isJavascriptEnabled ? 0 : undefined}
-      onKeyUp={onDivKeyUp}
+      className={`${styles.tab} ${javascriptEnabled ? styles.selectable : ""}`}
     >
       <label>
         {label}

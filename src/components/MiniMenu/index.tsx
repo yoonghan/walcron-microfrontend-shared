@@ -15,7 +15,7 @@ interface ScrollIntoViewIfNeededElement extends HTMLAnchorElement {
   scrollIntoViewIfNeeded: (isCenter: boolean) => void
 }
 
-function MiniMenu({ model, onScrollMonitor }: MiniMenuProps) {
+function MiniMenu({ model, onScrollMonitor }: Readonly<MiniMenuProps>) {
   const [selected, setSelected] = useState(0)
   const anchorRef = useRef<(HTMLAnchorElement | null)[]>([])
   const navBarRef = useRef<HTMLDivElement>(null)
@@ -99,7 +99,7 @@ function MiniMenu({ model, onScrollMonitor }: MiniMenuProps) {
     <nav className={styles.minimenu} ref={navBarRef}>
       {model.map((item, idx) => (
         <React.Fragment key={item.hashId}>
-          {idx !== 0 && <div role="separator"></div>}
+          {idx !== 0 && <hr />}
           <a
             href={`#${item.hashId}`}
             ref={(el) => {

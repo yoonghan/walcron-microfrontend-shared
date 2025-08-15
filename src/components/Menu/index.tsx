@@ -35,17 +35,17 @@ function DesktopTopMenu({
   menuLink,
   topMenuItem,
   subMenu,
-}: {
+}: Readonly<{
   menuLink: MenuLink
   topMenuItem: TopMenuItem
   subMenu: SubMenu
-}) {
-  const [isSubMenuOpened, setSubMenuOpened] = useState(false)
+}>) {
+  const [subMenuOpened, setSubMenuOpened] = useState(false)
   const liRef = useRef(null)
 
   const onExpandButtonClick = useCallback(() => {
-    setSubMenuOpened(!isSubMenuOpened)
-  }, [isSubMenuOpened])
+    setSubMenuOpened(!subMenuOpened)
+  }, [subMenuOpened])
 
   const onExpandButtonKeyUp = useCallback(
     (event: React.KeyboardEvent<HTMLButtonElement>) => {
@@ -76,7 +76,7 @@ function DesktopTopMenu({
   if (topMenuItem.items !== undefined) {
     return (
       <li
-        className={`${style.subnav} ${isSubMenuOpened ? style.open : ""}`}
+        className={`${style.subnav} ${subMenuOpened ? style.open : ""}`}
         onBlur={onMenuBlur}
         ref={liRef}
       >
@@ -86,7 +86,7 @@ function DesktopTopMenu({
             onClick={onExpandButtonClick}
             onKeyUp={onExpandButtonKeyUp}
             aria-label={`${topMenuItem.label}`}
-            aria-expanded={isSubMenuOpened}
+            aria-expanded={subMenuOpened}
             className={style.expand}
           ></button>
         </div>
@@ -112,16 +112,16 @@ function MobileTopMenu({
   topMenuItem,
   subMenu,
   unCheckSideMenu,
-}: {
+}: Readonly<{
   menuLink: MenuLink
   topMenuItem: TopMenuItem
   subMenu: SubMenu
   unCheckSideMenu: () => void
-}) {
+}>) {
   const [isSubMenuOpened, setSubMenuOpened] = useState(false)
   /* state for switching between button and checkbox display */
   const checkboxRef = useRef<HTMLInputElement>(null)
-  const [isJavascriptEnabled, setJavaScriptEnabled] = useState(false)
+  const [javascriptEnabled, setJavaScriptEnabled] = useState(false)
   useEffect(() => {
     setJavaScriptEnabled(true)
   }, [])
@@ -140,10 +140,10 @@ function MobileTopMenu({
           onClick={() => {
             checkboxRef.current?.click()
           }}
-          className={`${style.top__menu} ${isJavascriptEnabled ? "show-inline" : "hide"}`}
+          className={`${style.top__menu} ${javascriptEnabled ? "show-inline" : "hide"}`}
         ></button>
         <label
-          className={`${style.top__menu} ${isJavascriptEnabled ? "hide" : "show-inline"}`}
+          className={`${style.top__menu} ${javascriptEnabled ? "hide" : "show-inline"}`}
         >
           <input
             type="checkbox"
@@ -183,7 +183,7 @@ export function MutableMenu({
   desktopClassName = "",
   mobileClassName = "",
   menuName = undefined,
-}: {
+}: Readonly<{
   menuLink: MenuLink
   homeLink: (href: string, onClick: () => void, tabIndex: number) => ReactNode
   homeLogoLink: (helperClassName: string) => ReactNode
@@ -194,12 +194,12 @@ export function MutableMenu({
   desktopClassName?: string
   mobileClassName?: string
   menuName?: string
-}) {
+}>) {
   const sideMenuRef = useRef<HTMLInputElement>(null) //remain for non-javascript
   const [isOpenedHamburger, setIsOpenedHamburger] = useState(false)
 
   /* state for switching between button and checkbox display */
-  const [isJavascriptEnabled, setJavaScriptEnabled] = useState(false)
+  const [javascriptEnabled, setJavaScriptEnabled] = useState(false)
   useEffect(() => {
     setJavaScriptEnabled(true)
   }, [])
@@ -270,7 +270,7 @@ export function MutableMenu({
             <button
               aria-expanded={isOpenedHamburger === true}
               aria-haspopup={true}
-              className={`${style.hamb} ${isJavascriptEnabled ? "show" : "hide"}`}
+              className={`${style.hamb} ${javascriptEnabled ? "show" : "hide"}`}
               aria-label={menuName || "Hamburger Menu"}
               onClick={() => {
                 sideMenuRef.current?.click()
@@ -279,7 +279,7 @@ export function MutableMenu({
               <span className={style.hamb_line}></span>
             </button>
             <label
-              className={isJavascriptEnabled ? "hide" : "show"}
+              className={javascriptEnabled ? "hide" : "show"}
               aria-label={menuName || "Hamburger Menu"}
             >
               <input

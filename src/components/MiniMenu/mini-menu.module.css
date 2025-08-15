@@ -19,8 +19,9 @@
   margin: auto;
 }
 
-.minimenu div[role="separator"] {
-  border-right: solid;
+.minimenu hr{
+  border: 0;
+  border-right: 1px solid;
   border-color: var(--minimenu-color-text);
 }
 

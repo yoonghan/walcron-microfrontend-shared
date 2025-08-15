@@ -21,8 +21,7 @@ export default function Announcement({
   const hasOnly1Announcement = announcements.length === 1
 
   return announcements.length < 1 ? null : (
-    <div
-      role="status"
+    <output
       title={ariaAnnouncementTitle}
       className={`${styles.announcement} ${hasOnly1Announcement ? styles.only_one : ""} ${classes}`}
     >
@@ -43,6 +42,6 @@ export default function Announcement({
       <label className={styles.close} aria-label="Close Announcement">
         <input type="checkbox" />
       </label>
-    </div>
+    </output>
   )
 }
