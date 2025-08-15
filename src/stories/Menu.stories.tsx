@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
 import Menu from "../components/Menu";
 
 const meta: Meta = {
@@ -46,7 +45,7 @@ export const Primary: Story = {
         role={role}
         onClick={(e) => {
           e.preventDefault();
-          onClick && onClick();
+          if(onClick) onClick();
         }}
       >
         {text}

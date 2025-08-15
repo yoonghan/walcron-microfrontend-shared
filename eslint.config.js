@@ -5,7 +5,14 @@ import pluginReact from "eslint-plugin-react";
 import { defineConfig } from "eslint/config";
 
 export default defineConfig([
-  tseslint.configs.recommended,
+  {
+    ignores: [
+      "dist/**",      // ignore build output
+      "node_modules", // ignore dependencies
+      "coverage/**",  // ignore test coverage reports
+      "*.css"         // ignore all CSS files
+    ]
+  },
   {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
     plugins: { js, pluginReact },
@@ -22,5 +29,6 @@ export default defineConfig([
         "react/react-in-jsx-scope": "off" // No longer needed with the new JSX transform
       }
     }
-  }
+  },
+  tseslint.configs.recommended
 ]);

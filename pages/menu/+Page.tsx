@@ -9,7 +9,7 @@ function Page() {
       href={href}
       onClick={(e) => {
         e.preventDefault();
-        onClick && onClick();
+        if(onClick) onClick();
       }}
     >
       {text}

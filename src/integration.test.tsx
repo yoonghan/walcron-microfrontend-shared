@@ -16,27 +16,27 @@ import {
 describe("Integration test", () => {
   describe("components", () => {
     it("should expose Accordion", () => {
-      expect(Accordion).toBeDefined;
+      expect(Accordion).toBeDefined();
     });
 
     it("should expose Announcement", () => {
-      expect(Announcement).toBeDefined;
+      expect(Announcement).toBeDefined();
     });
 
     it("should expose MiniMenu", () => {
-      expect(MiniMenu).toBeDefined;
+      expect(MiniMenu).toBeDefined();
     });
 
     it("should expose Menu", () => {
-      expect(Menu).toBeDefined;
+      expect(Menu).toBeDefined();
     });
 
     it("should expose MutableMenu", () => {
-      expect(MutableMenu).toBeDefined;
+      expect(MutableMenu).toBeDefined();
     });
 
     it("should expose ScrollableCard", () => {
-      expect(ScrollableCard).toBeDefined;
+      expect(ScrollableCard).toBeDefined();
     });
   });
 

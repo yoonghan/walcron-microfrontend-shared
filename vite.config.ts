@@ -42,11 +42,11 @@ export default defineConfig({
         "src/stories/*",
         ".storybook",
         "playwright-report",
-        ".eslintrc.cjs",
         "playwright.config.ts",
         "dist",
         "vite.config.ts",
-        "register.js"
+        "register.js",
+        "eslint.config.js",
       ],
       thresholds: {
         branches: 100,

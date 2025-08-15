@@ -7,7 +7,7 @@ export const updateCLS = (fn: (metric: Metric) => void) => (metric: Metric) => {
   });
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 const reportWebVitals = (onPerfEntry: (metric: Metric) => void) => {
   /* c8 ignore next */
   if (onPerfEntry && onPerfEntry instanceof Function) {
