@@ -21,12 +21,6 @@ const useNavigationListener = ({
     )
   }, [appName, props.pathname])
 
-  // useEffect(() => {
-  //   const stateLocation =
-  //     location.pathname === "/" ? baseUrl : `${baseUrl}${location.pathname}`;
-  //   if (skipPath !== stateLocation) history.pushState({}, "", stateLocation);
-  // }, [location.pathname, skipPath]);
-
   useEffect(() => {
     function shellNavigationHandler(event: Event) {
       const pathname = (event as CustomEvent<string>).detail

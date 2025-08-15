@@ -7,9 +7,9 @@ describe("ScrollableCard", () => {
     render(
       <ScrollableCard
         model={[
-          { content: "I am card # 1" },
-          { content: "I am card # 2" },
-          { content: "I am card # 3" },
+          { content: "I am card # 1", id: "card1" },
+          { content: "I am card # 2", id: "card2" },
+          { content: "I am card # 3", id: "card3" },
         ]}
         className="supported-class"
         data-testid={"test"}
@@ -29,9 +29,9 @@ describe("ScrollableCard", () => {
     render(
       <ScrollableCard
         model={[
-          { content: "I am card # 1" },
-          { content: "I am card # 2" },
-          { content: "I am card # 3" },
+          { content: "I am card # 1", id: "card1" },
+          { content: "I am card # 2", id: "card2" },
+          { content: "I am card # 3", id: "card3" },
         ]}
         className="supported-class"
         data-testid={"test"}
