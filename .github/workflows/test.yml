@@ -19,6 +19,9 @@ jobs:
 
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v5
+        with:
+          fetch-depth: ${{ github.ref == 'refs/heads/main' && '0' || '1' }} # Fetch all history for all branches for sonarqube analysis
+
 
       - name: ⎔ Setup node
         uses: actions/setup-node@v4
@@ -48,6 +51,12 @@ jobs:
 
       - name: ✅ Validate test script
         run: npm run test:ci
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v5
+        if: github.ref == 'refs/heads/main'
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: ✅ Validate e2e test
         run: export IGNORE_SKIPPABLE_TEST=true && npm run e2e
