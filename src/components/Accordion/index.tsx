@@ -70,19 +70,6 @@ function AccordionSection({
 }>) {
   const [javascriptEnabled, setJavascriptEnabled] = useState(false)
 
-  const onDivKeyUp = useCallback(
-    (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (event.key === " " || event.key === "Enter") {
-        const firstChild = event.currentTarget
-          .firstElementChild as HTMLLabelElement
-        if (firstChild !== null) {
-          firstChild.click()
-        }
-      }
-    },
-    [],
-  )
-
   useEffect(() => {
     setJavascriptEnabled(true)
   }, [])
@@ -90,8 +77,6 @@ function AccordionSection({
   return (
     <div
       className={`${styles.tab} ${javascriptEnabled ? styles.selectable : ""}`}
-      tabIndex={javascriptEnabled ? 0 : undefined}
-      onKeyUp={onDivKeyUp}
     >
       <label>
         {label}
