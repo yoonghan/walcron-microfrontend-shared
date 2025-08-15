@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "./Link";
+import React from "react"
+import { Link } from "./Link"
 
-export { Menus };
+export { Menus }
 
 function Menus() {
   return (
@@ -14,5 +14,5 @@ function Menus() {
       <Link href="/scrollable-card">Scrollable Card</Link>
       <Link href="/scrollable-card-reversed">Scrollable Card Reversed</Link>
     </>
-  );
+  )
 }

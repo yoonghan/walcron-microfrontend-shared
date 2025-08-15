@@ -1,7 +1,7 @@
-import Announcement from "../../src/components/Announcement";
-import React from "react";
+import Announcement from "../../src/components/Announcement"
+import React from "react"
 
-export { Page };
+export { Page }
 
 function Page() {
   return (
@@ -13,5 +13,5 @@ function Page() {
         announcements={["one announcement"]}
       />
     </>
-  );
+  )
 }

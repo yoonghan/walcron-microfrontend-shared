@@ -1,6 +1,6 @@
-import { describe, it, expect, vi } from "vitest";
-import reportHandler from "./consoleReportHandler";
-import { Metric } from "web-vitals";
+import { describe, it, expect, vi } from "vitest"
+import reportHandler from "./consoleReportHandler"
+import { Metric } from "web-vitals"
 
 describe("consoleReportHandler", () => {
   it("should be able to do console output", () => {
@@ -12,12 +12,12 @@ describe("consoleReportHandler", () => {
       id: "test",
       entries: [],
       navigationType: "restore",
-    };
+    }
     const log = vi.spyOn(console, "log").mockImplementation(() => {
       //do nothing
-    });
-    reportHandler(mockedMetric);
-    expect(log).toBeCalledWith(mockedMetric);
-    log.mockReset();
-  });
-});
+    })
+    reportHandler(mockedMetric)
+    expect(log).toBeCalledWith(mockedMetric)
+    log.mockReset()
+  })
+})

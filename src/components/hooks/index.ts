@@ -1,1 +1,1 @@
-export { useWindowListener } from "./useWindowListener";
+export { useWindowListener } from "./useWindowListener"

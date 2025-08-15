@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect } from "vitest"
 import {
   Accordion,
   Announcement,
@@ -11,58 +11,58 @@ import {
   MutableMenu,
   reportWebVitals,
   ScrollableCard,
-} from ".";
+} from "."
 
 describe("Integration test", () => {
   describe("components", () => {
     it("should expose Accordion", () => {
-      expect(Accordion).toBeDefined();
-    });
+      expect(Accordion).toBeDefined()
+    })
 
     it("should expose Announcement", () => {
-      expect(Announcement).toBeDefined();
-    });
+      expect(Announcement).toBeDefined()
+    })
 
     it("should expose MiniMenu", () => {
-      expect(MiniMenu).toBeDefined();
-    });
+      expect(MiniMenu).toBeDefined()
+    })
 
     it("should expose Menu", () => {
-      expect(Menu).toBeDefined();
-    });
+      expect(Menu).toBeDefined()
+    })
 
     it("should expose MutableMenu", () => {
-      expect(MutableMenu).toBeDefined();
-    });
+      expect(MutableMenu).toBeDefined()
+    })
 
     it("should expose ScrollableCard", () => {
-      expect(ScrollableCard).toBeDefined();
-    });
-  });
+      expect(ScrollableCard).toBeDefined()
+    })
+  })
 
   describe("helpers", () => {
     it("should export useNavigationListener", () => {
-      expect(useNavigationListener).toBeDefined();
-    });
+      expect(useNavigationListener).toBeDefined()
+    })
 
     it("should export reportWebVitals", () => {
-      expect(reportWebVitals).toBeDefined();
-    });
-  });
+      expect(reportWebVitals).toBeDefined()
+    })
+  })
 
   describe("hooks", () => {
     it("should export useWindowListener", () => {
-      expect(useWindowListener).toBeDefined();
-    });
-  });
+      expect(useWindowListener).toBeDefined()
+    })
+  })
 
   describe("util", () => {
     it("should export debounce", () => {
-      expect(debounce).toBeDefined();
-    });
+      expect(debounce).toBeDefined()
+    })
 
     it("should export htmlConvertor", () => {
-      expect(htmlConvertor).toBeDefined();
-    });
-  });
-});
+      expect(htmlConvertor).toBeDefined()
+    })
+  })
+})

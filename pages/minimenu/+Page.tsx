@@ -1,8 +1,8 @@
-import "./code.css";
-import MiniMenu from "../../src/components/MiniMenu";
-import React from "react";
+import "./code.css"
+import MiniMenu from "../../src/components/MiniMenu"
+import React from "react"
 
-export { Page };
+export { Page }
 
 const navModel = [
   {
@@ -25,7 +25,7 @@ const navModel = [
     hashId: "faq",
     title: "Frequent Asked Questions",
   },
-];
+]
 
 function Page() {
   return (
@@ -45,5 +45,5 @@ function Page() {
         </div>
       ))}
     </>
-  );
+  )
 }

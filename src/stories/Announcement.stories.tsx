@@ -1,23 +1,23 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react"
 
-import Announcement from "../components/Announcement";
+import Announcement from "../components/Announcement"
 
 const meta: Meta = {
   title: "Walcron/Announcement",
   component: Announcement,
   tags: ["autodocs"],
   argTypes: {},
-} satisfies Meta<typeof Announcement>;
+} satisfies Meta<typeof Announcement>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const SingleAnnouncement: Story = {
   args: {
     ariaAnnouncementTitle: "An Announcement",
     announcements: ["We want you!"],
   },
-};
+}
 
 export const ThreeAnnouncement: Story = {
   args: {
@@ -30,4 +30,4 @@ export const ThreeAnnouncement: Story = {
       "goofy",
     ],
   },
-};
+}

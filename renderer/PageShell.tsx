@@ -1,19 +1,19 @@
-export { PageShell };
+export { PageShell }
 
-import React from "react";
-import logoUrl from "./logo.svg";
-import { PageContextProvider } from "./usePageContext";
-import type { PageContext } from "vike/types";
-import "./css/index.css";
-import "./PageShell.css";
-import { Menus } from "./menus";
+import React from "react"
+import logoUrl from "./logo.svg"
+import { PageContextProvider } from "./usePageContext"
+import type { PageContext } from "vike/types"
+import "./css/index.css"
+import "./PageShell.css"
+import { Menus } from "./menus"
 
 function PageShell({
   children,
   pageContext,
 }: {
-  children: React.ReactNode;
-  pageContext: PageContext;
+  children: React.ReactNode
+  pageContext: PageContext
 }) {
   return (
     <React.StrictMode>
@@ -27,7 +27,7 @@ function PageShell({
         </Layout>
       </PageContextProvider>
     </React.StrictMode>
-  );
+  )
 }
 
 function Layout({ children }: { children: React.ReactNode }) {
@@ -40,7 +40,7 @@ function Layout({ children }: { children: React.ReactNode }) {
     >
       {children}
     </div>
-  );
+  )
 }
 
 function Sidebar({ children }: { children: React.ReactNode }) {
@@ -58,7 +58,7 @@ function Sidebar({ children }: { children: React.ReactNode }) {
     >
       {children}
     </div>
-  );
+  )
 }
 
 function Content({ children }: { children: React.ReactNode }) {
@@ -75,7 +75,7 @@ function Content({ children }: { children: React.ReactNode }) {
         {children}
       </div>
     </div>
-  );
+  )
 }
 
 function Logo() {
@@ -90,5 +90,5 @@ function Logo() {
         <img src={logoUrl} height={64} width={64} alt="logo" />
       </a>
     </div>
-  );
+  )
 }

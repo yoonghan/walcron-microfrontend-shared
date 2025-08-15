@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
-import ScrollableCard from ".";
-import { render, screen } from "@testing-library/react";
+import { describe, it, expect } from "vitest"
+import ScrollableCard from "."
+import { render, screen } from "@testing-library/react"
 
 describe("ScrollableCard", () => {
   it("should render card correctly", () => {
@@ -13,17 +13,17 @@ describe("ScrollableCard", () => {
         ]}
         className="supported-class"
         data-testid={"test"}
-      ></ScrollableCard>
-    );
+      ></ScrollableCard>,
+    )
 
-    expect(screen.getByText("I am card # 1")).toBeInTheDocument();
-    expect(screen.getByText("I am card # 2")).toBeInTheDocument();
-    expect(screen.getByText("I am card # 3")).toBeInTheDocument();
+    expect(screen.getByText("I am card # 1")).toBeInTheDocument()
+    expect(screen.getByText("I am card # 2")).toBeInTheDocument()
+    expect(screen.getByText("I am card # 3")).toBeInTheDocument()
 
     expect(screen.getByText("I am card # 3").parentElement).toHaveClass(
-      "supported-class"
-    );
-  });
+      "supported-class",
+    )
+  })
 
   it("should render reversed card correctly", () => {
     render(
@@ -36,11 +36,11 @@ describe("ScrollableCard", () => {
         className="supported-class"
         data-testid={"test"}
         isReversed={true}
-      ></ScrollableCard>
-    );
+      ></ScrollableCard>,
+    )
 
     expect(screen.getByText("I am card # 3").parentElement).toHaveClass(
-      "reversed"
-    );
-  });
-});
+      "reversed",
+    )
+  })
+})

@@ -1,4 +1,4 @@
-import { defineConfig, devices } from "@playwright/test";
+import { defineConfig, devices } from "@playwright/test"
 
 /**
  * Read environment variables from file.
@@ -73,4 +73,4 @@ export default defineConfig({
     command: "npm run dev",
     url: "http://localhost:3000",
   },
-});
+})

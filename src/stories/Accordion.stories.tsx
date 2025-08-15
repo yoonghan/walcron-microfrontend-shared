@@ -1,16 +1,16 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react"
 
-import Accordion from "../components/Accordion";
+import Accordion from "../components/Accordion"
 
 const meta: Meta = {
   title: "Walcron/Accordion",
   component: Accordion,
   tags: ["autodocs"],
   argTypes: {},
-} satisfies Meta<typeof Accordion>;
+} satisfies Meta<typeof Accordion>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const RadioBehavior: Story = {
   args: {
@@ -26,7 +26,7 @@ export const RadioBehavior: Story = {
     ],
     groupName: "faq",
   },
-};
+}
 
 export const CheckboxBehavior: Story = {
   args: {
@@ -43,4 +43,4 @@ export const CheckboxBehavior: Story = {
     groupName: "faq",
     isSingle: false,
   },
-};
+}

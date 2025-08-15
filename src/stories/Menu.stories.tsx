@@ -1,15 +1,15 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import Menu from "../components/Menu";
+import type { Meta, StoryObj } from "@storybook/react"
+import Menu from "../components/Menu"
 
 const meta: Meta = {
   title: "Walcron/Menu",
   component: Menu,
   tags: ["autodocs"],
   argTypes: {},
-} satisfies Meta<typeof Menu>;
+} satisfies Meta<typeof Menu>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   args: {
@@ -38,14 +38,14 @@ export const Primary: Story = {
       text: string,
       href: string,
       role: "menuitem",
-      onClick?: () => void
+      onClick?: () => void,
     ) => (
       <a
         href={href}
         role={role}
         onClick={(e) => {
-          e.preventDefault();
-          if(onClick) onClick();
+          e.preventDefault()
+          if (onClick) onClick()
         }}
       >
         {text}
@@ -55,14 +55,14 @@ export const Primary: Story = {
       text: string,
       href: string,
       onClick: () => void,
-      tabIndex: number
+      tabIndex: number,
     ) => (
       <a
         href={href}
         tabIndex={tabIndex}
         onClick={(e) => {
-          e.preventDefault();
-          onClick();
+          e.preventDefault()
+          onClick()
         }}
       >
         {text}
@@ -70,8 +70,15 @@ export const Primary: Story = {
     ),
     homeLogoLink: (helperClassName: string) => (
       <a href={"/"} className={helperClassName}>
+        <div>"Hi"</div>
+        <div>&hielos</div>
+        <ul>
+          <li>Home</li>
+          <li>Zoo Negara</li>
+          <li>Malaysia</li>
+        </ul>
         <img src="img" alt="home link"></img>
       </a>
     ),
   },
-};
+}

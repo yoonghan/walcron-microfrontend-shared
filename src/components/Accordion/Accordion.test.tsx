@@ -1,7 +1,7 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import Accordion from ".";
-import { describe, it, expect, test } from "vitest";
+import { render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
+import Accordion from "."
+import { describe, it, expect, test } from "vitest"
 
 describe("Accordion", () => {
   const renderAccordion = (isSingle?: boolean) =>
@@ -27,59 +27,57 @@ describe("Accordion", () => {
         ]}
         groupName="faq"
         isSingle={isSingle}
-      ></Accordion>
-    );
+      ></Accordion>,
+    )
 
   it("should render component as radio by default", async () => {
-    renderAccordion();
-    expect(screen.getByRole("radio", { name: "Item 1" })).toBeInTheDocument();
-  });
+    renderAccordion()
+    expect(screen.getByRole("radio", { name: "Item 1" })).toBeInTheDocument()
+  })
 
   it("should render as checkbox if isSingle false", () => {
-    renderAccordion(false);
-    expect(
-      screen.getByRole("checkbox", { name: "Item 2" })
-    ).toBeInTheDocument();
-  });
+    renderAccordion(false)
+    expect(screen.getByRole("checkbox", { name: "Item 2" })).toBeInTheDocument()
+  })
 
   it("should uncheck a checked radio", async () => {
-    renderAccordion();
-    const radio = screen.getByRole("radio", { name: "Item 1" });
-    await userEvent.click(radio);
-    expect(radio).toBeChecked();
+    renderAccordion()
+    const radio = screen.getByRole("radio", { name: "Item 1" })
+    await userEvent.click(radio)
+    expect(radio).toBeChecked()
 
-    await userEvent.click(radio);
-    expect(radio).not.toBeChecked();
-  });
+    await userEvent.click(radio)
+    expect(radio).not.toBeChecked()
+  })
 
   it("should be able to render content with html reactnode", () => {
-    const { getByRole } = renderAccordion();
+    const { getByRole } = renderAccordion()
     expect(getByRole("link", { name: "link here" })).toHaveAttribute(
       "href",
-      "https://www.zoonegara.my"
-    );
-  });
+      "https://www.zoonegara.my",
+    )
+  })
 
   test.each([" ", "{enter}"])(
     "should enable div to handle keyevents",
     async (key) => {
-      const { getByText } = renderAccordion();
-      const item1 = "Item 1";
-      const firstItemElement = getByText(item1).parentElement;
+      const { getByText } = renderAccordion()
+      const item1 = "Item 1"
+      const firstItemElement = getByText(item1).parentElement
       if (firstItemElement !== null) {
-        await userEvent.type(firstItemElement, key);
-        const radio = screen.getByRole("radio", { name: item1 });
-        expect(radio).toBeChecked();
+        await userEvent.type(firstItemElement, key)
+        const radio = screen.getByRole("radio", { name: item1 })
+        expect(radio).toBeChecked()
       }
-    }
-  );
+    },
+  )
 
   it("should add 'selectable' classname if javascript is enabled", async () => {
-    const { getByText } = renderAccordion();
-    const item1 = "Item 1";
-    const firstItemElement = getByText(item1).parentElement;
+    const { getByText } = renderAccordion()
+    const item1 = "Item 1"
+    const firstItemElement = getByText(item1).parentElement
     if (firstItemElement !== null) {
-      expect(firstItemElement).toHaveClass("selectable");
+      expect(firstItemElement).toHaveClass("selectable")
     }
-  });
-});
+  })
+})

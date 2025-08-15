@@ -1,39 +1,38 @@
-import { vi, afterEach, Mock } from "vitest";
-export const observe = vi.fn();
-const unobserve = vi.fn();
-export const disconnect = vi.fn();
-export let intersectionFn = vi.fn();
+import { vi, afterEach, Mock } from "vitest"
+export const observe = vi.fn()
+const unobserve = vi.fn()
+export const disconnect = vi.fn()
+export let intersectionFn = vi.fn()
 
 afterEach(() => {
-  observe.mockReset();
-  disconnect.mockReset();
-});
+  observe.mockReset()
+  disconnect.mockReset()
+})
 
 class IntersectionObserver {
-  threshold;
+  threshold
 
-  constructor(
-    intersection: Mock,
-    { threshold }: { threshold: number[] }
-  ) {
-    intersectionFn = intersection;
-    this.threshold = threshold;
+  constructor(intersection: Mock, { threshold }: { threshold: number[] }) {
+    intersectionFn = intersection
+    this.threshold = threshold
   }
 
-  observe = (elem: HTMLElement) => observe(elem, this.threshold);
+  observe = (elem: HTMLElement) => observe(elem, this.threshold)
 
-  static unobserve = unobserve;
+  static unobserve = unobserve
 
-  disconnect = disconnect;
+  disconnect = disconnect
 }
 
-(window.IntersectionObserver as unknown) = IntersectionObserver;
-
-(window.HTMLElement as unknown as { prototype: { scrollIntoViewIfNeeded: () => void } }).prototype.scrollIntoViewIfNeeded = function () {
+;(window.IntersectionObserver as unknown) = IntersectionObserver
+;(
+  window.HTMLElement as unknown as {
+    prototype: { scrollIntoViewIfNeeded: () => void }
+  }
+).prototype.scrollIntoViewIfNeeded = function () {
   /*empty mock*/
-};
-
-(window.scrollTo as unknown) = (x: number, y: number) => {
-  window.scrollY = y;
-  window.scrollX = x;
-};
+}
+;(window.scrollTo as unknown) = (x: number, y: number) => {
+  window.scrollY = y
+  window.scrollX = x
+}

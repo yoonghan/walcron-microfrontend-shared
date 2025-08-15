@@ -1,9 +1,9 @@
-import { resolve } from "path";
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import dts from "vite-plugin-dts";
-import vike from "vike/plugin";
-import { configDefaults } from "vitest/config";
+import { resolve } from "path"
+import { defineConfig } from "vite"
+import react from "@vitejs/plugin-react"
+import dts from "vite-plugin-dts"
+import vike from "vike/plugin"
+import { configDefaults } from "vitest/config"
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -61,4 +61,4 @@ export default defineConfig({
       },
     },
   },
-});
+})

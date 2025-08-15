@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode } from "react"
 
 /*
 Usage
@@ -8,22 +8,22 @@ Usage
 * - any words followed by * is bold, i.e. *I am *BOLD!
 */
 
-const unbreakableSpaceTextReplacement = "\n";
-const regexAcceptableEndSymbol = "[\\.|,]";
+const unbreakableSpaceTextReplacement = "\n"
+const regexAcceptableEndSymbol = "[\\.|,]"
 const regExpOfWordHasClosingAnchorBracket = new RegExp(
-  `.*\\]${regexAcceptableEndSymbol}?$`
-);
+  `.*\\]${regexAcceptableEndSymbol}?$`,
+)
 const regExpOfClosingAnchorBracket = new RegExp(
   `\\]${regexAcceptableEndSymbol}?$`,
-  "g"
-);
+  "g",
+)
 const regExpEndsWithAcceptableEndSymbol = new RegExp(
-  `${regexAcceptableEndSymbol}$`
-);
+  `${regexAcceptableEndSymbol}$`,
+)
 
 export function htmlConvertor(
   text: string,
-  LinkElem: (link: string, text: string) => ReactNode
+  LinkElem: (link: string, text: string) => ReactNode,
 ) {
   function substituteAnchorWithLink(word: string, parentKey: number) {
     if (
@@ -32,18 +32,18 @@ export function htmlConvertor(
     ) {
       const wordWifCloseBracket = word.replace(
         regExpOfClosingAnchorBracket,
-        "]"
-      );
+        "]",
+      )
       const wordsWithNoBrackets = wordWifCloseBracket.substring(
         1,
-        wordWifCloseBracket.length - 1
-      );
-      const linkWordPair = wordsWithNoBrackets.split("|");
-      const link = linkWordPair[0];
+        wordWifCloseBracket.length - 1,
+      )
+      const linkWordPair = wordsWithNoBrackets.split("|")
+      const link = linkWordPair[0]
       const text = linkWordPair[1].replaceAll(
         unbreakableSpaceTextReplacement,
-        " "
-      );
+        " ",
+      )
       return (
         <React.Fragment key={parentKey}>
           {LinkElem(link, text)}
@@ -51,51 +51,51 @@ export function htmlConvertor(
             ? `${word.slice(-1)}`
             : ""}
         </React.Fragment>
-      );
+      )
     }
-    return word;
+    return word
   }
 
   const replaceWordsWithNewLineForSpecialTags = (text: string) => {
-    const wordsIdentifiedAsAnchor = text.split("|");
+    const wordsIdentifiedAsAnchor = text.split("|")
     if (wordsIdentifiedAsAnchor.length > 1) {
       return wordsIdentifiedAsAnchor
         .map((wordByPipe) => {
-          const wordsAreAnchorEnded = wordByPipe.split("]");
+          const wordsAreAnchorEnded = wordByPipe.split("]")
           if (wordsAreAnchorEnded.length === 2) {
             return `${wordsAreAnchorEnded[0].replaceAll(
               " ",
-              unbreakableSpaceTextReplacement
-            )}]${wordsAreAnchorEnded[1]}`;
+              unbreakableSpaceTextReplacement,
+            )}]${wordsAreAnchorEnded[1]}`
           }
-          return wordByPipe;
+          return wordByPipe
         })
-        .join("|");
+        .join("|")
     }
-    return text;
-  };
+    return text
+  }
 
-  const words = replaceWordsWithNewLineForSpecialTags(text).split(" ");
+  const words = replaceWordsWithNewLineForSpecialTags(text).split(" ")
   const boldedWords = words.map((word, idx) => {
     if (word.length < 2) {
-      return word;
+      return word
     }
 
     if (word.startsWith("*")) {
-      return <strong key={idx}>{word.substring(1, word.length)}</strong>;
+      return <strong key={idx}>{word.substring(1, word.length)}</strong>
     } else if (word.startsWith("[")) {
-      return substituteAnchorWithLink(word, idx);
+      return substituteAnchorWithLink(word, idx)
     } else if (word === "!!") {
-      return <br key={idx} />;
+      return <br key={idx} />
     } else {
-      return word.replaceAll(unbreakableSpaceTextReplacement, " ");
+      return word.replaceAll(unbreakableSpaceTextReplacement, " ")
     }
-  });
+  })
 
   const joinWithSpace = boldedWords.reduce(
     (prev, curr) => [...prev, " ", curr],
-    [] as (string | React.JSX.Element)[]
-  );
-  joinWithSpace.shift(); //remove first space
-  return <>{joinWithSpace}</>;
+    [] as (string | React.JSX.Element)[],
+  )
+  joinWithSpace.shift() //remove first space
+  return <>{joinWithSpace}</>
 }

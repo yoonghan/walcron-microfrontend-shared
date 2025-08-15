@@ -7,71 +7,71 @@ import React, {
   useEffect,
   useRef,
   useState,
-} from "react";
-import style from "./style.module.css";
+} from "react"
+import style from "./style.module.css"
 
-type MenuLink = (text: string, href: string, onClick?: () => void) => ReactNode;
+type MenuLink = (text: string, href: string, onClick?: () => void) => ReactNode
 
 type SubMenu = (
   subMenu: SubMenuItem[],
   topMenuUrl: string,
-  onClick?: () => void
-) => ReactNode;
+  onClick?: () => void,
+) => ReactNode
 
 type TopMenuItem = {
-  label: string;
-  url: string;
-  items?: SubMenuItem[];
-};
+  label: string
+  url: string
+  items?: SubMenuItem[]
+}
 
 type SubMenuItem = {
-  label: string;
-  url?: string;
-};
+  label: string
+  url?: string
+}
 
-export type MenuType = TopMenuItem[];
+export type MenuType = TopMenuItem[]
 
 function DesktopTopMenu({
   menuLink,
   topMenuItem,
   subMenu,
 }: {
-  menuLink: MenuLink;
-  topMenuItem: TopMenuItem;
-  subMenu: SubMenu;
+  menuLink: MenuLink
+  topMenuItem: TopMenuItem
+  subMenu: SubMenu
 }) {
-  const [isSubMenuOpened, setSubMenuOpened] = useState(false);
-  const liRef = useRef(null);
+  const [isSubMenuOpened, setSubMenuOpened] = useState(false)
+  const liRef = useRef(null)
 
   const onExpandButtonClick = useCallback(() => {
-    setSubMenuOpened(!isSubMenuOpened);
-  }, [isSubMenuOpened]);
+    setSubMenuOpened(!isSubMenuOpened)
+  }, [isSubMenuOpened])
 
   const onExpandButtonKeyUp = useCallback(
     (event: React.KeyboardEvent<HTMLButtonElement>) => {
       if (event.key === "Escape" || event.key === "ArrowUp") {
-        setSubMenuOpened(false);
+        setSubMenuOpened(false)
       }
       if (event.key === "ArrowDown") {
-        setSubMenuOpened(true);
+        setSubMenuOpened(true)
       }
     },
-    []
-  );
+    [],
+  )
 
   const onMenuBlur = useCallback(
     (event: React.FocusEvent<HTMLLIElement, Element>) => {
-      let parentNode = event.relatedTarget?.parentNode;
+      let parentNode = event.relatedTarget?.parentNode
       for (let count = 0; count < 8; count++) {
-        parentNode = parentNode?.parentNode;
+        parentNode = parentNode?.parentNode
         if (parentNode === liRef.current) {
-          return;
+          return
         }
       }
-      setSubMenuOpened(false);
+      setSubMenuOpened(false)
     },
-    []
-  );
+    [],
+  )
 
   if (topMenuItem.items !== undefined) {
     return (
@@ -94,7 +94,7 @@ function DesktopTopMenu({
           <ul>{subMenu(topMenuItem.items, topMenuItem.url)}</ul>
         </div>
       </li>
-    );
+    )
   } else {
     return (
       <li key={topMenuItem.label}>
@@ -103,7 +103,7 @@ function DesktopTopMenu({
           <div className={style.expand_dummy}></div>
         </div>
       </li>
-    );
+    )
   }
 }
 
@@ -113,22 +113,22 @@ function MobileTopMenu({
   subMenu,
   unCheckSideMenu,
 }: {
-  menuLink: MenuLink;
-  topMenuItem: TopMenuItem;
-  subMenu: SubMenu;
-  unCheckSideMenu: () => void;
+  menuLink: MenuLink
+  topMenuItem: TopMenuItem
+  subMenu: SubMenu
+  unCheckSideMenu: () => void
 }) {
-  const [isSubMenuOpened, setSubMenuOpened] = useState(false);
+  const [isSubMenuOpened, setSubMenuOpened] = useState(false)
   /* state for switching between button and checkbox display */
-  const checkboxRef = useRef<HTMLInputElement>(null);
-  const [isJavascriptEnabled, setJavaScriptEnabled] = useState(false);
+  const checkboxRef = useRef<HTMLInputElement>(null)
+  const [isJavascriptEnabled, setJavaScriptEnabled] = useState(false)
   useEffect(() => {
-    setJavaScriptEnabled(true);
-  }, []);
+    setJavaScriptEnabled(true)
+  }, [])
 
   const onTopMenuClick = useCallback(() => {
-    setSubMenuOpened(!isSubMenuOpened);
-  }, [isSubMenuOpened]);
+    setSubMenuOpened(!isSubMenuOpened)
+  }, [isSubMenuOpened])
 
   if (topMenuItem.items !== undefined) {
     return (
@@ -138,7 +138,7 @@ function MobileTopMenu({
           aria-haspopup={true}
           aria-label={`Expandable ${topMenuItem.label}`}
           onClick={() => {
-            checkboxRef.current?.click();
+            checkboxRef.current?.click()
           }}
           className={`${style.top__menu} ${isJavascriptEnabled ? "show-inline" : "hide"}`}
         ></button>
@@ -162,13 +162,13 @@ function MobileTopMenu({
           </ul>
         </div>
       </li>
-    );
+    )
   } else {
     return (
       <li key={topMenuItem.label}>
         {menuLink(topMenuItem.label, topMenuItem.url, unCheckSideMenu)}
       </li>
-    );
+    )
   }
 }
 
@@ -184,61 +184,61 @@ export function MutableMenu({
   mobileClassName = "",
   menuName = undefined,
 }: {
-  menuLink: MenuLink;
-  homeLink: (href: string, onClick: () => void, tabIndex: number) => ReactNode;
-  homeLogoLink: (helperClassName: string) => ReactNode;
-  model: MenuType;
-  shortcutComponent?: ReactNode;
-  mobileStyle?: CSSProperties;
-  desktopStyle?: CSSProperties;
-  desktopClassName?: string;
-  mobileClassName?: string;
-  menuName?: string;
+  menuLink: MenuLink
+  homeLink: (href: string, onClick: () => void, tabIndex: number) => ReactNode
+  homeLogoLink: (helperClassName: string) => ReactNode
+  model: MenuType
+  shortcutComponent?: ReactNode
+  mobileStyle?: CSSProperties
+  desktopStyle?: CSSProperties
+  desktopClassName?: string
+  mobileClassName?: string
+  menuName?: string
 }) {
-  const sideMenuRef = useRef<HTMLInputElement>(null); //remain for non-javascript
-  const [isOpenedHamburger, setIsOpenedHamburger] = useState(false);
+  const sideMenuRef = useRef<HTMLInputElement>(null) //remain for non-javascript
+  const [isOpenedHamburger, setIsOpenedHamburger] = useState(false)
 
   /* state for switching between button and checkbox display */
-  const [isJavascriptEnabled, setJavaScriptEnabled] = useState(false);
+  const [isJavascriptEnabled, setJavaScriptEnabled] = useState(false)
   useEffect(() => {
-    setJavaScriptEnabled(true);
-  }, []);
+    setJavaScriptEnabled(true)
+  }, [])
 
   const replaceWithTopMenuUrlIfAHashlinkOrEmpty = (
     topMenuUrl: string,
-    url?: string
+    url?: string,
   ) => {
-    if (url === undefined || url === "") return topMenuUrl;
-    return url.replace(/^#/, `${topMenuUrl}#`);
-  };
+    if (url === undefined || url === "") return topMenuUrl
+    return url.replace(/^#/, `${topMenuUrl}#`)
+  }
 
   const unCheckSideMenu = () => {
     if (sideMenuRef.current) {
-      sideMenuRef.current.checked = false;
-      document.body.style.overflow = "auto";
+      sideMenuRef.current.checked = false
+      document.body.style.overflow = "auto"
     }
-  };
+  }
 
   const onSideMenuChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const isChecked = event.target.checked;
-    setIsOpenedHamburger(isChecked);
-    document.body.style.overflow = isChecked ? "hidden" : "auto";
-  };
+    const isChecked = event.target.checked
+    setIsOpenedHamburger(isChecked)
+    document.body.style.overflow = isChecked ? "hidden" : "auto"
+  }
 
   const subMenu = (
     subMenu: SubMenuItem[],
     topMenuUrl: string,
-    onClick?: () => void
+    onClick?: () => void,
   ) =>
     subMenu.map((subMenuItem) => (
       <li key={subMenuItem.label}>
         {menuLink(
           subMenuItem.label,
           replaceWithTopMenuUrlIfAHashlinkOrEmpty(topMenuUrl, subMenuItem.url),
-          onClick
+          onClick,
         )}
       </li>
-    ));
+    ))
 
   const desktopTopMenu = model.map((topMenuItem) => (
     <DesktopTopMenu
@@ -247,7 +247,7 @@ export function MutableMenu({
       subMenu={subMenu}
       key={topMenuItem.label}
     />
-  ));
+  ))
 
   const mobileTopMenu = model.map((topMenuItem) => (
     <MobileTopMenu
@@ -257,7 +257,7 @@ export function MutableMenu({
       unCheckSideMenu={unCheckSideMenu}
       key={topMenuItem.label}
     />
-  ));
+  ))
 
   return (
     <>
@@ -273,7 +273,7 @@ export function MutableMenu({
               className={`${style.hamb} ${isJavascriptEnabled ? "show" : "hide"}`}
               aria-label={menuName || "Hamburger Menu"}
               onClick={() => {
-                sideMenuRef.current?.click();
+                sideMenuRef.current?.click()
               }}
             >
               <span className={style.hamb_line}></span>
@@ -309,9 +309,9 @@ export function MutableMenu({
         </ul>
       </nav>
     </>
-  );
+  )
 }
 
-const Menu = memo(MutableMenu, () => true);
+const Menu = memo(MutableMenu, () => true)
 
-export default Menu;
+export default Menu
