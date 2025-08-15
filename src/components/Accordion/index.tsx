@@ -19,8 +19,7 @@ export default function Accordion({
   anchorElem?: (link: string, text: string) => ReactNode
 }) {
   const [radioTracker, setRadioTracker] = useState<string>("")
-  const x = "hi & hello" // Example variable to demonstrate usage
-  console.log(x)
+
   const onInputClickUncheckRadio = useCallback(
     (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
       const target = event.currentTarget
