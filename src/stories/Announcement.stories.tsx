@@ -24,7 +24,7 @@ export const ThreeAnnouncement: Story = {
     ariaAnnouncementTitle: "The three Stooges",
     announcements: [
       "mickey",
-      <div>
+      <div key="birthday">
         A <br /> Happy <br /> Birthday
       </div>,
       "goofy",
