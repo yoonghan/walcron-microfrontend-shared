@@ -3,11 +3,6 @@ import { test, expect, Page } from "@playwright/test"
 const gotoMenuPage = async (page: Page) =>
   await page.goto("http://localhost:3000/menu")
 
-const getHamburgerMenu = (page: Page) =>
-  page.getByRole("button", {
-    name: "Hamburger Menu",
-  })
-
 test.describe("desktop view", () => {
   test.use({
     viewport: { width: 1600, height: 1200 },
@@ -34,35 +29,44 @@ test.describe("desktop view", () => {
   })
 })
 
-const testMenuPopUpInHamburger = async ({ page }) => {
-  await gotoMenuPage(page)
-  await expect(
-    page.getByRole("link", { name: "Zoo Negara Malaysia" }),
-  ).toBeInViewport()
+type MenuType = "checkbox" | "button"
 
-  await getHamburgerMenu(page).click()
+const getHamburgerMenuByType = (page: Page, type: MenuType) =>
+  page.getByRole(type, {
+    name: "Hamburger Menu",
+  })
 
-  const menuitem = page.getByRole("link", { name: "Visitor Info" })
-  await expect(menuitem).toBeVisible()
+const testMenuPopUpInHamburger =
+  (type: MenuType) =>
+  async ({ page }) => {
+    await gotoMenuPage(page)
+    await expect(
+      page.getByRole("link", { name: "Zoo Negara Malaysia" }),
+    ).toBeInViewport()
 
-  await getHamburgerMenu(page).click()
+    await getHamburgerMenuByType(page, type).click()
 
-  await expect(menuitem).not.toBeInViewport()
-}
+    const menuitem = page.getByRole("link", { name: "Visitor Info" })
+    await expect(menuitem).toBeVisible()
+
+    await getHamburgerMenuByType(page, type).click()
+
+    await expect(menuitem).not.toBeInViewport()
+  }
 
 test.describe("mobile view", () => {
   test.use({
     viewport: { width: 900, height: 1200 },
   })
 
-  test("menu pop up in hamburger", testMenuPopUpInHamburger)
+  test("menu pop up in hamburger", testMenuPopUpInHamburger("button"))
 
   test("menu that has child will be expanded (with +) and child is clickable", async ({
     page,
   }) => {
     await gotoMenuPage(page)
 
-    await getHamburgerMenu(page).click()
+    await getHamburgerMenuByType(page, "button").click()
 
     await page.getByRole("button", { name: "Expandable Visitor Info" }).click()
 
@@ -87,7 +91,7 @@ test.describe("mobile view", () => {
 
     await gotoMenuPage(page)
 
-    await getHamburgerMenu(page).click()
+    await getHamburgerMenuByType(page, "button").click()
 
     const button = await page.getByRole("button", {
       name: "Expandable Visitor Info",
@@ -105,14 +109,14 @@ test.describe("disabled javascript in mobile", () => {
     javaScriptEnabled: false,
   })
 
-  test("menu pop up in hamburger", testMenuPopUpInHamburger)
+  test("menu pop up in hamburger", testMenuPopUpInHamburger("checkbox"))
 
   test("menu that has child will be expanded (with tick) and child is clickable", async ({
     page,
   }) => {
     await gotoMenuPage(page)
 
-    await getHamburgerMenu(page).click()
+    await getHamburgerMenuByType(page, "checkbox").click()
 
     await page
       .getByRole("menuitemcheckbox", { name: "Expandable Visitor Info" })
@@ -131,7 +135,7 @@ test.describe("disabled javascript in mobile", () => {
   test("menu that had no child can be clicked", async ({ page }) => {
     await gotoMenuPage(page)
 
-    await getHamburgerMenu(page).click()
+    await getHamburgerMenuByType(page, "checkbox").click()
 
     await page
       .getByRole("link", {
@@ -158,7 +162,7 @@ test.describe("disabled javascript in mobile", () => {
 
     await gotoMenuPage(page)
 
-    await getHamburgerMenu(page).click()
+    await getHamburgerMenuByType(page, "checkbox").click()
 
     const checkbox = await page.getByRole("menuitemcheckbox", {
       name: "Expandable Visitor Info",
