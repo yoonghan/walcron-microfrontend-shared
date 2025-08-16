@@ -118,16 +118,16 @@ function MobileTopMenu({
   subMenu: SubMenu
   unCheckSideMenu: () => void
 }>) {
-  const [isSubMenuOpened, setSubMenuOpened] = useState(false)
+  const [isSubMenuOpened, setIsSubMenuOpened] = useState(false)
   /* state for switching between button and checkbox display */
   const checkboxRef = useRef<HTMLInputElement>(null)
-  const [javascriptEnabled, setJavaScriptEnabled] = useState(false)
+  const [isJavascriptEnabled, setIsJavascriptEnabled] = useState(false)
   useEffect(() => {
-    setJavaScriptEnabled(true)
+    setIsJavascriptEnabled(true)
   }, [])
 
   const onTopMenuClick = useCallback(() => {
-    setSubMenuOpened(!isSubMenuOpened)
+    setIsSubMenuOpened(!isSubMenuOpened)
   }, [isSubMenuOpened])
 
   if (topMenuItem.items !== undefined) {
@@ -140,10 +140,10 @@ function MobileTopMenu({
           onClick={() => {
             checkboxRef.current?.click()
           }}
-          className={`${style.top__menu} ${javascriptEnabled ? "show-inline" : "hide"}`}
+          className={`${style.top__menu} ${isJavascriptEnabled ? "show-inline" : "hide"}`}
         ></button>
         <label
-          className={`${style.top__menu} ${javascriptEnabled ? "hide" : "show-inline"}`}
+          className={`${style.top__menu} ${isJavascriptEnabled ? "hide" : "show-inline"}`}
         >
           <input
             type="checkbox"
@@ -199,9 +199,9 @@ export function MutableMenu({
   const [isOpenedHamburger, setIsOpenedHamburger] = useState(false)
 
   /* state for switching between button and checkbox display */
-  const [javascriptEnabled, setJavaScriptEnabled] = useState(false)
+  const [isJavascriptEnabled, setIsJavascriptEnabled] = useState(false)
   useEffect(() => {
-    setJavaScriptEnabled(true)
+    setIsJavascriptEnabled(true)
   }, [])
 
   const replaceWithTopMenuUrlIfAHashlinkOrEmpty = (
@@ -270,7 +270,7 @@ export function MutableMenu({
             <button
               aria-expanded={isOpenedHamburger === true}
               aria-haspopup={true}
-              className={`${style.hamb} ${javascriptEnabled ? "show" : "hide"}`}
+              className={`${style.hamb} ${isJavascriptEnabled ? "show" : "hide"}`}
               aria-label={menuName || "Hamburger Menu"}
               onClick={() => {
                 sideMenuRef.current?.click()
@@ -279,7 +279,7 @@ export function MutableMenu({
               <span className={style.hamb_line}></span>
             </button>
             <label
-              className={javascriptEnabled ? "hide" : "show"}
+              className={isJavascriptEnabled ? "hide" : "show"}
               aria-label={menuName || "Hamburger Menu"}
             >
               <input
@@ -291,7 +291,7 @@ export function MutableMenu({
             </label>
           </div>
           {homeLink("/", unCheckSideMenu, -1)}
-          {shortcutComponent && shortcutComponent}
+          {shortcutComponent}
         </div>
         <nav className={style.menu}>
           <ul role="menu">{mobileTopMenu}</ul>{" "}
@@ -305,7 +305,7 @@ export function MutableMenu({
         <ul>
           <li>{homeLogoLink(style.home_logo)}</li>
           {desktopTopMenu}
-          <li>{shortcutComponent && shortcutComponent}</li>
+          <li>{shortcutComponent}</li>
         </ul>
       </nav>
     </>
