@@ -1,10 +1,9 @@
 import Menu from "../../src/components/Menu"
-import React from "react"
 
 export { Page }
 
 function Page() {
-  const MenuLink = (text: string, href: string, onClick?: () => void) => (
+  const PageMenuLink = (text: string, href: string, onClick?: () => void) => (
     <a
       href={href}
       onClick={(e) => {
@@ -16,7 +15,11 @@ function Page() {
     </a>
   )
 
-  const HomeLink = (href: string, onClick: () => void, tabIndex: number) => (
+  const PageHomeLink = (
+    href: string,
+    onClick: () => void,
+    tabIndex: number,
+  ) => (
     <a
       href={href}
       tabIndex={tabIndex}
@@ -42,8 +45,8 @@ function Page() {
   return (
     <header>
       <Menu
-        menuLink={MenuLink}
-        homeLink={HomeLink}
+        menuLink={PageMenuLink}
+        homeLink={PageHomeLink}
         homeLogoLink={HomeLogoLink}
         model={[
           {
