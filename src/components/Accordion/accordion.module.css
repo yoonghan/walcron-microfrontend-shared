@@ -21,6 +21,14 @@
   transition: all 0.35s;
 }
 
+.accordion .no_button {
+  background: none;
+  border: none;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .tab:hover label,
 .tab:focus label {
   background: color-mix(in srgb, var(--accordion-color) 75%, transparent);

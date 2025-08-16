@@ -74,19 +74,34 @@ function AccordionSection({
     setJavascriptEnabled(true)
   }, [])
 
+  const onDivKeyUp = useCallback(
+    (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      if (event.key === " " || event.key === "Enter") {
+        const firstChild = event.currentTarget
+          .firstElementChild as HTMLLabelElement
+        if (firstChild !== null) {
+          firstChild.click()
+        }
+      }
+    },
+    [],
+  )
+
   return (
     <div
       className={`${styles.tab} ${javascriptEnabled ? styles.selectable : ""}`}
     >
-      <label>
-        {label}
-        <input
-          type={isSingle ? "radio" : "checkbox"}
-          value={value}
-          name={groupName}
-          onClick={isSingle ? onInputClick : undefined}
-        />
-      </label>
+      <button onKeyUp={onDivKeyUp} className={styles.no_button}>
+        <label>
+          {label}
+          <input
+            type={isSingle ? "radio" : "checkbox"}
+            value={value}
+            name={groupName}
+            onClick={isSingle ? onInputClick : undefined}
+          />
+        </label>
+      </button>
       <div className={styles.tab__content}>
         <div>{content}</div>
       </div>

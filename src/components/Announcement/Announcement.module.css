@@ -23,7 +23,7 @@
 .announcement .close {
   position: relative;
 }
-.announcement .close span {
+.announcement .close input {
   cursor: pointer;
   display: block;
   height: 3px;
@@ -32,20 +32,18 @@
   top: 50%;
   left: 50%;
 }
-.announcement .close span::before,
-.announcement .close span::after {
+.announcement .close input::before,
+.announcement .close input::after {
   background: black;
   content: "";
-  display: block;
   height: 100%;
   position: absolute;
-  transition: all 0.2s ease-out;
   width: 100%;
 }
-.announcement .close span::before {
+.announcement .close input::before {
   transform: rotate(-45deg);
 }
-.announcement .close span::after {
+.announcement .close input::after {
   transform: rotate(45deg);
 }
 
