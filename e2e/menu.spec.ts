@@ -3,6 +3,11 @@ import { test, expect, Page } from "@playwright/test"
 const gotoMenuPage = async (page: Page) =>
   await page.goto("http://localhost:3000/menu")
 
+const getHamburgerMenu = (page: Page) =>
+  page.getByRole("button", {
+    name: "Hamburger Menu",
+  })
+
 test.describe("desktop view", () => {
   test.use({
     viewport: { width: 1600, height: 1200 },
@@ -29,11 +34,6 @@ test.describe("desktop view", () => {
   })
 })
 
-const getHamburgerMenu = (page: Page) =>
-  page.getByRole("button", {
-    name: "Hamburger Menu",
-  })
-
 const testMenuPopUpInHamburger = async ({ page }) => {
   await gotoMenuPage(page)
   await expect(
@@ -54,11 +54,6 @@ test.describe("mobile view", () => {
   test.use({
     viewport: { width: 900, height: 1200 },
   })
-
-  const getHamburgerMenu = (page: Page) =>
-    page.getByRole("button", {
-      name: "Hamburger Menu",
-    })
 
   test("menu pop up in hamburger", testMenuPopUpInHamburger)
 
