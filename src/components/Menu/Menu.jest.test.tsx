@@ -26,7 +26,7 @@ describe("Menu", () => {
         onClick()
       }}
     >
-      {"Zoo Negara Malaysia"}
+      Zoo Negara Malaysia
     </a>
   )
 
@@ -271,45 +271,46 @@ describe("Menu", () => {
     })
   })
 
+  const renderMenuAccessibility = (isDesktop = false) =>
+    render(
+      <Menu
+        menuLink={MenuLink}
+        homeLink={HomeLink}
+        homeLogoLink={HomeLogoLink}
+        model={[
+          {
+            label: "Top Menu",
+            url: "/top-menu",
+            items: [
+              {
+                label: "About Us",
+              },
+              {
+                label: "What about us",
+              },
+            ],
+          },
+          {
+            label: "Top Menu 2",
+            url: "/top-menu-2",
+            items: [
+              {
+                label: "About Us 2",
+              },
+            ],
+          },
+          {
+            label: "News",
+            url: "/sample-us",
+          },
+        ]}
+        mobileStyle={{ display: isDesktop ? "none" : "block" }}
+        desktopStyle={{ display: isDesktop ? "block" : "none" }}
+      />,
+    )
+
   describe("accessibility for desktop", () => {
-    const renderDesktopWithAccessibility = () =>
-      render(
-        <Menu
-          menuLink={MenuLink}
-          homeLink={HomeLink}
-          homeLogoLink={HomeLogoLink}
-          model={[
-            {
-              label: "Top Menu",
-              url: "/top-menu",
-              items: [
-                {
-                  label: "About Us",
-                },
-                {
-                  label: "What about us",
-                },
-              ],
-            },
-            {
-              label: "Top Menu 2",
-              url: "/top-menu-2",
-              items: [
-                {
-                  label: "About Us 2",
-                },
-              ],
-            },
-            {
-              label: "News",
-              url: "/sample-us",
-            },
-          ]}
-          mobileStyle={{ display: "none" }}
-          desktopStyle={{ display: "block" }}
-          desktopClassName="desktop-class"
-        />,
-      )
+    const renderDesktopWithAccessibility = () => renderMenuAccessibility(true)
 
     it("should show aria-expanded=true when top menu's subbutton is clicked and has submenus on click again will close", async () => {
       renderDesktopWithAccessibility()
@@ -393,43 +394,7 @@ describe("Menu", () => {
   })
 
   describe("accessibility for mobile", () => {
-    const renderMobileWithAccessibility = () =>
-      render(
-        <Menu
-          menuLink={MenuLink}
-          homeLink={HomeLink}
-          homeLogoLink={HomeLogoLink}
-          model={[
-            {
-              label: "Top Menu",
-              url: "/top-menu",
-              items: [
-                {
-                  label: "About Us",
-                },
-                {
-                  label: "What about us",
-                },
-              ],
-            },
-            {
-              label: "Top Menu 2",
-              url: "/top-menu-2",
-              items: [
-                {
-                  label: "About Us 2",
-                },
-              ],
-            },
-            {
-              label: "News",
-              url: "/sample-us",
-            },
-          ]}
-          mobileStyle={{ display: "block" }}
-          desktopStyle={{ display: "none" }}
-        />,
-      )
+    const renderMobileWithAccessibility = () => renderMenuAccessibility(false)
 
     it("should show aria-expanded=true when top menu's subbutton is clicked and has submenus on click again will close", async () => {
       renderMobileWithAccessibility()

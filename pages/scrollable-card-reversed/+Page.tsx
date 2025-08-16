@@ -1,16 +1,16 @@
 import "./code.css"
 import ScrollableCard from "../../src/components/ScrollableCard"
-import React from "react"
 
 export { Page }
 
-const cards = [
+const reversedCard = [
   {
     content: (
       <div style={{ backgroundColor: "orange", height: "100%" }}>
         My First card
       </div>
     ),
+    id: "first",
   },
 
   {
@@ -19,6 +19,7 @@ const cards = [
         My Second card
       </div>
     ),
+    id: "second",
   },
   {
     content: (
@@ -26,6 +27,7 @@ const cards = [
         My Third card
       </div>
     ),
+    id: "third",
   },
   {
     content: (
@@ -33,6 +35,7 @@ const cards = [
         My Fourth card
       </div>
     ),
+    id: "fourth",
   },
 ]
 
@@ -43,7 +46,11 @@ function Page() {
       <div>
         <strong>NOTE:</strong> If you need to override per-card, use --index
       </div>
-      <ScrollableCard model={cards} className="container" isReversed={true} />
+      <ScrollableCard
+        model={reversedCard}
+        className="container"
+        isReversed={true}
+      />
       <div style={{ height: "100vh" }}>Footer</div>
     </>
   )
