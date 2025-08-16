@@ -2,46 +2,38 @@ import Menu from "../../src/components/Menu"
 
 export { Page }
 
+const PageMenuLink = (text: string, href: string, onClick?: () => void) => (
+  <a
+    href={href}
+    onClick={(e) => {
+      e.preventDefault()
+      if (onClick) onClick()
+    }}
+  >
+    {text}
+  </a>
+)
+
+const PageHomeLink = (href: string, onClick: () => void, tabIndex: number) => (
+  <a
+    href={href}
+    tabIndex={tabIndex}
+    onClick={(e) => {
+      e.preventDefault()
+      onClick()
+    }}
+  >
+    Zoo Negara Malaysia
+  </a>
+)
+
+const HomeLogoLink = (helperClassName: string) => (
+  <a href={"/"} className={helperClassName} onClick={(e) => e.preventDefault()}>
+    Home
+  </a>
+)
+
 function Page() {
-  const PageMenuLink = (text: string, href: string, onClick?: () => void) => (
-    <a
-      href={href}
-      onClick={(e) => {
-        e.preventDefault()
-        if (onClick) onClick()
-      }}
-    >
-      {text}
-    </a>
-  )
-
-  const PageHomeLink = (
-    href: string,
-    onClick: () => void,
-    tabIndex: number,
-  ) => (
-    <a
-      href={href}
-      tabIndex={tabIndex}
-      onClick={(e) => {
-        e.preventDefault()
-        onClick()
-      }}
-    >
-      Zoo Negara Malaysia
-    </a>
-  )
-
-  const HomeLogoLink = (helperClassName: string) => (
-    <a
-      href={"/"}
-      className={helperClassName}
-      onClick={(e) => e.preventDefault()}
-    >
-      Home
-    </a>
-  )
-
   return (
     <header>
       <Menu
