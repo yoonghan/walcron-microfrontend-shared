@@ -40,6 +40,7 @@ export default function Announcement({
         </button>
       )}
       <label className={styles.close} aria-label="Close Announcement">
+        <span>Hello</span>
         <input type="checkbox" id="close-announcement" />
       </label>
     </output>
