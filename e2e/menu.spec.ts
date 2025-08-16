@@ -29,6 +29,27 @@ test.describe("desktop view", () => {
   })
 })
 
+const getHamburgerMenu = (page: Page) =>
+  page.getByRole("button", {
+    name: "Hamburger Menu",
+  })
+
+const testMenuPopUpInHamburger = async ({ page }) => {
+  await gotoMenuPage(page)
+  await expect(
+    page.getByRole("link", { name: "Zoo Negara Malaysia" }),
+  ).toBeInViewport()
+
+  await getHamburgerMenu(page).click()
+
+  const menuitem = page.getByRole("link", { name: "Visitor Info" })
+  await expect(menuitem).toBeVisible()
+
+  await getHamburgerMenu(page).click()
+
+  await expect(menuitem).not.toBeInViewport()
+}
+
 test.describe("mobile view", () => {
   test.use({
     viewport: { width: 900, height: 1200 },
@@ -39,21 +60,7 @@ test.describe("mobile view", () => {
       name: "Hamburger Menu",
     })
 
-  test("menu pop up in hamburger", async ({ page }) => {
-    await gotoMenuPage(page)
-    await expect(
-      page.getByRole("link", { name: "Zoo Negara Malaysia" }),
-    ).toBeInViewport()
-
-    await getHamburgerMenu(page).click()
-
-    const menuitem = page.getByRole("link", { name: "Visitor Info" })
-    await expect(menuitem).toBeVisible()
-
-    await getHamburgerMenu(page).click()
-
-    await expect(menuitem).not.toBeInViewport()
-  })
+  test("menu pop up in hamburger", testMenuPopUpInHamburger)
 
   test("menu that has child will be expanded (with +) and child is clickable", async ({
     page,
@@ -103,28 +110,9 @@ test.describe("disabled javascript in mobile", () => {
     javaScriptEnabled: false,
   })
 
-  const getHamburgerMenu = (page: Page) =>
-    page.getByRole("checkbox", {
-      name: "Hamburger Menu",
-    })
+  test("menu pop up in hamburger", testMenuPopUpInHamburger)
 
-  test("menu pop up in hamburger", async ({ page }) => {
-    await gotoMenuPage(page)
-    await expect(
-      page.getByRole("link", { name: "Zoo Negara Malaysia" }),
-    ).toBeInViewport()
-
-    await getHamburgerMenu(page).click()
-
-    const menuitem = page.getByRole("link", { name: "Visitor Info" })
-    await expect(menuitem).toBeVisible()
-
-    await getHamburgerMenu(page).click()
-
-    await expect(menuitem).not.toBeInViewport()
-  })
-
-  test("menu that has child will be expanded (with +) and child is clickable", async ({
+  test("menu that has child will be expanded (with tick) and child is clickable", async ({
     page,
   }) => {
     await gotoMenuPage(page)
