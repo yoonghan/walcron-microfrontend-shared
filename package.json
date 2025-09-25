@@ -81,7 +81,7 @@
     "storybook": "^9.1.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2",
-    "typescript-eslint": "^8.39.1",
+    "typescript-eslint": "^8.44.1",
     "vike": "^0.4.237",
     "vite": "^7.1.2",
     "vite-plugin-dts": "^4.5.4",
