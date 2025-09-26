@@ -82,7 +82,7 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.44.1",
-    "vike": "^0.4.237",
+    "vike": "^0.4.240",
     "vite": "^7.1.2",
     "vite-plugin-dts": "^4.5.4",
     "vitest": "^3.2.3",
