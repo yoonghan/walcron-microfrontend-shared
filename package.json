@@ -83,7 +83,7 @@
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.44.1",
     "vike": "^0.4.240",
-    "vite": "^7.1.2",
+    "vite": "^7.1.9",
     "vite-plugin-dts": "^4.5.4",
     "vitest": "^3.2.3",
     "web-vitals": "^5.1.0"
